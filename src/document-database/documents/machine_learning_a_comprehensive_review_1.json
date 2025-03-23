@@ -1,0 +1,13 @@
+{
+  "title": "Machine Learning: A Comprehensive Review",
+  "authors": [
+    "Smith, J.",
+    "Johnson, A."
+  ],
+  "doi": "10.1234/ml.2025.1234",
+  "content": "Machine learning is a subset of artificial intelligence that involves training algorithms to learn patterns from data. \n    These algorithms can improve their performance over time without being explicitly programmed for specific tasks.\n    Recent advances in neural networks have led to significant improvements in machine learning performance.\n    Deep learning, a subset of machine learning, uses multiple layers of neural networks to extract complex features from data.\n    Reinforcement learning is another approach where agents learn to make decisions by interacting with an environment.",
+  "year": "2025",
+  "journal": "Journal of AI Research",
+  "id": "machine_learning_a_comprehensive_review_1",
+  "filePath": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\machine_learning_a_comprehensive_review_1.json"
+}

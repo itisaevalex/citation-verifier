@@ -1,0 +1,13 @@
+{
+  "title": "Natural Language Processing: Current Challenges",
+  "authors": [
+    "Brown, M.",
+    "Davis, L."
+  ],
+  "doi": "10.5678/nlp.2024.5678",
+  "content": "Natural Language Processing (NLP) systems have made remarkable progress in recent years.\n    Large language models can now generate human-like text and understand complex linguistic contexts.\n    However, challenges remain in areas such as linguistic bias, factual accuracy, and reasoning capabilities.\n    Current approaches often struggle with understanding implicit meaning and contextual nuances.\n    Future research directions include improved grounding, multimodal integration, and reasoning over external knowledge sources.",
+  "year": "2024",
+  "journal": "Computational Linguistics Journal",
+  "id": "natural_language_processing_current_challenges_1",
+  "filePath": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\natural_language_processing_current_challenges_1.json"
+}

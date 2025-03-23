@@ -1,0 +1,12 @@
+{
+  "title": "Test Document for Citation Verification",
+  "authors": [
+    "Test Author",
+    "Another Author"
+  ],
+  "content": "This is a test document with some content for citation verification testing.",
+  "year": "2025",
+  "journal": "Journal of Testing",
+  "id": "test_document_for_citation_verification_1",
+  "filePath": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\test_document_for_citation_verification_1.json"
+}

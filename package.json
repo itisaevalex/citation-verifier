@@ -1,0 +1,63 @@
+{
+    "name": "citation-verifier",
+    "version": "0.1.0",
+    "description": "A system for verifying citation accuracy in academic papers",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "ts-node verify-citations.ts",
+        "test": "ts-node src/test-script.ts",
+        "dev": "ts-node-dev --respawn verify-citations.ts",
+        "lint": "eslint . --ext .ts",
+        "setup": "node setup.js",
+        "postinstall": "npm run setup",
+        "extract": "ts-node verify-citations.ts extract",
+        "verify": "ts-node verify-citations.ts verify",
+        "process": "ts-node verify-citations.ts process",
+        "add-document": "ts-node verify-citations.ts add-document",
+        "list-documents": "ts-node verify-citations.ts list-documents"
+    },
+    "bin": {
+        "citation-verifier": "./dist/verify-citations.js"
+    },
+    "keywords": [
+        "citation",
+        "verification",
+        "academic",
+        "grobid",
+        "pdf-processing",
+        "nlp"
+    ],
+    "author": "Citation Verifier Contributors",
+    "license": "MIT",
+    "dependencies": {
+        "@google/genai": "^0.6.0",
+        "@google/generative-ai": "^0.24.0",
+        "@xmldom/xmldom": "^0.9.8",
+        "axios": "^1.6.0",
+        "commander": "^13.1.0",
+        "dotenv": "^16.4.7",
+        "form-data": "^4.0.0",
+        "winston": "^3.17.0",
+        "xpath": "^0.0.34"
+    },
+    "devDependencies": {
+        "@types/node": "^18.18.0",
+        "@typescript-eslint/eslint-plugin": "^6.13.0",
+        "@typescript-eslint/parser": "^6.13.0",
+        "eslint": "^8.54.0",
+        "ts-node": "^10.9.1",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.2.2"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/username/citation-verifier.git"
+    },
+    "bugs": {
+        "url": "https://github.com/username/citation-verifier/issues"
+    }
+}

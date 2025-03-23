@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Principal Component Analysis and Prediction of Students&apos; Physical Health Standard Test Results Based on Recurrent Convolution Neural Network</title>
+				<funder ref="#_9cujQ6h">
+					<orgName type="full">University-Industry Collaborative Education Program</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability  status="unknown">
+					<licence/>
+				</availability>
+				<date type="published" when="2021-09-06">6 September 2021</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Kai</forename><surname>Hou</surname></persName>
+							<email>houkai2000@126.com</email>
+							<affiliation key="aff0">
+								<orgName type="department">College of Physical Education</orgName>
+								<orgName type="institution">Yantai University</orgName>
+								<address>
+									<postCode>264005</postCode>
+									<settlement>Yantai</settlement>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Principal Component Analysis and Prediction of Students&apos; Physical Health Standard Test Results Based on Recurrent Convolution Neural Network</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2021-09-06">6 September 2021</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">D67DC476A6C5187338C13875D7CAAAEB</idno>
+					<idno type="DOI">10.1155/2021/2438656</idno>
+					<note type="submission">Received 18 July 2021; Revised 11 August 2021; Accepted 12 August 2021;</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2-SNAPSHOT" ident="GROBID" when="2025-03-23T00:12+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>The recurrent convolutional neural network is an advanced neural network that integrates deep structure and convolution calculation. The feedforward neural network with convolution operation and deep structure is an important method of deep learning. In this paper, the convolutional neural network and the recurrent neural network are combined to establish a recurrent convolutional neural network model composed of anomalies, LSTM (Long Short-Term Memory), and CNN. This study combines the principal component analysis method to predict and analyze the test results of students' physical fitness standards. The innovation lies in the introduction of the function of the recurrent convolutional network and the use of principal component analysis to conduct qualitative research on seven evaluation indicators that reflect the three aspects of students' physical health. The results of the study clearly show that there is a strong correlation between some indicators, such as standing long jump and sitting bends which may have a strong correlation. The first principal component eigenvalue has the highest contribution rate, which mainly reflects the five indicators of standing long jump, sitting forward bend, pull-up, 50 m sprint, and 1000 m long-distance running. This shows that the physical fitness indicators have a great impact on the physical health of students, which also reflects the current status of students' physical fitness problems. The results of principal component analysis are scientific and reasonable.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">Introduction</head><p>The convolutional neural network is an advanced neural network that integrates two important functions of convolution operation and deep structure. It is one of the representative algorithms of deep learning. The convolutional neural network not only has super high learning ability but also can classify different hierarchical structures and input information, so we call it "translational and unchanged artificial neural network" <ref type="bibr" target="#b0">[1]</ref>. Now that we have entered the 21st century, with in-depth study <ref type="bibr" target="#b1">[2]</ref><ref type="bibr" target="#b2">[3]</ref><ref type="bibr" target="#b3">[4]</ref> of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing <ref type="bibr" target="#b4">[5]</ref><ref type="bibr" target="#b5">[6]</ref><ref type="bibr" target="#b6">[7]</ref>, natural language processing, and other fields. Convolutional neural networks can perform supervised and unsupervised learning by imitating the visual perception of related organisms <ref type="bibr" target="#b7">[8]</ref>. Due to the sharing of convolution kernel parameters in hidden layers and the sparsity of connections between layers, convolutional neural networks can learn lattice features, such as pixels and audio. The recurrent neural network is a recursive neural network in which all nodes are connected by a chain through the data of the input sequence and recursively along the evolution direction of the sequence. Recurrent neural networks have super high memory, sharing, and completeness and have considerable advantages in the field of learning nonlinear sequences. Recurrent neural networks are widely used in natural language processing, such as special speech recognition and memory, modeling, and translation <ref type="bibr" target="#b8">[9]</ref>. They are also often used for the prediction of various sequences <ref type="bibr">[10]</ref>. The recurrent convolutional neural network was introduced to deal with computer vision perception problems involving sequence input <ref type="bibr">[11]</ref>. The recurrent convolution neural network is the coupling of convolution neural network and recurrent neural network and combines information classification ability with visual processing, which can be better applied to data analysis.</p><p>Principal component analysis is a multivariate statistical method to investigate the correlation between multiple variables. This paper studies how to reveal the internal structure of multiple variables through a few principal components, that is, derive a few principal components from the original variables, so that they retain as much information of the original variables as possible and are not related to each other. Usually, the mathematical treatment is to make a linear combination of the original P indexes as a new comprehensive index <ref type="bibr" target="#b11">[12,</ref><ref type="bibr" target="#b12">13]</ref>. PCA is the simplest method to analyze multivariate statistical distribution with eigenvectors <ref type="bibr" target="#b13">[14]</ref>. It can usually reveal the internal structure of data and can transform multivariate data sets that can be displayed in high-dimensional data spatial coordinate systems into lower-dimensional images. Because of the above characteristics, PCA is often used to reduce the dimension of the data set on the premise of ensuring the features that make the greatest contribution to the square difference in the data set. Wang et al. <ref type="bibr" target="#b14">[15]</ref> proposed the method of PCA for background modeling for the first time. At present, principal component analysis usually converts multiple indicators into several comprehensive indicators through dimensionality reduction methods. The linear function constructed by PCA conforms to the original characteristics <ref type="bibr" target="#b15">[16]</ref>. The realization of PCA is actually a process of transforming by linear features. The basic process of linear transformation is equivalent to the rotation and translation of the coordinate system <ref type="bibr" target="#b16">[17]</ref>.</p><p>Governments in various countries have begun to pay attention to national health, and the international community is also looking for a global health promotion strategy, which puts "health issues" on the agenda <ref type="bibr" target="#b17">[18]</ref>. The evaluation of student physique has always been an important part of school physical education. The physical strength of students is related to the development and prosperity of a country, nation, and society. Enhancing the physical fitness of students is the main purpose and task of school physical education <ref type="bibr" target="#b18">[19]</ref>. Strengthening the research on the physical condition of college students and its influencing factors has important practical significance for future economic construction. The times require them not only to have a comprehensive and solid scientific culture and outstanding talents but also to have a strong physique. Therefore, only the health of students is an important prerequisite for improving academic performance and cultivating crosscentury talents <ref type="bibr" target="#b19">[20]</ref>. Based on this, the health problem of contemporary college students is not only a personal problem but also a social problem. With the development of recurrent convolutional neural networks, recurrent convolutional neural networks and principal component analysis have been widely used in various practices, such as predicting students' academic performance, modeling students, grouping students according to their personality characteristics, and providing students personalized learning support. This is very important for evaluating student performance <ref type="bibr" target="#b20">[21]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">Related Research</head><p>Peng et al. <ref type="bibr" target="#b21">[22]</ref> put forward the concept of receptive field for the first time through the study of cat visual cortex cells. Based on the concept of the receptive field, Fanthomme and Monasson <ref type="bibr" target="#b22">[23]</ref> proposed the neurocognitive machine. The concept of the receptive field also plays an important role in a neural network. Later, the principle of the new cognitive machine is introduced in detail. CNN is built on the basis of a cognitive machine <ref type="bibr" target="#b23">[24]</ref>. It is a new model combining Ann and convolution operation. Because of its good versatility, it can be used in the fields of recognition, detection, and tracking. For convolutional neural networks, Lu et al. <ref type="bibr" target="#b24">[25]</ref> proposed the lenet-5 model structure based on CNN, which pushed the research of convolutional neural networks to a climax. Falk et al. <ref type="bibr" target="#b25">[26]</ref> proposed a new face detection method based on CNN in the literature, which has good robustness to various facial patterns and certain rotation angles and shows that this recognition system does not need expensive preprocessing steps <ref type="bibr" target="#b26">[27]</ref>. Subsequently, the convolutional neural network has been developed continuously and has been widely used in various fields and has made a breakthrough. Xiao et al. <ref type="bibr" target="#b27">[28]</ref> applied deep learning to the regression task, considered the robustness of the regression algorithm, and analyzed the robustness of the algorithm. According to the relationship between hidden layer and error, a network depth determination method based on reconstruction error was proposed <ref type="bibr" target="#b28">[29]</ref>.</p><p>Principal component analysis (PCA) is a comprehensive statistical method, which transforms complex highdimensional data into low-dimensional principal components <ref type="bibr" target="#b29">[30]</ref>. There is no linear correlation between the extracted principal components, which can reflect most of the information in the original data on the basis of avoiding overlap. With the progress and development of society, the demand and requirement of feature extraction are constantly improved. The method of principal component analysis gradually permeates in all fields of economy and life. In his book, Shang <ref type="bibr" target="#b31">[31]</ref> used this method to predict the overall power consumption demand in Australia; Mallord and others <ref type="bibr" target="#b32">[32]</ref> used the PCA method to explore the changes of the human force curve and conducted functional principal component analysis on the human force curve to analyze the main factors affecting human fatigue.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Construction of Model</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1.">Construction of Recurrent Convolution Neural Network.</head><p>The convolutional neural network is a perceptron. The neural network <ref type="bibr" target="#b33">[33]</ref><ref type="bibr" target="#b34">[34]</ref><ref type="bibr" target="#b35">[35]</ref> uses local connection and weight sharing to reduce the number of parameters and the computational complexity of the network. The simple convolutional neural network is shown in Figure <ref type="figure" target="#fig_0">1</ref>; it is a simple convolutional neural network.</p><p>Firstly, the input image of the input layer enters the convolution layer, and the convolution operation is carried out through the 3D filter of the convolution layer and the offset vector to generate the feature map; then, a new feature map is obtained by weighted average summation. Then, these feature maps are convoluted by convolution layer filter and output by a pooling layer. Finally, the output layer outputs the classification results through the full connection layer.</p><p>The convolution layer mainly implements two key operations: one is local correlation the other is window sliding. Each neuron is regarded as a filter in local correlation, and each filter convolutes the input data. The function of window sliding is to limit each operation in the window when the filter performs convolution operation. When the calculation is completed, the window slides a certain step size for the next convolution operation. The two-dimensional discrete convolution in mathematics satisfies the following formula:</p><formula xml:id="formula_0">X m, n ð Þ= 〠 v=0 u=0 m × u ð Þt u, v ð Þs m -u n -v ,<label>ð1Þ</label></formula><p>where x ðm, nÞ is the result of convolution, s ðm, nÞ is the convolution kernel, and t ðu, vÞ represents the convoluted signal.</p><p>Local connection is used to reduce network parameters. For the input two-dimensional image data, each convolution kernel of the convolution layer takes its own template, and after sliding a fixed step distance along the x-axis and y -axis of the image, convolution operation is performed to obtain the output response of the corresponding position. When the convolution kernel traverses the current image, the output feature map of the neural element can be obtained. Each convolution layer extracts different features of the input image by setting different convolution kernels, and the parameters of these convolution kernels are updated by the gradient descent method during network training. The convolution layer is calculated as follows:</p><formula xml:id="formula_1">s p n = h 〠 i=1 j=1 s p-1 m + mn ffiffiffiffiffiffiffiffiffiffiffiffi ffi f p n × s i j 3 q ! ,<label>ð2Þ</label></formula><p>where S n is the nth characteristic graph of convolution layer, b n is the set of input characteristic graphs, Z is the weight matrix of convolution kernel, and f is the offset. There are two main purposes in the design of the pooling layer, as shown in Figure <ref type="figure" target="#fig_1">2</ref>. When the output size of the build-up layer is 32 × 32, the size of the pooling layer filter is 2 × 2. After the pooling layer processing, the output data size is 16 × 16, and the amount of data is reduced to 1/4 of that before pooling. The reduction of the dimension increases the sparsity of the network, so as to achieve the second purpose, that is, to effectively prevent the network from overfitting. The most important characteristic of the pooling layer is local translation invariance. If the local region of input data is linearly transformed (such as translation and rotation), the output result will not change after downsampling. If we only care about whether a feature appears or not, but not about its position, local translation invariance is very important.</p><p>There is a connection layer at the end of the convolutional neural network. Every neuron in the first layer is connected to every neuron in the next layer. The purpose of the full join layer is to map the distribution of the previous layer to the sample label space, then use the function to adjust the relevant process in the learning, and finally give the required prediction. In fact, the fully connected layer is equivalent to the classic multilayer perceptron. Although the full 3 Wireless Communications and Mobile Computing connection layer is located at the end of the neural network, the parameters of the full connection layer account for most of the parameters of the whole model. Therefore, when designing a convolutional neural network, the number of all connected layers should not be too large.</p><p>The recurrent neural network is a kind of network model with forward path and reverse path, which is composed of the input layer, hidden layer, and output layer. The difference between the model and the traditional neural network is that the recurrent neural network can carry out forward and backward propagation. Generally, recurrent neural networks are used to deal with time series problems.</p><p>As shown in Figure <ref type="figure">3</ref>, it is the basic unit of the recurrent neural network. The basic unit of the recurrent neural network is to introduce the characteristic weight matrix W into the convolutional neural network unit, so as to establish the connection between the last input and the current input. x, w, and o represent vectors. x is the value of the input layer.</p><p>The basic unit reuse is a recurrent neural network, as shown in Figure <ref type="figure">3</ref>. The weight matrix w calculated by each layer of the network will be input into the lower layer network structure. t represents time, x represents input, o represents output, and w represents the weight matrix of the network, the activation function; the recurrent neural network can be defined as</p><formula xml:id="formula_2">w t = f Y t-1 m × x ð Þ " # × w t-1 , f t = f 〠 t=1 f h t-1 , x t ð Þ× 〠 f t df " # :<label>ð3Þ</label></formula><p>A vector is generated through the activation function to update the data; the output gate processes the output information through the activation function and outputs the final information. As a recurrent neural network, the network is often used for sentence connection and mining the relationship between sample features. This research takes the results of the students' physical fitness standard test as the research object and makes predictions and analyses.</p><p>The network model proposed in this paper consists of Xception, LSTM, and CNN fusion. The innovation lies in the introduction of circular network function and the construction of feature fusion network CNN fusion. Firstly, the sample data are input into the Xception network and LSTM network, respectively, and then, the two weight matrixes obtained by the two calculations are input into the merged layer of CNN fusion at the same time. The features are fused and merged into a weight matrix by this layer, and then, the combined weight matrix is convoluted, Finally, the output layer outputs the category with the highest species probability to complete the classification prediction.</p><p>Through the construction of the recurrent convolution network model, the student physical health standard test is realized, and the flow is shown in Figure <ref type="figure">4</ref>. Before the initialization of the network model, the original data is denoised, enhanced, rotated, and clipped for the first time. Then, the correlation between image features is extracted by Xception and LSTM, respectively, and the weight matrix of the two networks is output to CNN fusion, and the shape tensor of the weight matrix is multiplied by each element for fusion learning.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2.">Model Based on Recurrent Convolution Neural Network</head><p>and Principal Component Analysis. In the training process of traditional CNN, the initialization of weight is randomly generated. Although a better convergence effect can be obtained through the gradient descent method, the convergence direction of the mean square error cannot be found quickly when the iteration starts or the number of iterations is limited, which affects the convergence speed and ultimately the recognition rate. Based on the CNN model and PCA feature extraction method, this paper realizes the CNN data analysis method of multilayer convolution kernel parameter initialization. Through principal component analysis of different layers in the network, the algorithm obtains the eigenvector that can represent the corresponding layer and takes the eigenvector as the initialization value of the convolution kernel of the corresponding convolution layer, so as to avoid the defects of many iterations and low recognition rate in the random initialization of the convolution kernel. The flow chart is shown in Figure <ref type="figure" target="#fig_4">5</ref>. Firstly, the training data and test data are preprocessed, the symbols in the network connection data are converted into numbers, and each data is marked in advance. After PCA dimensionality reduction, it is trained in the designed CNN network. After many times of training, according to the comparison of test set results, the analysis model with the best performance is obtained.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">Principal Component Analysis of Health Standard Test Results</head><p>4.1. General Process of Principal Component Analysis. Principal component analysis, like traditional factor analysis, is a data processing method to reduce dimension and seek commonness among samples. In the processing of image, voice, and other data problems, we usually use this method when we need to reduce the dimension and extract the corresponding feature commonness or when the attribute dimension is higher, and we need to use another lower dimension expression. Dimension reduction is very necessary in data processing. Firstly, there is a correlation between variables, that is, multicollinearity, which will lead to the instability of solution space, and the result may be incoherent. Secondly, highdimensional space is sparse. Thirdly, too many variables hinder the establishment of rules. In data processing such as machine learning, too much data may cause overfitting or underfitting, which can better predict and classify problems. Finally, there are many characteristics of a thing or problem, but the variables representing the characteristics may have internal information overlap, so it is difficult consider the potential relationship between variables in the analysis of variables. Based on the above reasons, we need to reduce the dimension of data for three purposes: First, the most intuitive is to reduce the number of attributes. Secondly, the dimensionality reduction can ensure that the variables are independent of each other. Finally, it is convenient to explain the meaning of the calculated components. The purpose of PCA is to change the properties of data feature variables, so all operations are based on feature dimension.</p><formula xml:id="formula_3">Basic unit of recurrent neural network w w U U U U U U U U V V V V V V U U U V V x x O O t-1 O t+1</formula><p>For the original data set, x is the number of samples and y is the dimension of samples. Through</p><formula xml:id="formula_4">c ij = d ij × c - ∑ x k=1 d kj m :<label>ð4Þ</label></formula><p>Centralize the data, get the corresponding matrix, use the matrix to calculate the covariance matrix C, and finally calculate the eigenvalue and eigenvector of C. As for the last step of eigenvalue selection rules, according to their different needs, the selection method is different. In data visualization, the first two largest eigenvalues and corresponding eigenvectors are usually selected. We can get two-dimensional data by mapping, which is easy to display by graphics. Another way is to score: assume that there are eigenvalues, according to</p><formula xml:id="formula_5">u = ∑ s i=0 β s × β j ∑ t j=0 β j :<label>ð5Þ</label></formula><p>Among them, the denominator is the sum of all eigenvalues, and the numerator is the sum of the top s largest eigenvalues, which is the score rate. When we set a threshold, as long as the score rate exceeds this value, then these eigenvectors are the eigenvectors we need, namely, pattern vectors.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.">Application of Principal Component Analysis in Comprehensive Evaluation of College Students' Physical</head><p>Health. According to the requirements of standard documents, students' physical fitness test items mainly include three aspects: physical fitness, body shape, and body function. In terms of body shape, it mainly tests body mass index; that is, it evaluates the body's symmetry, reflecting the body's growth and development level and nutritional     (body mass index), physical function (vital capacity), and physical fitness (standing long jump, sitting forward, 50 m running, pull-up, and 1000 m running) are taken as the comprehensive evaluation indexes of students' physical health level. Taking 200 boys' and girls' physical health test data as an example, this paper explains the specific application of principal component analysis in the comprehensive eval-uation of physical health. The physique test data of 15 boys and girls were randomly selected, as shown in Figures <ref type="figure" target="#fig_5">6</ref><ref type="figure" target="#fig_6">7</ref><ref type="figure" target="#fig_7">8</ref><ref type="figure" target="#fig_9">9</ref>.</p><p>As shown in Figure <ref type="figure" target="#fig_5">6</ref>, the body mass index of 25 students is basically about 50-60 kg, but their vital capacity is quite different. Through qualitative investigation of the six evaluation indexes reflecting the physical health of college students, it is obvious that there is a relatively strong    correlation between some indexes; for example, there may be a strong correlation between standing long jump and sitting forward bending. There may be a strong correlation among vital capacity, 50 m running, and 1000 m running. In order to test these possible situations, SPSS software is used to analyze the correlation of these seven indicators, and it is found that there is a strong correlation between some indicators. In order to avoid information overlapping and affect the objectivity of the final comprehensive evaluation results, it is necessary to use principal component analysis to transform these seven indicators into several comprehensive indicators with low correlation. SPSS software is used to analyze the seven indicators, and the eigenvalues and contribution rate of the corresponding correlation coefficient matrix are obtained (Figure <ref type="figure" target="#fig_0">10</ref>). It can be seen from Figure <ref type="figure" target="#fig_0">10</ref> that the eigenvalues of the first three components are significantly higher than the other components, and the eigenvalues of the other components are relatively small. The first three principal components are selected as principal components for analysis, and the cumulative contribution rate of the eigenvalues of the first three principal components reaches 90%, indicating that the principal component analysis method is very effective in this problem. From the corresponding coefficients of each principal component, it can be seen that the first principal component contains information about standing long jump, sitting forward, pullup, 50 m run, and 1000 m run; the second principal component contains vital capacity information; the third principal component contains weight index information. Substituting the standardized data of each student's original indicator into the expression of the three principal components, the values of the three principal components corresponding to each student are obtained. Then, the contribution rates corresponding to the three principal components are used as their respective weights, and a comprehensive evaluation model of college students' physical fitness based on principal component analysis is obtained.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.">Conclusion</head><p>The principal component analysis and prediction of the test results of students' physical fitness standards based on the convolution regression neural network are studied. By constructing a recurrent neural network and a convolutional neural network, the principal component analysis method is used to analyze the students' body mass index, vital capacity, standing long jump, sitting and forward bending, 50 m running, pull-ups, and 1000 m running, and three principal components are found more reasonable; the first principal component has the highest contribution rate, which mainly reflects the information of the five indicators of standing long jump, sitting forward bend, pull-up, 50 m running, and 1000 m running; that is, physical fitness indicators have a greater impact on the health of college students. This is in line with the current status of the physical health of college students, indicating that the results of the principal component analysis are scientific and reasonable.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Overall structure of convolutional neural network.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Results of different pooling methods.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :Figure 4 :</head><label>34</label><figDesc>Figure 3: Node structure of recurrent neural network.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: Detection flow chart based on PCA-CNN.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 6 :</head><label>6</label><figDesc>Figure 6: Body and shape data of male students.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Figure 7 :</head><label>7</label><figDesc>Figure 7: Body and shape data of female students.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Figure 8 :</head><label>8</label><figDesc>Figure 8: Data chart of male students' comprehensive physical fitness.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>Figure 9 :</head><label>9</label><figDesc>Figure 9: Data chart of female students' comprehensive physical fitness.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head></head><label></label><figDesc>-up, and 1000 m long run. Standing long jump evaluates the long jump ability of the human body, reflecting the explosive ability of human lower limbs and the coordination ability of the human body. The forward flexion of the sitting body evaluates the range of motion that can be achieved by the trunk, waist, hip, and other joints of the human body in a static state and reflects the development level of physical flexibility. The speed quality of the human body is evaluated in 50 m race, which reflects the explosive power, sensitivity, reaction, and flexibility of the human body. The upper limb overhanging strength, shoulder strap strength, and grip strength were measured by the pull-up test to reflect the upper limb strength endurance level. The aerobic and anaerobic endurance of the human body is evaluated by 1000 m long-distance running, which reflects the cardiopulmonary function and endurance level of the human body.On the basis of theoretical research, combined with the actual data of students' physical fitness test, the body shape</figDesc><table><row><cell>6</cell><cell>Wireless Communications and Mobile Computing</cell></row><row><cell>status. In terms of physical function, it mainly tests vital</cell><cell></cell></row><row><cell>capacity; that is, it evaluates the maximum ventilation capac-</cell><cell></cell></row><row><cell>ity of human breathing, reflecting the volume and expansion</cell><cell></cell></row><row><cell>capacity of the lung. In terms of physical fitness, it mainly</cell><cell></cell></row><row><cell>tests the standing long jump, sitting forward bending, 50 m</cell><cell></cell></row><row><cell>running, pull</cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head></head><label></label><figDesc>Downloaded from https://onlinelibrary.wiley.com/doi/10.1155/2021/2438656 by Test, Wiley Online Library on [21/03/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License</figDesc><table><row><cell>8</cell><cell>Wireless Communications and Mobile Computing</cell><cell>6302, 2021, 1,</cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_0"><p>6302, 2021, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1155/2021/2438656 by Test, Wiley Online Library on [21/03/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgments</head><p>This study was supported by the <rs type="funder">University-Industry Collaborative Education Program</rs> (<rs type="grantNumber">201802088040</rs>).</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_9cujQ6h">
+					<idno type="grant-number">201802088040</idno>
+				</org>
+			</listOrg>
+
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data Availability</head><p>The data used to support the findings of this study are included within the article.</p></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conflicts of Interest</head><p>The author does not have any possible conflicts of interest.  </p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Convolutional neural network models of V1 responses to complex patterns</title>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">M</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">S</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Tang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Computational Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">46</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="33" to="54" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Review of multi-view 3D object recognition methods based on deep learning</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Qi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Ning</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Yang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Displays</title>
+		<imprint>
+			<biblScope unit="volume">69</biblScope>
+			<biblScope unit="page">102053</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Deep learning using convolutional LSTM estimates biological age from physical activity</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Rahman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">A</forename><surname>Adjeroh</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Reports</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="15" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Wearable IoT smart-log patch: an edge computing-based Bayesian deep learning network system for multi access physical monitoring system</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Manogaran</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">M</forename><surname>Shakeel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Fouad</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Sensors</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">13</biblScope>
+			<biblScope unit="page">3030</biblScope>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">A novel negative-transfer-resistant fuzzy clustering model with a shared cross-domain transfer latent space and its application to brain CT image segmentation</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Jiang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Gu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Hang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Xue</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Qiu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE/ACM Transactions on Computational Biology and Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="40" to="52" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Learning local-global multiple correlation filters for robust visual tracking with Kalman filter redetection</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Wang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Sensors</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">1129</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Finger vein image enhancement based on guided tri-Gaussian filters</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Dong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Sun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Cai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Ning</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ASP Transactions on Pattern Recognition and Intelligent Systems</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="17" to="23" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Finger vein identification using convolutional neural network and supervised discrete hashing</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Xie</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kumar</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Pattern Recognition Letters</title>
+		<imprint>
+			<biblScope unit="volume">119</biblScope>
+			<biblScope unit="page" from="148" to="156" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Errors of machine translation of terminology in the patent text from English into Chinese</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Ying</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Shuyu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Jing</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Lin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Qi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ASP Transactions on Computers</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="12" to="17" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Physical health indicators improve prediction of cardiovascular and all-cause mortality among middle-aged and older people: a national population-based study</title>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">J</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">N</forename><surname>Peng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">T</forename><surname>Chiou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">K</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Reports</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="8" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Correlator convolutional neural networks as an interpretable architecture for imagelike quantum matter data</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Miles</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bohrdt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Wu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature Communications</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">3905</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Reliability and validity of comprehensive health status measures in children: the Child Health Questionnaire in relation to the Health Utilities Index</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Raat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">J</forename><surname>Bonsel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">L</forename><surname>Essink-Bot</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Landgraf</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Gemke</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Clinical Epidemiology</title>
+		<imprint>
+			<biblScope unit="volume">55</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="67" to="76" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">A study on the comprehensive indicator of indoor environment assessment for occupants&apos; health in Taiwan</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M</forename><surname>Chiang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M</forename><surname>Lai</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Building and Environment</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="387" to="392" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">A graph-convolutional neural network model for the prediction of chemical reactivity</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">W</forename><surname>Coley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Jin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Rogers</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Chemical Science</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="370" to="377" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Smart connected electronic gastroscope system for gastric cancer screening using multi-column convolutional neural networks</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Ding</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Yang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Production Research</title>
+		<imprint>
+			<biblScope unit="volume">57</biblScope>
+			<biblScope unit="issue">21</biblScope>
+			<biblScope unit="page" from="6795" to="6806" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">How deep should be the depth of convolutional neural networks: a backyard dog case study</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">N</forename><surname>Gorban</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">M</forename><surname>Mirkes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">Y</forename><surname>Tyukin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Cognitive Computation</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="388" to="397" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Iterative PET image reconstruction using convolutional neural network representation</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Gong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Guan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Kim</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Medical Imaging</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="675" to="685" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Lake level prediction using feed forward and recurrent neural networks</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Hrnjica</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Bonacci</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Water Resources Management</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="2471" to="2484" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">694: continuous risk of infection prediction using recurrent neural networks in a pediatric ICU</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Obeso</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Ledbetter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Aczon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Laksana</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wintner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Wetzel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Critical Care Medicine</title>
+		<imprint>
+			<biblScope unit="volume">49</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="342" to="342" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Disambiguating Arabic words according to their historical appearance in the document based on recurrent neural networks</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Laatar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Aloulou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">H</forename><surname>Belguith</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Asian and Low-Resource Language Information Processing</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1" to="16" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Prediction of creaky speech by recurrent neural networks using psychoacoustic roughness</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Villegas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Markov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Perkins</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">J</forename><surname>Lee</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Journal of Selected Topics in Signal Processing</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="355" to="366" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Cost sensitive active learning using bidirectional gated recurrent neural networks for imbalanced fault diagnosis</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">A</forename><surname>Peng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Zhang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neurocomputing</title>
+		<imprint>
+			<biblScope unit="volume">407</biblScope>
+			<biblScope unit="page" from="232" to="245" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Low-dimensional manifolds support multiplexed integrations in recurrent neural networks</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Fanthomme</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Monasson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neural Computation</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1063" to="1112" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Exploration of the principal component analysis (PCA) approach in synthesizing the diet quality of the Malaysian population</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ali</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">M</forename><surname>Margetts</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Zainuddin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nutrients</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">70</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Tensor robust principal component analysis with a new tensor nuclear norm</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Lu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Feng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Lin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Yan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Pattern Analysis and Machine Intelligence</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="925" to="938" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Principal component analysis of avian hind limb and foot morphometrics and the relationship between ecology and phylogeny</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">R</forename><surname>Falk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">C</forename><surname>Lamsdell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Gong</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Paleobiology</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="314" to="336" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Functional principal component analysis: a robust method for time-series phenotypic data</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Yu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Plant Physiology</title>
+		<imprint>
+			<biblScope unit="volume">183</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1422" to="1423" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Online robust principal component analysis with change point detection</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Xiao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>He</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Silva</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Emrani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Chaudhuri</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Multimedia</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="59" to="68" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Geometrical approximated principal component analysis for hyperspectral image analysis</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">L</forename><surname>Machidon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Del Frate</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Picchiani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><forename type="middle">M</forename><surname>Machidon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">L</forename><surname>Ogrutan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Remote Sensing</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page">1698</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Background subtraction in dynamic scenes using the dynamic principal component analysis</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Djerida</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Zhao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zhao</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IET Image Processing</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="245" to="255" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<monogr>
+		<title level="m" type="main">Wireless Communications and Mobile Computing</title>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Assessment of water quality using principal component analysis: a case study of the Marrecas stream basin in Brazil</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">T</forename><surname>De Souza</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">A T X</forename><surname>Carneiro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><forename type="middle">P</forename><surname>Da Silva Junior</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">L</forename><surname>De Carvalho</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">H P</forename><surname>Américo-Pinheiro</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Environmental Technology</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="issue">14</biblScope>
+			<biblScope unit="page" from="1" to="21" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Grasshopper optimization algorithm with principal component analysis for global optimization</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Yue</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Zhang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Supercomputing</title>
+		<imprint>
+			<biblScope unit="volume">76</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1" to="27" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Polynomial fitting algorithm based on neural network</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Tong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Qin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Li</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ASP Transactions on Pattern Recognition and Intelligent Systems</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="32" to="39" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">LGCN: learnable Gabor convolution network for human gender recognition in the wild</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Sun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Ning</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Zhang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEICE Transactions on Information and Systems</title>
+		<imprint>
+			<biblScope unit="volume">102</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="2067" to="2071" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Robotic grasp detection using a novel two-stage approach</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Chu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Hu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ASP Transactions on Internet of Things</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="19" to="29" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<monogr>
+		<idno type="DOI">10.1155/2021/2438656byTest</idno>
+		<ptr target="https://onlinelibrary.wiley.com/terms-and-conditions" />
+		<title level="m">Wireless Communications and Mobile Computing 6302</title>
+		<imprint>
+			<date type="published" when="2021">2021. 21/03/2025</date>
+			<biblScope unit="page">1</biblScope>
+		</imprint>
+	</monogr>
+	<note>See the Terms and Conditions. OA articles are governed by the applicable Creative Commons License</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

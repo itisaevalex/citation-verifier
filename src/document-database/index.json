@@ -1,0 +1,331 @@
+{
+  "byDoi": {
+    "10.1109/TCBB.2019.2963873": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json",
+    "10.1007/s10827-018-0687-7": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json",
+    "10.1038/s41598-019-46850-0": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json",
+    "10.52810/TC.2021.100022": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json",
+    "10.1016/j.patrec.2017.12.001": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json",
+    "DAAF7D1BD0F4FAC9C35F8A9D842D0F85": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json",
+    "10.3390/s21041129": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json",
+    "10.1038/srep40427": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json",
+    "10.1016/j.displa.2021.102053": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json",
+    "10.3390/s19133030": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+  },
+  "byTitleWords": {
+    "novel": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "negativetransferresistant": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "fuzzy": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "clustering": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "model": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "with": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "shared": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "crossdomain": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "transfer": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "latent": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "space": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "application": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "brain": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "image": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json"
+    ],
+    "segmentation": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json"
+    ],
+    "convolutional": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json"
+    ],
+    "neural": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json"
+    ],
+    "network": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "models": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json"
+    ],
+    "responses": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json"
+    ],
+    "complex": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json"
+    ],
+    "patterns": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json"
+    ],
+    "deep": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "learning": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "using": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json"
+    ],
+    "lstm": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json"
+    ],
+    "estimates": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json"
+    ],
+    "biological": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json"
+    ],
+    "from": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "physical": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "activity": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json"
+    ],
+    "errors": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "machine": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "translation": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "terminology": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "patent": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "text": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "english": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "into": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "chinese": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json"
+    ],
+    "finger": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json"
+    ],
+    "vein": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json"
+    ],
+    "identification": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json"
+    ],
+    "supervised": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json"
+    ],
+    "discrete": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json"
+    ],
+    "hashing": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json"
+    ],
+    "enhancement": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json"
+    ],
+    "based": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json"
+    ],
+    "guided": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json"
+    ],
+    "trigaussian": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json"
+    ],
+    "filters": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "localglobal": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "multiple": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "correlation": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "robust": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "visual": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "tracking": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "kalman": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "filter": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "redetection": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json"
+    ],
+    "health": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "indicators": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "improve": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "prediction": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "cardiovascular": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "allcause": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "mortality": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "among": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "middleaged": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "older": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "people": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "national": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "populationbased": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "study": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "review": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json"
+    ],
+    "multiview": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json"
+    ],
+    "object": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json"
+    ],
+    "recognition": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json"
+    ],
+    "methods": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json"
+    ],
+    "wearable": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "smartlog": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "patch": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "edge": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "computingbased": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "bayesian": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "system": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "multi": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "access": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "monitoring": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ]
+  },
+  "byYear": {
+    "2017": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json"
+    ],
+    "2018": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json"
+    ],
+    "2019": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+    ],
+    "2021": [
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json",
+      "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json"
+    ]
+  },
+  "a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\a_novel_negative_transfer_resistant_fuzzy_clustering_model_with_a_shared_cross_domain_transfer_laten.json",
+  "convolutional_neural_network_models_of_v1_responses_to_complex_patterns": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\convolutional_neural_network_models_of_v1_responses_to_complex_patterns.json",
+  "deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\deep_learning_using_convolutional_lstm_estimates_biological_age_from_physical_activity.json",
+  "errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\errors_of_machine_translation_of_terminology_in_the_patent_text_from_english_into_chinese.json",
+  "finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_identification_using_convolutional_neural_network_and_supervised_discrete_hashing.json",
+  "finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\finger_vein_image_enhancement_based_on_guided_tri_gaussian_filters.json",
+  "learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\learning_local_global_multiple_correlation_filters_for_robust_visual_tracking_with_kalman_filter_red.json",
+  "physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\physical_health_indicators_improve_prediction_of_cardiovascular_and_all_cause_mortality_among_middle.json",
+  "review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\review_of_multi_view_3d_object_recognition_methods_based_on_deep_learning.json",
+  "wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi": "C:\\Users\\Alex Isaev\\Documents\\truth source\\citation-verifier\\src\\document-database\\documents\\wearable_iot_smart_log_patch_an_edge_computing_based_bayesian_deep_learning_network_system_for_multi.json"
+}

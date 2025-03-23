@@ -1,0 +1,3709 @@
+{
+  "documentTitle": "Principal Component Analysis and Prediction of Students&apos; Physical Health Standard Test Results Based on Recurrent Convolution Neural Network",
+  "references": [
+    {
+      "id": "b0",
+      "title": "Convolutional neural network models of V1 responses to complex patterns",
+      "authors": [
+        {
+          "firstName": "Y",
+          "middleName": "M",
+          "lastName": "Zhang",
+          "rawName": "YMZhang"
+        },
+        {
+          "firstName": "T",
+          "middleName": "S",
+          "lastName": "Lee",
+          "rawName": "TSLee"
+        },
+        {
+          "firstName": "M",
+          "middleName": "",
+          "lastName": "Li",
+          "rawName": "MLi"
+        },
+        {
+          "firstName": "F",
+          "middleName": "",
+          "lastName": "Liu",
+          "rawName": "FLiu"
+        },
+        {
+          "firstName": "S",
+          "middleName": "",
+          "lastName": "Tang",
+          "rawName": "STang"
+        }
+      ],
+      "date": "",
+      "journal": "Journal of Computational Neuroscience",
+      "volume": "46",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "Y. M. Zhang, T. S. Lee, M. Li, F. Liu, and S. Tang, \"Convolu- tional neural network models of V1 responses to complex pat- terns,\" Journal of Computational Neuroscience, vol. 46, no. 1, pp. 33-54, 2019."
+    },
+    {
+      "id": "b1",
+      "title": "Review of multi-view 3D object recognition methods based on deep learning",
+      "authors": [
+        {
+          "firstName": "S",
+          "middleName": "",
+          "lastName": "Qi",
+          "rawName": "SQi"
+        },
+        {
+          "firstName": "X",
+          "middleName": "",
+          "lastName": "Ning",
+          "rawName": "XNing"
+        },
+        {
+          "firstName": "G",
+          "middleName": "",
+          "lastName": "Yang",
+          "rawName": "GYang"
+        }
+      ],
+      "date": "",
+      "journal": "Displays",
+      "volume": "69",
+      "issue": "",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "S. Qi, X. Ning, G. Yang et al., \"Review of multi-view 3D object recognition methods based on deep learning,\" Displays, vol. 69, p. 102053, 2021."
+    },
+    {
+      "id": "b2",
+      "title": "Deep learning using convolutional LSTM estimates biological age from physical activity",
+      "authors": [
+        {
+          "firstName": "S",
+          "middleName": "A",
+          "lastName": "Rahman",
+          "rawName": "SARahman"
+        },
+        {
+          "firstName": "D",
+          "middleName": "A",
+          "lastName": "Adjeroh",
+          "rawName": "DAAdjeroh"
+        }
+      ],
+      "date": "",
+      "journal": "Scientific Reports",
+      "volume": "9",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "S. A. Rahman and D. A. Adjeroh, \"Deep learning using convo- lutional LSTM estimates biological age from physical activity,\" Scientific Reports, vol. 9, no. 1, pp. 1-15, 2019."
+    },
+    {
+      "id": "b3",
+      "title": "Wearable IoT smart-log patch: an edge computing-based Bayesian deep learning network system for multi access physical monitoring system",
+      "authors": [
+        {
+          "firstName": "G",
+          "middleName": "",
+          "lastName": "Manogaran",
+          "rawName": "GManogaran"
+        },
+        {
+          "firstName": "P",
+          "middleName": "M",
+          "lastName": "Shakeel",
+          "rawName": "PMShakeel"
+        },
+        {
+          "firstName": "H",
+          "middleName": "",
+          "lastName": "Fouad",
+          "rawName": "HFouad"
+        }
+      ],
+      "date": "",
+      "journal": "Sensors",
+      "volume": "19",
+      "issue": "13",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "G. Manogaran, P. M. Shakeel, H. Fouad et al., \"Wearable IoT smart-log patch: an edge computing-based Bayesian deep learning network system for multi access physical monitoring system,\" Sensors, vol. 19, no. 13, p. 3030, 2019."
+    },
+    {
+      "id": "b4",
+      "title": "A novel negative-transfer-resistant fuzzy clustering model with a shared cross-domain transfer latent space and its application to brain CT image segmentation",
+      "authors": [
+        {
+          "firstName": "Y",
+          "middleName": "",
+          "lastName": "Jiang",
+          "rawName": "YJiang"
+        },
+        {
+          "firstName": "X",
+          "middleName": "",
+          "lastName": "Gu",
+          "rawName": "XGu"
+        },
+        {
+          "firstName": "D",
+          "middleName": "",
+          "lastName": "Wu",
+          "rawName": "DWu"
+        },
+        {
+          "firstName": "W",
+          "middleName": "",
+          "lastName": "Hang",
+          "rawName": "WHang"
+        },
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Xue",
+          "rawName": "JXue"
+        },
+        {
+          "firstName": "S",
+          "middleName": "",
+          "lastName": "Qiu",
+          "rawName": "SQiu"
+        }
+      ],
+      "date": "",
+      "journal": "IEEE/ACM Transactions on Computational Biology and Bioinformatics",
+      "volume": "18",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "Y. Jiang, X. Gu, D. Wu, W. Hang, J. Xue, and S. Qiu, \"A novel negative-transfer-resistant fuzzy clustering model with a shared cross-domain transfer latent space and its application to brain CT image segmentation,\" IEEE/ACM Transactions on Computational Biology and Bioinformatics, vol. 18, no. 1, pp. 40-52, 2020."
+    },
+    {
+      "id": "b5",
+      "title": "Learning local-global multiple correlation filters for robust visual tracking with Kalman filter redetection",
+      "authors": [
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Zhang",
+          "rawName": "JZhang"
+        },
+        {
+          "firstName": "Y",
+          "middleName": "",
+          "lastName": "Liu",
+          "rawName": "YLiu"
+        },
+        {
+          "firstName": "H",
+          "middleName": "",
+          "lastName": "Liu",
+          "rawName": "HLiu"
+        },
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Wang",
+          "rawName": "JWang"
+        }
+      ],
+      "date": "",
+      "journal": "Sensors",
+      "volume": "21",
+      "issue": "4",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "J. Zhang, Y. Liu, H. Liu, and J. Wang, \"Learning local-global multiple correlation filters for robust visual tracking with Kal- man filter redetection,\" Sensors, vol. 21, no. 4, p. 1129, 2021."
+    },
+    {
+      "id": "b6",
+      "title": "Finger vein image enhancement based on guided tri-Gaussian filters",
+      "authors": [
+        {
+          "firstName": "L",
+          "middleName": "",
+          "lastName": "Zhang",
+          "rawName": "LZhang"
+        },
+        {
+          "firstName": "X",
+          "middleName": "",
+          "lastName": "Wang",
+          "rawName": "XWang"
+        },
+        {
+          "firstName": "X",
+          "middleName": "",
+          "lastName": "Dong",
+          "rawName": "XDong"
+        },
+        {
+          "firstName": "L",
+          "middleName": "",
+          "lastName": "Sun",
+          "rawName": "LSun"
+        },
+        {
+          "firstName": "W",
+          "middleName": "",
+          "lastName": "Cai",
+          "rawName": "WCai"
+        },
+        {
+          "firstName": "X",
+          "middleName": "",
+          "lastName": "Ning",
+          "rawName": "XNing"
+        }
+      ],
+      "date": "",
+      "journal": "ASP Transactions on Pattern Recognition and Intelligent Systems",
+      "volume": "1",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "L. Zhang, X. Wang, X. Dong, L. Sun, W. Cai, and X. Ning, \"Finger vein image enhancement based on guided tri- Gaussian filters,\" ASP Transactions on Pattern Recognition and Intelligent Systems, vol. 1, no. 1, pp. 17-23, 2021."
+    },
+    {
+      "id": "b7",
+      "title": "Finger vein identification using convolutional neural network and supervised discrete hashing",
+      "authors": [
+        {
+          "firstName": "C",
+          "middleName": "",
+          "lastName": "Xie",
+          "rawName": "CXie"
+        },
+        {
+          "firstName": "A",
+          "middleName": "",
+          "lastName": "Kumar",
+          "rawName": "AKumar"
+        }
+      ],
+      "date": "",
+      "journal": "Pattern Recognition Letters",
+      "volume": "119",
+      "issue": "",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "C. Xie and A. Kumar, \"Finger vein identification using convo- lutional neural network and supervised discrete hashing,\" Pat- tern Recognition Letters, vol. 119, pp. 148-156, 2019."
+    },
+    {
+      "id": "b8",
+      "title": "Errors of machine translation of terminology in the patent text from English into Chinese",
+      "authors": [
+        {
+          "firstName": "C",
+          "middleName": "",
+          "lastName": "Ying",
+          "rawName": "CYing"
+        },
+        {
+          "firstName": "Y",
+          "middleName": "",
+          "lastName": "Shuyu",
+          "rawName": "YShuyu"
+        },
+        {
+          "firstName": "L",
+          "middleName": "",
+          "lastName": "Jing",
+          "rawName": "LJing"
+        },
+        {
+          "firstName": "D",
+          "middleName": "",
+          "lastName": "Lin",
+          "rawName": "DLin"
+        },
+        {
+          "firstName": "Q",
+          "middleName": "",
+          "lastName": "Qi",
+          "rawName": "QQi"
+        }
+      ],
+      "date": "",
+      "journal": "ASP Transactions on Computers",
+      "volume": "1",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "C. Ying, Y. Shuyu, L. Jing, D. Lin, and Q. Qi, \"Errors of machine translation of terminology in the patent text from English into Chinese,\" ASP Transactions on Computers, vol. 1, no. 1, pp. 12-17, 2021."
+    },
+    {
+      "id": "b9",
+      "title": "Physical health indicators improve prediction of cardiovascular and all-cause mortality among middle-aged and older people: a national population-based study",
+      "authors": [
+        {
+          "firstName": "W",
+          "middleName": "J",
+          "lastName": "Lee",
+          "rawName": "WJLee"
+        },
+        {
+          "firstName": "L",
+          "middleName": "N",
+          "lastName": "Peng",
+          "rawName": "LNPeng"
+        },
+        {
+          "firstName": "S",
+          "middleName": "T",
+          "lastName": "Chiou",
+          "rawName": "STChiou"
+        },
+        {
+          "firstName": "L",
+          "middleName": "K",
+          "lastName": "Chen",
+          "rawName": "LKChen"
+        }
+      ],
+      "date": "",
+      "journal": "Scientific Reports",
+      "volume": "7",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "W. J. Lee, L. N. Peng, S. T. Chiou, and L. K. Chen, \"Physical health indicators improve prediction of cardiovascular and all-cause mortality among middle-aged and older people: a national population-based study,\" Scientific Reports, vol. 7, no. 1, pp. 1-8, 2017."
+    },
+    {
+      "id": "b10",
+      "title": "Correlator convolutional neural networks as an interpretable architecture for imagelike quantum matter data",
+      "authors": [
+        {
+          "firstName": "C",
+          "middleName": "",
+          "lastName": "Miles",
+          "rawName": "CMiles"
+        },
+        {
+          "firstName": "A",
+          "middleName": "",
+          "lastName": "Bohrdt",
+          "rawName": "ABohrdt"
+        },
+        {
+          "firstName": "R",
+          "middleName": "",
+          "lastName": "Wu",
+          "rawName": "RWu"
+        }
+      ],
+      "date": "",
+      "journal": "Nature Communications",
+      "volume": "12",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "C. Miles, A. Bohrdt, R. Wu et al., \"Correlator convolutional neural networks as an interpretable architecture for image- like quantum matter data,\" Nature Communications, vol. 12, no. 1, p. 3905, 2021."
+    },
+    {
+      "id": "b11",
+      "title": "Reliability and validity of comprehensive health status measures in children: the Child Health Questionnaire in relation to the Health Utilities Index",
+      "authors": [
+        {
+          "firstName": "H",
+          "middleName": "",
+          "lastName": "Raat",
+          "rawName": "HRaat"
+        },
+        {
+          "firstName": "G",
+          "middleName": "J",
+          "lastName": "Bonsel",
+          "rawName": "GJBonsel"
+        },
+        {
+          "firstName": "M",
+          "middleName": "L",
+          "lastName": "Essink-Bot",
+          "rawName": "MLEssink-Bot"
+        },
+        {
+          "firstName": "J",
+          "middleName": "M",
+          "lastName": "Landgraf",
+          "rawName": "JMLandgraf"
+        },
+        {
+          "firstName": "R",
+          "middleName": "J",
+          "lastName": "Gemke",
+          "rawName": "RJGemke"
+        }
+      ],
+      "date": "",
+      "journal": "Journal of Clinical Epidemiology",
+      "volume": "55",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "H. Raat, G. J. Bonsel, M. L. Essink-Bot, J. M. Landgraf, and R. J. Gemke, \"Reliability and validity of comprehensive health sta- tus measures in children: the Child Health Questionnaire in relation to the Health Utilities Index,\" Journal of Clinical Epi- demiology, vol. 55, no. 1, pp. 67-76, 2002."
+    },
+    {
+      "id": "b12",
+      "title": "A study on the comprehensive indicator of indoor environment assessment for occupants' health in Taiwan",
+      "authors": [
+        {
+          "firstName": "C",
+          "middleName": "M",
+          "lastName": "Chiang",
+          "rawName": "CMChiang"
+        },
+        {
+          "firstName": "C",
+          "middleName": "M",
+          "lastName": "Lai",
+          "rawName": "CMLai"
+        }
+      ],
+      "date": "",
+      "journal": "Building and Environment",
+      "volume": "37",
+      "issue": "4",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "C. M. Chiang and C. M. Lai, \"A study on the comprehensive indicator of indoor environment assessment for occupants' health in Taiwan,\" Building and Environment, vol. 37, no. 4, pp. 387-392, 2002."
+    },
+    {
+      "id": "b13",
+      "title": "A graph-convolutional neural network model for the prediction of chemical reactivity",
+      "authors": [
+        {
+          "firstName": "C",
+          "middleName": "W",
+          "lastName": "Coley",
+          "rawName": "CWColey"
+        },
+        {
+          "firstName": "W",
+          "middleName": "",
+          "lastName": "Jin",
+          "rawName": "WJin"
+        },
+        {
+          "firstName": "L",
+          "middleName": "",
+          "lastName": "Rogers",
+          "rawName": "LRogers"
+        }
+      ],
+      "date": "",
+      "journal": "Chemical Science",
+      "volume": "10",
+      "issue": "2",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "C. W. Coley, W. Jin, L. Rogers et al., \"A graph-convolutional neural network model for the prediction of chemical reactiv- ity,\" Chemical Science, vol. 10, no. 2, pp. 370-377, 2019."
+    },
+    {
+      "id": "b14",
+      "title": "Smart connected electronic gastroscope system for gastric cancer screening using multi-column convolutional neural networks",
+      "authors": [
+        {
+          "firstName": "H",
+          "middleName": "",
+          "lastName": "Wang",
+          "rawName": "HWang"
+        },
+        {
+          "firstName": "S",
+          "middleName": "",
+          "lastName": "Ding",
+          "rawName": "SDing"
+        },
+        {
+          "firstName": "D",
+          "middleName": "",
+          "lastName": "Wu",
+          "rawName": "DWu"
+        },
+        {
+          "firstName": "Y",
+          "middleName": "",
+          "lastName": "Zhang",
+          "rawName": "YZhang"
+        },
+        {
+          "firstName": "S",
+          "middleName": "",
+          "lastName": "Yang",
+          "rawName": "SYang"
+        }
+      ],
+      "date": "",
+      "journal": "International Journal of Production Research",
+      "volume": "57",
+      "issue": "21",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "H. Wang, S. Ding, D. Wu, Y. Zhang, and S. Yang, \"Smart con- nected electronic gastroscope system for gastric cancer screen- ing using multi-column convolutional neural networks,\" International Journal of Production Research, vol. 57, no. 21, pp. 6795-6806, 2019."
+    },
+    {
+      "id": "b15",
+      "title": "How deep should be the depth of convolutional neural networks: a backyard dog case study",
+      "authors": [
+        {
+          "firstName": "A",
+          "middleName": "N",
+          "lastName": "Gorban",
+          "rawName": "ANGorban"
+        },
+        {
+          "firstName": "E",
+          "middleName": "M",
+          "lastName": "Mirkes",
+          "rawName": "EMMirkes"
+        },
+        {
+          "firstName": "I",
+          "middleName": "Y",
+          "lastName": "Tyukin",
+          "rawName": "IYTyukin"
+        }
+      ],
+      "date": "",
+      "journal": "Cognitive Computation",
+      "volume": "12",
+      "issue": "2",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "A. N. Gorban, E. M. Mirkes, and I. Y. Tyukin, \"How deep should be the depth of convolutional neural networks: a back- yard dog case study,\" Cognitive Computation, vol. 12, no. 2, pp. 388-397, 2020."
+    },
+    {
+      "id": "b16",
+      "title": "Iterative PET image reconstruction using convolutional neural network representation",
+      "authors": [
+        {
+          "firstName": "K",
+          "middleName": "",
+          "lastName": "Gong",
+          "rawName": "KGong"
+        },
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Guan",
+          "rawName": "JGuan"
+        },
+        {
+          "firstName": "K",
+          "middleName": "",
+          "lastName": "Kim",
+          "rawName": "KKim"
+        }
+      ],
+      "date": "",
+      "journal": "IEEE Transactions on Medical Imaging",
+      "volume": "38",
+      "issue": "3",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "K. Gong, J. Guan, K. Kim et al., \"Iterative PET image reconstruc- tion using convolutional neural network representation,\" IEEE Transactions on Medical Imaging, vol. 38, no. 3, pp. 675-685, 2019."
+    },
+    {
+      "id": "b17",
+      "title": "Lake level prediction using feed forward and recurrent neural networks",
+      "authors": [
+        {
+          "firstName": "B",
+          "middleName": "",
+          "lastName": "Hrnjica",
+          "rawName": "BHrnjica"
+        },
+        {
+          "firstName": "O",
+          "middleName": "",
+          "lastName": "Bonacci",
+          "rawName": "OBonacci"
+        }
+      ],
+      "date": "",
+      "journal": "Water Resources Management",
+      "volume": "33",
+      "issue": "7",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "B. Hrnjica and O. Bonacci, \"Lake level prediction using feed forward and recurrent neural networks,\" Water Resources Management, vol. 33, no. 7, pp. 2471-2484, 2019."
+    },
+    {
+      "id": "b18",
+      "title": "694: continuous risk of infection prediction using recurrent neural networks in a pediatric ICU",
+      "authors": [
+        {
+          "firstName": "I",
+          "middleName": "",
+          "lastName": "Obeso",
+          "rawName": "IObeso"
+        },
+        {
+          "firstName": "D",
+          "middleName": "",
+          "lastName": "Ledbetter",
+          "rawName": "DLedbetter"
+        },
+        {
+          "firstName": "M",
+          "middleName": "",
+          "lastName": "Aczon",
+          "rawName": "MAczon"
+        },
+        {
+          "firstName": "E",
+          "middleName": "",
+          "lastName": "Laksana",
+          "rawName": "ELaksana"
+        },
+        {
+          "firstName": "M",
+          "middleName": "",
+          "lastName": "Wintner",
+          "rawName": "MWintner"
+        },
+        {
+          "firstName": "R",
+          "middleName": "",
+          "lastName": "Wetzel",
+          "rawName": "RWetzel"
+        }
+      ],
+      "date": "",
+      "journal": "Critical Care Medicine",
+      "volume": "49",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "I. Obeso, D. Ledbetter, M. Aczon, E. Laksana, M. Wintner, and R. Wetzel, \"694: continuous risk of infection prediction using recurrent neural networks in a pediatric ICU,\" Critical Care Medicine, vol. 49, no. 1, pp. 342-342, 2021."
+    },
+    {
+      "id": "b19",
+      "title": "Disambiguating Arabic words according to their historical appearance in the document based on recurrent neural networks",
+      "authors": [
+        {
+          "firstName": "R",
+          "middleName": "",
+          "lastName": "Laatar",
+          "rawName": "RLaatar"
+        },
+        {
+          "firstName": "C",
+          "middleName": "",
+          "lastName": "Aloulou",
+          "rawName": "CAloulou"
+        },
+        {
+          "firstName": "L",
+          "middleName": "H",
+          "lastName": "Belguith",
+          "rawName": "LHBelguith"
+        }
+      ],
+      "date": "",
+      "journal": "ACM Transactions on Asian and Low-Resource Language Information Processing",
+      "volume": "19",
+      "issue": "6",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "R. Laatar, C. Aloulou, and L. H. Belguith, \"Disambiguating Arabic words according to their historical appearance in the document based on recurrent neural networks,\" ACM Trans- actions on Asian and Low-Resource Language Information Processing, vol. 19, no. 6, pp. 1-16, 2020."
+    },
+    {
+      "id": "b20",
+      "title": "Prediction of creaky speech by recurrent neural networks using psychoacoustic roughness",
+      "authors": [
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Villegas",
+          "rawName": "JVillegas"
+        },
+        {
+          "firstName": "K",
+          "middleName": "",
+          "lastName": "Markov",
+          "rawName": "KMarkov"
+        },
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Perkins",
+          "rawName": "JPerkins"
+        },
+        {
+          "firstName": "S",
+          "middleName": "J",
+          "lastName": "Lee",
+          "rawName": "SJLee"
+        }
+      ],
+      "date": "",
+      "journal": "IEEE Journal of Selected Topics in Signal Processing",
+      "volume": "14",
+      "issue": "2",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "J. Villegas, K. Markov, J. Perkins, and S. J. Lee, \"Prediction of creaky speech by recurrent neural networks using psycho- acoustic roughness,\" IEEE Journal of Selected Topics in Signal Processing, vol. 14, no. 2, pp. 355-366, 2020."
+    },
+    {
+      "id": "b21",
+      "title": "Cost sensitive active learning using bidirectional gated recurrent neural networks for imbalanced fault diagnosis",
+      "authors": [
+        {
+          "firstName": "P",
+          "middleName": "A",
+          "lastName": "Peng",
+          "rawName": "PAPeng"
+        },
+        {
+          "firstName": "W",
+          "middleName": "",
+          "lastName": "Zhang",
+          "rawName": "WZhang"
+        },
+        {
+          "firstName": "Y",
+          "middleName": "",
+          "lastName": "Zhang",
+          "rawName": "YZhang"
+        },
+        {
+          "firstName": "Y",
+          "middleName": "",
+          "lastName": "Xu",
+          "rawName": "YXu"
+        },
+        {
+          "firstName": "H",
+          "middleName": "",
+          "lastName": "Wang",
+          "rawName": "HWang"
+        },
+        {
+          "firstName": "H",
+          "middleName": "",
+          "lastName": "Zhang",
+          "rawName": "HZhang"
+        }
+      ],
+      "date": "",
+      "journal": "Neurocomputing",
+      "volume": "407",
+      "issue": "",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "P. A. Peng, W. Zhang, Y. Zhang, Y. Xu, H. Wang, and H. Zhang, \"Cost sensitive active learning using bidirectional gated recurrent neural networks for imbalanced fault diagno- sis,\" Neurocomputing, vol. 407, pp. 232-245, 2020."
+    },
+    {
+      "id": "b22",
+      "title": "Low-dimensional manifolds support multiplexed integrations in recurrent neural networks",
+      "authors": [
+        {
+          "firstName": "A",
+          "middleName": "",
+          "lastName": "Fanthomme",
+          "rawName": "AFanthomme"
+        },
+        {
+          "firstName": "R",
+          "middleName": "",
+          "lastName": "Monasson",
+          "rawName": "RMonasson"
+        }
+      ],
+      "date": "",
+      "journal": "Neural Computation",
+      "volume": "33",
+      "issue": "4",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "A. Fanthomme and R. Monasson, \"Low-dimensional manifolds support multiplexed integrations in recurrent neural networks,\" Neural Computation, vol. 33, no. 4, pp. 1063-1112, 2021."
+    },
+    {
+      "id": "b23",
+      "title": "Exploration of the principal component analysis (PCA) approach in synthesizing the diet quality of the Malaysian population",
+      "authors": [
+        {
+          "firstName": "A",
+          "middleName": "",
+          "lastName": "Ali",
+          "rawName": "AAli"
+        },
+        {
+          "firstName": "B",
+          "middleName": "M",
+          "lastName": "Margetts",
+          "rawName": "BMMargetts"
+        },
+        {
+          "firstName": "A",
+          "middleName": "A",
+          "lastName": "Zainuddin",
+          "rawName": "AAZainuddin"
+        }
+      ],
+      "date": "",
+      "journal": "Nutrients",
+      "volume": "13",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "A. Ali, B. M. Margetts, and A. A. Zainuddin, \"Exploration of the principal component analysis (PCA) approach in synthe- sizing the diet quality of the Malaysian population,\" Nutrients, vol. 13, no. 1, p. 70, 2021."
+    },
+    {
+      "id": "b24",
+      "title": "Tensor robust principal component analysis with a new tensor nuclear norm",
+      "authors": [
+        {
+          "firstName": "C",
+          "middleName": "",
+          "lastName": "Lu",
+          "rawName": "CLu"
+        },
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Feng",
+          "rawName": "JFeng"
+        },
+        {
+          "firstName": "Y",
+          "middleName": "",
+          "lastName": "Chen",
+          "rawName": "YChen"
+        },
+        {
+          "firstName": "W",
+          "middleName": "",
+          "lastName": "Liu",
+          "rawName": "WLiu"
+        },
+        {
+          "firstName": "Z",
+          "middleName": "",
+          "lastName": "Lin",
+          "rawName": "ZLin"
+        },
+        {
+          "firstName": "S",
+          "middleName": "",
+          "lastName": "Yan",
+          "rawName": "SYan"
+        }
+      ],
+      "date": "",
+      "journal": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "volume": "42",
+      "issue": "4",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "C. Lu, J. Feng, Y. Chen, W. Liu, Z. Lin, and S. Yan, \"Tensor robust principal component analysis with a new tensor nuclear norm,\" IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 42, no. 4, pp. 925-938, 2020."
+    },
+    {
+      "id": "b25",
+      "title": "Principal component analysis of avian hind limb and foot morphometrics and the relationship between ecology and phylogeny",
+      "authors": [
+        {
+          "firstName": "A",
+          "middleName": "R",
+          "lastName": "Falk",
+          "rawName": "ARFalk"
+        },
+        {
+          "firstName": "J",
+          "middleName": "C",
+          "lastName": "Lamsdell",
+          "rawName": "JCLamsdell"
+        },
+        {
+          "firstName": "E",
+          "middleName": "",
+          "lastName": "Gong",
+          "rawName": "EGong"
+        }
+      ],
+      "date": "",
+      "journal": "Paleobiology",
+      "volume": "47",
+      "issue": "2",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "A. R. Falk, J. C. Lamsdell, and E. Gong, \"Principal component analysis of avian hind limb and foot morphometrics and the relationship between ecology and phylogeny,\" Paleobiology, vol. 47, no. 2, pp. 314-336, 2021."
+    },
+    {
+      "id": "b26",
+      "title": "Functional principal component analysis: a robust method for time-series phenotypic data",
+      "authors": [
+        {
+          "firstName": "Y",
+          "middleName": "",
+          "lastName": "Yu",
+          "rawName": "YYu"
+        }
+      ],
+      "date": "",
+      "journal": "Plant Physiology",
+      "volume": "183",
+      "issue": "4",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "Y. Yu, \"Functional principal component analysis: a robust method for time-series phenotypic data,\" Plant Physiology, vol. 183, no. 4, pp. 1422-1423, 2020."
+    },
+    {
+      "id": "b27",
+      "title": "Online robust principal component analysis with change point detection",
+      "authors": [
+        {
+          "firstName": "W",
+          "middleName": "",
+          "lastName": "Xiao",
+          "rawName": "WXiao"
+        },
+        {
+          "firstName": "X",
+          "middleName": "",
+          "lastName": "Huang",
+          "rawName": "XHuang"
+        },
+        {
+          "firstName": "F",
+          "middleName": "",
+          "lastName": "He",
+          "rawName": "FHe"
+        },
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Silva",
+          "rawName": "JSilva"
+        },
+        {
+          "firstName": "S",
+          "middleName": "",
+          "lastName": "Emrani",
+          "rawName": "SEmrani"
+        },
+        {
+          "firstName": "A",
+          "middleName": "",
+          "lastName": "Chaudhuri",
+          "rawName": "AChaudhuri"
+        }
+      ],
+      "date": "",
+      "journal": "IEEE Transactions on Multimedia",
+      "volume": "22",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "W. Xiao, X. Huang, F. He, J. Silva, S. Emrani, and A. Chaudhuri, \"Online robust principal component analysis with change point detection,\" IEEE Transactions on Multime- dia, vol. 22, no. 1, pp. 59-68, 2020."
+    },
+    {
+      "id": "b28",
+      "title": "Geometrical approximated principal component analysis for hyperspectral image analysis",
+      "authors": [
+        {
+          "firstName": "A",
+          "middleName": "L",
+          "lastName": "Machidon",
+          "rawName": "ALMachidon"
+        },
+        {
+          "firstName": "F",
+          "middleName": "",
+          "lastName": "Del Frate",
+          "rawName": "FDel Frate"
+        },
+        {
+          "firstName": "M",
+          "middleName": "",
+          "lastName": "Picchiani",
+          "rawName": "MPicchiani"
+        },
+        {
+          "firstName": "O",
+          "middleName": "M",
+          "lastName": "Machidon",
+          "rawName": "OMMachidon"
+        },
+        {
+          "firstName": "P",
+          "middleName": "L",
+          "lastName": "Ogrutan",
+          "rawName": "PLOgrutan"
+        }
+      ],
+      "date": "",
+      "journal": "Remote Sensing",
+      "volume": "12",
+      "issue": "11",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "A. L. Machidon, F. del Frate, M. Picchiani, O. M. Machidon, and P. L. Ogrutan, \"Geometrical approximated principal com- ponent analysis for hyperspectral image analysis,\" Remote Sensing, vol. 12, no. 11, p. 1698, 2020."
+    },
+    {
+      "id": "b29",
+      "title": "Background subtraction in dynamic scenes using the dynamic principal component analysis",
+      "authors": [
+        {
+          "firstName": "A",
+          "middleName": "",
+          "lastName": "Djerida",
+          "rawName": "ADjerida"
+        },
+        {
+          "firstName": "Z",
+          "middleName": "",
+          "lastName": "Zhao",
+          "rawName": "ZZhao"
+        },
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Zhao",
+          "rawName": "JZhao"
+        }
+      ],
+      "date": "",
+      "journal": "IET Image Processing",
+      "volume": "14",
+      "issue": "2",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "A. Djerida, Z. Zhao, and J. Zhao, \"Background subtraction in dynamic scenes using the dynamic principal component anal- ysis,\" IET Image Processing, vol. 14, no. 2, pp. 245-255, 2020."
+    },
+    {
+      "id": "b30",
+      "title": "Wireless Communications and Mobile Computing",
+      "authors": [],
+      "date": "",
+      "journal": "",
+      "volume": "",
+      "issue": "",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "Wireless Communications and Mobile Computing"
+    },
+    {
+      "id": "b31",
+      "title": "Assessment of water quality using principal component analysis: a case study of the Marrecas stream basin in Brazil",
+      "authors": [
+        {
+          "firstName": "A",
+          "middleName": "T",
+          "lastName": "De Souza",
+          "rawName": "ATDe Souza"
+        },
+        {
+          "firstName": "L",
+          "middleName": "A T X",
+          "lastName": "Carneiro",
+          "rawName": "LA T XCarneiro"
+        },
+        {
+          "firstName": "O",
+          "middleName": "P",
+          "lastName": "Da Silva Junior",
+          "rawName": "OPDa Silva Junior"
+        },
+        {
+          "firstName": "S",
+          "middleName": "L",
+          "lastName": "De Carvalho",
+          "rawName": "SLDe Carvalho"
+        },
+        {
+          "firstName": "J",
+          "middleName": "H P",
+          "lastName": "Américo-Pinheiro",
+          "rawName": "JH PAmérico-Pinheiro"
+        }
+      ],
+      "date": "",
+      "journal": "Environmental Technology",
+      "volume": "42",
+      "issue": "14",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "A. T. de Souza, L. A. T. X. Carneiro, O. P. da Silva Junior, S. L. de Carvalho, and J. H. P. Américo-Pinheiro, \"Assessment of water quality using principal component analysis: a case study of the Marrecas stream basin in Brazil,\" Environmental Tech- nology, vol. 42, no. 14, pp. 1-21, 2020."
+    },
+    {
+      "id": "b32",
+      "title": "Grasshopper optimization algorithm with principal component analysis for global optimization",
+      "authors": [
+        {
+          "firstName": "X",
+          "middleName": "",
+          "lastName": "Yue",
+          "rawName": "XYue"
+        },
+        {
+          "firstName": "H",
+          "middleName": "",
+          "lastName": "Zhang",
+          "rawName": "HZhang"
+        }
+      ],
+      "date": "",
+      "journal": "The Journal of Supercomputing",
+      "volume": "76",
+      "issue": "3",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "X. Yue and H. Zhang, \"Grasshopper optimization algorithm with principal component analysis for global optimization,\" The Journal of Supercomputing, vol. 76, no. 3, pp. 1-27, 2020."
+    },
+    {
+      "id": "b33",
+      "title": "Polynomial fitting algorithm based on neural network",
+      "authors": [
+        {
+          "firstName": "Y",
+          "middleName": "",
+          "lastName": "Tong",
+          "rawName": "YTong"
+        },
+        {
+          "firstName": "L",
+          "middleName": "",
+          "lastName": "Yu",
+          "rawName": "LYu"
+        },
+        {
+          "firstName": "S",
+          "middleName": "",
+          "lastName": "Li",
+          "rawName": "SLi"
+        },
+        {
+          "firstName": "J",
+          "middleName": "",
+          "lastName": "Liu",
+          "rawName": "JLiu"
+        },
+        {
+          "firstName": "H",
+          "middleName": "",
+          "lastName": "Qin",
+          "rawName": "HQin"
+        },
+        {
+          "firstName": "W",
+          "middleName": "",
+          "lastName": "Li",
+          "rawName": "WLi"
+        }
+      ],
+      "date": "",
+      "journal": "ASP Transactions on Pattern Recognition and Intelligent Systems",
+      "volume": "1",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "Y. Tong, L. Yu, S. Li, J. Liu, H. Qin, and W. Li, \"Polynomial fit- ting algorithm based on neural network,\" ASP Transactions on Pattern Recognition and Intelligent Systems, vol. 1, no. 1, pp. 32-39, 2021."
+    },
+    {
+      "id": "b34",
+      "title": "LGCN: learnable Gabor convolution network for human gender recognition in the wild",
+      "authors": [
+        {
+          "firstName": "P",
+          "middleName": "",
+          "lastName": "Chen",
+          "rawName": "PChen"
+        },
+        {
+          "firstName": "W",
+          "middleName": "",
+          "lastName": "Li",
+          "rawName": "WLi"
+        },
+        {
+          "firstName": "L",
+          "middleName": "",
+          "lastName": "Sun",
+          "rawName": "LSun"
+        },
+        {
+          "firstName": "X",
+          "middleName": "",
+          "lastName": "Ning",
+          "rawName": "XNing"
+        },
+        {
+          "firstName": "L",
+          "middleName": "",
+          "lastName": "Yu",
+          "rawName": "LYu"
+        },
+        {
+          "firstName": "L",
+          "middleName": "",
+          "lastName": "Zhang",
+          "rawName": "LZhang"
+        }
+      ],
+      "date": "",
+      "journal": "IEICE Transactions on Information and Systems",
+      "volume": "102",
+      "issue": "10",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "P. Chen, W. Li, L. Sun, X. Ning, L. Yu, and L. Zhang, \"LGCN: learnable Gabor convolution network for human gender rec- ognition in the wild,\" IEICE Transactions on Information and Systems, vol. 102, no. 10, pp. 2067-2071, 2019."
+    },
+    {
+      "id": "b35",
+      "title": "Robotic grasp detection using a novel two-stage approach",
+      "authors": [
+        {
+          "firstName": "Z",
+          "middleName": "",
+          "lastName": "Chu",
+          "rawName": "ZChu"
+        },
+        {
+          "firstName": "M",
+          "middleName": "",
+          "lastName": "Hu",
+          "rawName": "MHu"
+        },
+        {
+          "firstName": "X",
+          "middleName": "",
+          "lastName": "Chen",
+          "rawName": "XChen"
+        }
+      ],
+      "date": "",
+      "journal": "ASP Transactions on Internet of Things",
+      "volume": "1",
+      "issue": "1",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "",
+      "rawText": "Z. Chu, M. Hu, and X. Chen, \"Robotic grasp detection using a novel two-stage approach,\" ASP Transactions on Internet of Things, vol. 1, no. 1, pp. 19-29, 2021."
+    },
+    {
+      "id": "b36",
+      "title": "Wireless Communications and Mobile Computing 6302",
+      "authors": [],
+      "date": "",
+      "journal": "",
+      "volume": "",
+      "issue": "",
+      "pages": {
+        "start": "",
+        "end": ""
+      },
+      "doi": "10.1155/2021/2438656byTest",
+      "rawText": "Wireless Communications and Mobile Computing 6302, 2021, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1155/2021/2438656 by Test, Wiley Online Library on [21/03/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+    }
+  ],
+  "citationContexts": [
+    {
+      "id": "",
+      "text": "[1]",
+      "surroundingText": "The convolutional neural network not only has super high learning ability but also can classify different hierarchical structures and input information, so we call it \"translational and unchanged artificial neural network\" [1].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b0"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[2]",
+      "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b1"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[3]",
+      "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b2"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[4]",
+      "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b3"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[5]",
+      "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b4"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[6]",
+      "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b5"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[7]",
+      "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b6"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[8]",
+      "surroundingText": "Convolutional neural networks can perform supervised and unsupervised learning by imitating the visual perception of related organisms [8].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b7"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[9]",
+      "surroundingText": "Recurrent neural networks are widely used in natural language processing, such as special speech recognition and memory, modeling, and translation [9].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b8"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[10]",
+      "surroundingText": "They are also often used for the prediction of various sequences [10].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": []
+    },
+    {
+      "id": "",
+      "text": "[11]",
+      "surroundingText": "The recurrent convolutional neural network was introduced to deal with computer vision perception problems involving sequence input [11].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": []
+    },
+    {
+      "id": "",
+      "text": "[12,",
+      "surroundingText": "Usually, the mathematical treatment is to make a linear combination of the original P indexes as a new comprehensive index [12,13].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b11"
+      ]
+    },
+    {
+      "id": "",
+      "text": "13]",
+      "surroundingText": "Usually, the mathematical treatment is to make a linear combination of the original P indexes as a new comprehensive index [12,13].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b12"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[14]",
+      "surroundingText": "PCA is the simplest method to analyze multivariate statistical distribution with eigenvectors [14].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b13"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[15]",
+      "surroundingText": "[15] proposed the method of PCA for background modeling for the first time.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b14"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[16]",
+      "surroundingText": "The linear function constructed by PCA conforms to the original characteristics [16].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b15"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[17]",
+      "surroundingText": "The basic process of linear transformation is equivalent to the rotation and translation of the coordinate system [17].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b16"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[18]",
+      "surroundingText": "Governments in various countries have begun to pay attention to national health, and the international community is also looking for a global health promotion strategy, which puts \"health issues\" on the agenda [18].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b17"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[19]",
+      "surroundingText": "Enhancing the physical fitness of students is the main purpose and task of school physical education [19].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b18"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[20]",
+      "surroundingText": "Therefore, only the health of students is an important prerequisite for improving academic performance and cultivating crosscentury talents [20].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b19"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[21]",
+      "surroundingText": "This is very important for evaluating student performance [21].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b20"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[22]",
+      "surroundingText": "[22] put forward the concept of receptive field for the first time through the study of cat visual cortex cells.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b21"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[23]",
+      "surroundingText": "Based on the concept of the receptive field, Fanthomme and Monasson [23] proposed the neurocognitive machine.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b22"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[24]",
+      "surroundingText": "CNN is built on the basis of a cognitive machine [24].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b23"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[25]",
+      "surroundingText": "[25] proposed the lenet-5 model structure based on CNN, which pushed the research of convolutional neural networks to a climax.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b24"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[26]",
+      "surroundingText": "[26] proposed a new face detection method based on CNN in the literature, which has good robustness to various facial patterns and certain rotation angles and shows that this recognition system does not need expensive preprocessing steps [27].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b25"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[27]",
+      "surroundingText": "[26] proposed a new face detection method based on CNN in the literature, which has good robustness to various facial patterns and certain rotation angles and shows that this recognition system does not need expensive preprocessing steps [27].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b26"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[28]",
+      "surroundingText": "[28] applied deep learning to the regression task, considered the robustness of the regression algorithm, and analyzed the robustness of the algorithm.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b27"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[29]",
+      "surroundingText": "According to the relationship between hidden layer and error, a network depth determination method based on reconstruction error was proposed [29].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b28"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[30]",
+      "surroundingText": "Principal component analysis (PCA) is a comprehensive statistical method, which transforms complex highdimensional data into low-dimensional principal components [30].",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b29"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[31]",
+      "surroundingText": "In his book, Shang [31] used this method to predict the overall power consumption demand in Australia; Mallord and others [32] used the PCA method to explore the changes of the human force curve and conducted functional principal component analysis on the human force curve to analyze the main factors affecting human fatigue.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b31"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[32]",
+      "surroundingText": "In his book, Shang [31] used this method to predict the overall power consumption demand in Australia; Mallord and others [32] used the PCA method to explore the changes of the human force curve and conducted functional principal component analysis on the human force curve to analyze the main factors affecting human fatigue.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b32"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[33]",
+      "surroundingText": "The neural network [33][34][35] uses local connection and weight sharing to reduce the number of parameters and the computational complexity of the network.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b33"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[34]",
+      "surroundingText": "The neural network [33][34][35] uses local connection and weight sharing to reduce the number of parameters and the computational complexity of the network.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b34"
+      ]
+    },
+    {
+      "id": "",
+      "text": "[35]",
+      "surroundingText": "The neural network [33][34][35] uses local connection and weight sharing to reduce the number of parameters and the computational complexity of the network.",
+      "position": {
+        "page": 1
+      },
+      "referenceIds": [
+        "b35"
+      ]
+    }
+  ],
+  "referenceUsage": [
+    {
+      "reference": {
+        "id": "b0",
+        "title": "Convolutional neural network models of V1 responses to complex patterns",
+        "authors": [
+          {
+            "firstName": "Y",
+            "middleName": "M",
+            "lastName": "Zhang",
+            "rawName": "YMZhang"
+          },
+          {
+            "firstName": "T",
+            "middleName": "S",
+            "lastName": "Lee",
+            "rawName": "TSLee"
+          },
+          {
+            "firstName": "M",
+            "middleName": "",
+            "lastName": "Li",
+            "rawName": "MLi"
+          },
+          {
+            "firstName": "F",
+            "middleName": "",
+            "lastName": "Liu",
+            "rawName": "FLiu"
+          },
+          {
+            "firstName": "S",
+            "middleName": "",
+            "lastName": "Tang",
+            "rawName": "STang"
+          }
+        ],
+        "date": "",
+        "journal": "Journal of Computational Neuroscience",
+        "volume": "46",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "Y. M. Zhang, T. S. Lee, M. Li, F. Liu, and S. Tang, \"Convolu- tional neural network models of V1 responses to complex pat- terns,\" Journal of Computational Neuroscience, vol. 46, no. 1, pp. 33-54, 2019."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[1]",
+          "surroundingText": "The convolutional neural network not only has super high learning ability but also can classify different hierarchical structures and input information, so we call it \"translational and unchanged artificial neural network\" [1].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b0"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b1",
+        "title": "Review of multi-view 3D object recognition methods based on deep learning",
+        "authors": [
+          {
+            "firstName": "S",
+            "middleName": "",
+            "lastName": "Qi",
+            "rawName": "SQi"
+          },
+          {
+            "firstName": "X",
+            "middleName": "",
+            "lastName": "Ning",
+            "rawName": "XNing"
+          },
+          {
+            "firstName": "G",
+            "middleName": "",
+            "lastName": "Yang",
+            "rawName": "GYang"
+          }
+        ],
+        "date": "",
+        "journal": "Displays",
+        "volume": "69",
+        "issue": "",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "S. Qi, X. Ning, G. Yang et al., \"Review of multi-view 3D object recognition methods based on deep learning,\" Displays, vol. 69, p. 102053, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[2]",
+          "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b2",
+        "title": "Deep learning using convolutional LSTM estimates biological age from physical activity",
+        "authors": [
+          {
+            "firstName": "S",
+            "middleName": "A",
+            "lastName": "Rahman",
+            "rawName": "SARahman"
+          },
+          {
+            "firstName": "D",
+            "middleName": "A",
+            "lastName": "Adjeroh",
+            "rawName": "DAAdjeroh"
+          }
+        ],
+        "date": "",
+        "journal": "Scientific Reports",
+        "volume": "9",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "S. A. Rahman and D. A. Adjeroh, \"Deep learning using convo- lutional LSTM estimates biological age from physical activity,\" Scientific Reports, vol. 9, no. 1, pp. 1-15, 2019."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[3]",
+          "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b2"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b3",
+        "title": "Wearable IoT smart-log patch: an edge computing-based Bayesian deep learning network system for multi access physical monitoring system",
+        "authors": [
+          {
+            "firstName": "G",
+            "middleName": "",
+            "lastName": "Manogaran",
+            "rawName": "GManogaran"
+          },
+          {
+            "firstName": "P",
+            "middleName": "M",
+            "lastName": "Shakeel",
+            "rawName": "PMShakeel"
+          },
+          {
+            "firstName": "H",
+            "middleName": "",
+            "lastName": "Fouad",
+            "rawName": "HFouad"
+          }
+        ],
+        "date": "",
+        "journal": "Sensors",
+        "volume": "19",
+        "issue": "13",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "G. Manogaran, P. M. Shakeel, H. Fouad et al., \"Wearable IoT smart-log patch: an edge computing-based Bayesian deep learning network system for multi access physical monitoring system,\" Sensors, vol. 19, no. 13, p. 3030, 2019."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[4]",
+          "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b3"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b4",
+        "title": "A novel negative-transfer-resistant fuzzy clustering model with a shared cross-domain transfer latent space and its application to brain CT image segmentation",
+        "authors": [
+          {
+            "firstName": "Y",
+            "middleName": "",
+            "lastName": "Jiang",
+            "rawName": "YJiang"
+          },
+          {
+            "firstName": "X",
+            "middleName": "",
+            "lastName": "Gu",
+            "rawName": "XGu"
+          },
+          {
+            "firstName": "D",
+            "middleName": "",
+            "lastName": "Wu",
+            "rawName": "DWu"
+          },
+          {
+            "firstName": "W",
+            "middleName": "",
+            "lastName": "Hang",
+            "rawName": "WHang"
+          },
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Xue",
+            "rawName": "JXue"
+          },
+          {
+            "firstName": "S",
+            "middleName": "",
+            "lastName": "Qiu",
+            "rawName": "SQiu"
+          }
+        ],
+        "date": "",
+        "journal": "IEEE/ACM Transactions on Computational Biology and Bioinformatics",
+        "volume": "18",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "Y. Jiang, X. Gu, D. Wu, W. Hang, J. Xue, and S. Qiu, \"A novel negative-transfer-resistant fuzzy clustering model with a shared cross-domain transfer latent space and its application to brain CT image segmentation,\" IEEE/ACM Transactions on Computational Biology and Bioinformatics, vol. 18, no. 1, pp. 40-52, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[5]",
+          "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b4"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b5",
+        "title": "Learning local-global multiple correlation filters for robust visual tracking with Kalman filter redetection",
+        "authors": [
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Zhang",
+            "rawName": "JZhang"
+          },
+          {
+            "firstName": "Y",
+            "middleName": "",
+            "lastName": "Liu",
+            "rawName": "YLiu"
+          },
+          {
+            "firstName": "H",
+            "middleName": "",
+            "lastName": "Liu",
+            "rawName": "HLiu"
+          },
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Wang",
+            "rawName": "JWang"
+          }
+        ],
+        "date": "",
+        "journal": "Sensors",
+        "volume": "21",
+        "issue": "4",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "J. Zhang, Y. Liu, H. Liu, and J. Wang, \"Learning local-global multiple correlation filters for robust visual tracking with Kal- man filter redetection,\" Sensors, vol. 21, no. 4, p. 1129, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[6]",
+          "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b5"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b6",
+        "title": "Finger vein image enhancement based on guided tri-Gaussian filters",
+        "authors": [
+          {
+            "firstName": "L",
+            "middleName": "",
+            "lastName": "Zhang",
+            "rawName": "LZhang"
+          },
+          {
+            "firstName": "X",
+            "middleName": "",
+            "lastName": "Wang",
+            "rawName": "XWang"
+          },
+          {
+            "firstName": "X",
+            "middleName": "",
+            "lastName": "Dong",
+            "rawName": "XDong"
+          },
+          {
+            "firstName": "L",
+            "middleName": "",
+            "lastName": "Sun",
+            "rawName": "LSun"
+          },
+          {
+            "firstName": "W",
+            "middleName": "",
+            "lastName": "Cai",
+            "rawName": "WCai"
+          },
+          {
+            "firstName": "X",
+            "middleName": "",
+            "lastName": "Ning",
+            "rawName": "XNing"
+          }
+        ],
+        "date": "",
+        "journal": "ASP Transactions on Pattern Recognition and Intelligent Systems",
+        "volume": "1",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "L. Zhang, X. Wang, X. Dong, L. Sun, W. Cai, and X. Ning, \"Finger vein image enhancement based on guided tri- Gaussian filters,\" ASP Transactions on Pattern Recognition and Intelligent Systems, vol. 1, no. 1, pp. 17-23, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[7]",
+          "surroundingText": "Now that we have entered the 21st century, with in-depth study [2][3][4] of related theoretical knowledge and continuous improvement of numerical computing equipment, the recurrent convolutional neural network has achieved unprecedented development, and researchers apply it to computer vision processing [5][6][7], natural language processing, and other fields.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b6"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b7",
+        "title": "Finger vein identification using convolutional neural network and supervised discrete hashing",
+        "authors": [
+          {
+            "firstName": "C",
+            "middleName": "",
+            "lastName": "Xie",
+            "rawName": "CXie"
+          },
+          {
+            "firstName": "A",
+            "middleName": "",
+            "lastName": "Kumar",
+            "rawName": "AKumar"
+          }
+        ],
+        "date": "",
+        "journal": "Pattern Recognition Letters",
+        "volume": "119",
+        "issue": "",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "C. Xie and A. Kumar, \"Finger vein identification using convo- lutional neural network and supervised discrete hashing,\" Pat- tern Recognition Letters, vol. 119, pp. 148-156, 2019."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[8]",
+          "surroundingText": "Convolutional neural networks can perform supervised and unsupervised learning by imitating the visual perception of related organisms [8].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b7"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b8",
+        "title": "Errors of machine translation of terminology in the patent text from English into Chinese",
+        "authors": [
+          {
+            "firstName": "C",
+            "middleName": "",
+            "lastName": "Ying",
+            "rawName": "CYing"
+          },
+          {
+            "firstName": "Y",
+            "middleName": "",
+            "lastName": "Shuyu",
+            "rawName": "YShuyu"
+          },
+          {
+            "firstName": "L",
+            "middleName": "",
+            "lastName": "Jing",
+            "rawName": "LJing"
+          },
+          {
+            "firstName": "D",
+            "middleName": "",
+            "lastName": "Lin",
+            "rawName": "DLin"
+          },
+          {
+            "firstName": "Q",
+            "middleName": "",
+            "lastName": "Qi",
+            "rawName": "QQi"
+          }
+        ],
+        "date": "",
+        "journal": "ASP Transactions on Computers",
+        "volume": "1",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "C. Ying, Y. Shuyu, L. Jing, D. Lin, and Q. Qi, \"Errors of machine translation of terminology in the patent text from English into Chinese,\" ASP Transactions on Computers, vol. 1, no. 1, pp. 12-17, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[9]",
+          "surroundingText": "Recurrent neural networks are widely used in natural language processing, such as special speech recognition and memory, modeling, and translation [9].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b8"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b9",
+        "title": "Physical health indicators improve prediction of cardiovascular and all-cause mortality among middle-aged and older people: a national population-based study",
+        "authors": [
+          {
+            "firstName": "W",
+            "middleName": "J",
+            "lastName": "Lee",
+            "rawName": "WJLee"
+          },
+          {
+            "firstName": "L",
+            "middleName": "N",
+            "lastName": "Peng",
+            "rawName": "LNPeng"
+          },
+          {
+            "firstName": "S",
+            "middleName": "T",
+            "lastName": "Chiou",
+            "rawName": "STChiou"
+          },
+          {
+            "firstName": "L",
+            "middleName": "K",
+            "lastName": "Chen",
+            "rawName": "LKChen"
+          }
+        ],
+        "date": "",
+        "journal": "Scientific Reports",
+        "volume": "7",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "W. J. Lee, L. N. Peng, S. T. Chiou, and L. K. Chen, \"Physical health indicators improve prediction of cardiovascular and all-cause mortality among middle-aged and older people: a national population-based study,\" Scientific Reports, vol. 7, no. 1, pp. 1-8, 2017."
+      },
+      "usageContexts": []
+    },
+    {
+      "reference": {
+        "id": "b10",
+        "title": "Correlator convolutional neural networks as an interpretable architecture for imagelike quantum matter data",
+        "authors": [
+          {
+            "firstName": "C",
+            "middleName": "",
+            "lastName": "Miles",
+            "rawName": "CMiles"
+          },
+          {
+            "firstName": "A",
+            "middleName": "",
+            "lastName": "Bohrdt",
+            "rawName": "ABohrdt"
+          },
+          {
+            "firstName": "R",
+            "middleName": "",
+            "lastName": "Wu",
+            "rawName": "RWu"
+          }
+        ],
+        "date": "",
+        "journal": "Nature Communications",
+        "volume": "12",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "C. Miles, A. Bohrdt, R. Wu et al., \"Correlator convolutional neural networks as an interpretable architecture for image- like quantum matter data,\" Nature Communications, vol. 12, no. 1, p. 3905, 2021."
+      },
+      "usageContexts": []
+    },
+    {
+      "reference": {
+        "id": "b11",
+        "title": "Reliability and validity of comprehensive health status measures in children: the Child Health Questionnaire in relation to the Health Utilities Index",
+        "authors": [
+          {
+            "firstName": "H",
+            "middleName": "",
+            "lastName": "Raat",
+            "rawName": "HRaat"
+          },
+          {
+            "firstName": "G",
+            "middleName": "J",
+            "lastName": "Bonsel",
+            "rawName": "GJBonsel"
+          },
+          {
+            "firstName": "M",
+            "middleName": "L",
+            "lastName": "Essink-Bot",
+            "rawName": "MLEssink-Bot"
+          },
+          {
+            "firstName": "J",
+            "middleName": "M",
+            "lastName": "Landgraf",
+            "rawName": "JMLandgraf"
+          },
+          {
+            "firstName": "R",
+            "middleName": "J",
+            "lastName": "Gemke",
+            "rawName": "RJGemke"
+          }
+        ],
+        "date": "",
+        "journal": "Journal of Clinical Epidemiology",
+        "volume": "55",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "H. Raat, G. J. Bonsel, M. L. Essink-Bot, J. M. Landgraf, and R. J. Gemke, \"Reliability and validity of comprehensive health sta- tus measures in children: the Child Health Questionnaire in relation to the Health Utilities Index,\" Journal of Clinical Epi- demiology, vol. 55, no. 1, pp. 67-76, 2002."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[12,",
+          "surroundingText": "Usually, the mathematical treatment is to make a linear combination of the original P indexes as a new comprehensive index [12,13].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b11"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b12",
+        "title": "A study on the comprehensive indicator of indoor environment assessment for occupants' health in Taiwan",
+        "authors": [
+          {
+            "firstName": "C",
+            "middleName": "M",
+            "lastName": "Chiang",
+            "rawName": "CMChiang"
+          },
+          {
+            "firstName": "C",
+            "middleName": "M",
+            "lastName": "Lai",
+            "rawName": "CMLai"
+          }
+        ],
+        "date": "",
+        "journal": "Building and Environment",
+        "volume": "37",
+        "issue": "4",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "C. M. Chiang and C. M. Lai, \"A study on the comprehensive indicator of indoor environment assessment for occupants' health in Taiwan,\" Building and Environment, vol. 37, no. 4, pp. 387-392, 2002."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "13]",
+          "surroundingText": "Usually, the mathematical treatment is to make a linear combination of the original P indexes as a new comprehensive index [12,13].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b12"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b13",
+        "title": "A graph-convolutional neural network model for the prediction of chemical reactivity",
+        "authors": [
+          {
+            "firstName": "C",
+            "middleName": "W",
+            "lastName": "Coley",
+            "rawName": "CWColey"
+          },
+          {
+            "firstName": "W",
+            "middleName": "",
+            "lastName": "Jin",
+            "rawName": "WJin"
+          },
+          {
+            "firstName": "L",
+            "middleName": "",
+            "lastName": "Rogers",
+            "rawName": "LRogers"
+          }
+        ],
+        "date": "",
+        "journal": "Chemical Science",
+        "volume": "10",
+        "issue": "2",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "C. W. Coley, W. Jin, L. Rogers et al., \"A graph-convolutional neural network model for the prediction of chemical reactiv- ity,\" Chemical Science, vol. 10, no. 2, pp. 370-377, 2019."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[14]",
+          "surroundingText": "PCA is the simplest method to analyze multivariate statistical distribution with eigenvectors [14].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b13"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b14",
+        "title": "Smart connected electronic gastroscope system for gastric cancer screening using multi-column convolutional neural networks",
+        "authors": [
+          {
+            "firstName": "H",
+            "middleName": "",
+            "lastName": "Wang",
+            "rawName": "HWang"
+          },
+          {
+            "firstName": "S",
+            "middleName": "",
+            "lastName": "Ding",
+            "rawName": "SDing"
+          },
+          {
+            "firstName": "D",
+            "middleName": "",
+            "lastName": "Wu",
+            "rawName": "DWu"
+          },
+          {
+            "firstName": "Y",
+            "middleName": "",
+            "lastName": "Zhang",
+            "rawName": "YZhang"
+          },
+          {
+            "firstName": "S",
+            "middleName": "",
+            "lastName": "Yang",
+            "rawName": "SYang"
+          }
+        ],
+        "date": "",
+        "journal": "International Journal of Production Research",
+        "volume": "57",
+        "issue": "21",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "H. Wang, S. Ding, D. Wu, Y. Zhang, and S. Yang, \"Smart con- nected electronic gastroscope system for gastric cancer screen- ing using multi-column convolutional neural networks,\" International Journal of Production Research, vol. 57, no. 21, pp. 6795-6806, 2019."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[15]",
+          "surroundingText": "[15] proposed the method of PCA for background modeling for the first time.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b14"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b15",
+        "title": "How deep should be the depth of convolutional neural networks: a backyard dog case study",
+        "authors": [
+          {
+            "firstName": "A",
+            "middleName": "N",
+            "lastName": "Gorban",
+            "rawName": "ANGorban"
+          },
+          {
+            "firstName": "E",
+            "middleName": "M",
+            "lastName": "Mirkes",
+            "rawName": "EMMirkes"
+          },
+          {
+            "firstName": "I",
+            "middleName": "Y",
+            "lastName": "Tyukin",
+            "rawName": "IYTyukin"
+          }
+        ],
+        "date": "",
+        "journal": "Cognitive Computation",
+        "volume": "12",
+        "issue": "2",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "A. N. Gorban, E. M. Mirkes, and I. Y. Tyukin, \"How deep should be the depth of convolutional neural networks: a back- yard dog case study,\" Cognitive Computation, vol. 12, no. 2, pp. 388-397, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[16]",
+          "surroundingText": "The linear function constructed by PCA conforms to the original characteristics [16].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b15"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b16",
+        "title": "Iterative PET image reconstruction using convolutional neural network representation",
+        "authors": [
+          {
+            "firstName": "K",
+            "middleName": "",
+            "lastName": "Gong",
+            "rawName": "KGong"
+          },
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Guan",
+            "rawName": "JGuan"
+          },
+          {
+            "firstName": "K",
+            "middleName": "",
+            "lastName": "Kim",
+            "rawName": "KKim"
+          }
+        ],
+        "date": "",
+        "journal": "IEEE Transactions on Medical Imaging",
+        "volume": "38",
+        "issue": "3",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "K. Gong, J. Guan, K. Kim et al., \"Iterative PET image reconstruc- tion using convolutional neural network representation,\" IEEE Transactions on Medical Imaging, vol. 38, no. 3, pp. 675-685, 2019."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[17]",
+          "surroundingText": "The basic process of linear transformation is equivalent to the rotation and translation of the coordinate system [17].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b16"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b17",
+        "title": "Lake level prediction using feed forward and recurrent neural networks",
+        "authors": [
+          {
+            "firstName": "B",
+            "middleName": "",
+            "lastName": "Hrnjica",
+            "rawName": "BHrnjica"
+          },
+          {
+            "firstName": "O",
+            "middleName": "",
+            "lastName": "Bonacci",
+            "rawName": "OBonacci"
+          }
+        ],
+        "date": "",
+        "journal": "Water Resources Management",
+        "volume": "33",
+        "issue": "7",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "B. Hrnjica and O. Bonacci, \"Lake level prediction using feed forward and recurrent neural networks,\" Water Resources Management, vol. 33, no. 7, pp. 2471-2484, 2019."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[18]",
+          "surroundingText": "Governments in various countries have begun to pay attention to national health, and the international community is also looking for a global health promotion strategy, which puts \"health issues\" on the agenda [18].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b17"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b18",
+        "title": "694: continuous risk of infection prediction using recurrent neural networks in a pediatric ICU",
+        "authors": [
+          {
+            "firstName": "I",
+            "middleName": "",
+            "lastName": "Obeso",
+            "rawName": "IObeso"
+          },
+          {
+            "firstName": "D",
+            "middleName": "",
+            "lastName": "Ledbetter",
+            "rawName": "DLedbetter"
+          },
+          {
+            "firstName": "M",
+            "middleName": "",
+            "lastName": "Aczon",
+            "rawName": "MAczon"
+          },
+          {
+            "firstName": "E",
+            "middleName": "",
+            "lastName": "Laksana",
+            "rawName": "ELaksana"
+          },
+          {
+            "firstName": "M",
+            "middleName": "",
+            "lastName": "Wintner",
+            "rawName": "MWintner"
+          },
+          {
+            "firstName": "R",
+            "middleName": "",
+            "lastName": "Wetzel",
+            "rawName": "RWetzel"
+          }
+        ],
+        "date": "",
+        "journal": "Critical Care Medicine",
+        "volume": "49",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "I. Obeso, D. Ledbetter, M. Aczon, E. Laksana, M. Wintner, and R. Wetzel, \"694: continuous risk of infection prediction using recurrent neural networks in a pediatric ICU,\" Critical Care Medicine, vol. 49, no. 1, pp. 342-342, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[19]",
+          "surroundingText": "Enhancing the physical fitness of students is the main purpose and task of school physical education [19].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b18"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b19",
+        "title": "Disambiguating Arabic words according to their historical appearance in the document based on recurrent neural networks",
+        "authors": [
+          {
+            "firstName": "R",
+            "middleName": "",
+            "lastName": "Laatar",
+            "rawName": "RLaatar"
+          },
+          {
+            "firstName": "C",
+            "middleName": "",
+            "lastName": "Aloulou",
+            "rawName": "CAloulou"
+          },
+          {
+            "firstName": "L",
+            "middleName": "H",
+            "lastName": "Belguith",
+            "rawName": "LHBelguith"
+          }
+        ],
+        "date": "",
+        "journal": "ACM Transactions on Asian and Low-Resource Language Information Processing",
+        "volume": "19",
+        "issue": "6",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "R. Laatar, C. Aloulou, and L. H. Belguith, \"Disambiguating Arabic words according to their historical appearance in the document based on recurrent neural networks,\" ACM Trans- actions on Asian and Low-Resource Language Information Processing, vol. 19, no. 6, pp. 1-16, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[20]",
+          "surroundingText": "Therefore, only the health of students is an important prerequisite for improving academic performance and cultivating crosscentury talents [20].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b19"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b20",
+        "title": "Prediction of creaky speech by recurrent neural networks using psychoacoustic roughness",
+        "authors": [
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Villegas",
+            "rawName": "JVillegas"
+          },
+          {
+            "firstName": "K",
+            "middleName": "",
+            "lastName": "Markov",
+            "rawName": "KMarkov"
+          },
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Perkins",
+            "rawName": "JPerkins"
+          },
+          {
+            "firstName": "S",
+            "middleName": "J",
+            "lastName": "Lee",
+            "rawName": "SJLee"
+          }
+        ],
+        "date": "",
+        "journal": "IEEE Journal of Selected Topics in Signal Processing",
+        "volume": "14",
+        "issue": "2",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "J. Villegas, K. Markov, J. Perkins, and S. J. Lee, \"Prediction of creaky speech by recurrent neural networks using psycho- acoustic roughness,\" IEEE Journal of Selected Topics in Signal Processing, vol. 14, no. 2, pp. 355-366, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[21]",
+          "surroundingText": "This is very important for evaluating student performance [21].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b20"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b21",
+        "title": "Cost sensitive active learning using bidirectional gated recurrent neural networks for imbalanced fault diagnosis",
+        "authors": [
+          {
+            "firstName": "P",
+            "middleName": "A",
+            "lastName": "Peng",
+            "rawName": "PAPeng"
+          },
+          {
+            "firstName": "W",
+            "middleName": "",
+            "lastName": "Zhang",
+            "rawName": "WZhang"
+          },
+          {
+            "firstName": "Y",
+            "middleName": "",
+            "lastName": "Zhang",
+            "rawName": "YZhang"
+          },
+          {
+            "firstName": "Y",
+            "middleName": "",
+            "lastName": "Xu",
+            "rawName": "YXu"
+          },
+          {
+            "firstName": "H",
+            "middleName": "",
+            "lastName": "Wang",
+            "rawName": "HWang"
+          },
+          {
+            "firstName": "H",
+            "middleName": "",
+            "lastName": "Zhang",
+            "rawName": "HZhang"
+          }
+        ],
+        "date": "",
+        "journal": "Neurocomputing",
+        "volume": "407",
+        "issue": "",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "P. A. Peng, W. Zhang, Y. Zhang, Y. Xu, H. Wang, and H. Zhang, \"Cost sensitive active learning using bidirectional gated recurrent neural networks for imbalanced fault diagno- sis,\" Neurocomputing, vol. 407, pp. 232-245, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[22]",
+          "surroundingText": "[22] put forward the concept of receptive field for the first time through the study of cat visual cortex cells.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b21"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b22",
+        "title": "Low-dimensional manifolds support multiplexed integrations in recurrent neural networks",
+        "authors": [
+          {
+            "firstName": "A",
+            "middleName": "",
+            "lastName": "Fanthomme",
+            "rawName": "AFanthomme"
+          },
+          {
+            "firstName": "R",
+            "middleName": "",
+            "lastName": "Monasson",
+            "rawName": "RMonasson"
+          }
+        ],
+        "date": "",
+        "journal": "Neural Computation",
+        "volume": "33",
+        "issue": "4",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "A. Fanthomme and R. Monasson, \"Low-dimensional manifolds support multiplexed integrations in recurrent neural networks,\" Neural Computation, vol. 33, no. 4, pp. 1063-1112, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[23]",
+          "surroundingText": "Based on the concept of the receptive field, Fanthomme and Monasson [23] proposed the neurocognitive machine.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b22"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b23",
+        "title": "Exploration of the principal component analysis (PCA) approach in synthesizing the diet quality of the Malaysian population",
+        "authors": [
+          {
+            "firstName": "A",
+            "middleName": "",
+            "lastName": "Ali",
+            "rawName": "AAli"
+          },
+          {
+            "firstName": "B",
+            "middleName": "M",
+            "lastName": "Margetts",
+            "rawName": "BMMargetts"
+          },
+          {
+            "firstName": "A",
+            "middleName": "A",
+            "lastName": "Zainuddin",
+            "rawName": "AAZainuddin"
+          }
+        ],
+        "date": "",
+        "journal": "Nutrients",
+        "volume": "13",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "A. Ali, B. M. Margetts, and A. A. Zainuddin, \"Exploration of the principal component analysis (PCA) approach in synthe- sizing the diet quality of the Malaysian population,\" Nutrients, vol. 13, no. 1, p. 70, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[24]",
+          "surroundingText": "CNN is built on the basis of a cognitive machine [24].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b23"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b24",
+        "title": "Tensor robust principal component analysis with a new tensor nuclear norm",
+        "authors": [
+          {
+            "firstName": "C",
+            "middleName": "",
+            "lastName": "Lu",
+            "rawName": "CLu"
+          },
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Feng",
+            "rawName": "JFeng"
+          },
+          {
+            "firstName": "Y",
+            "middleName": "",
+            "lastName": "Chen",
+            "rawName": "YChen"
+          },
+          {
+            "firstName": "W",
+            "middleName": "",
+            "lastName": "Liu",
+            "rawName": "WLiu"
+          },
+          {
+            "firstName": "Z",
+            "middleName": "",
+            "lastName": "Lin",
+            "rawName": "ZLin"
+          },
+          {
+            "firstName": "S",
+            "middleName": "",
+            "lastName": "Yan",
+            "rawName": "SYan"
+          }
+        ],
+        "date": "",
+        "journal": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+        "volume": "42",
+        "issue": "4",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "C. Lu, J. Feng, Y. Chen, W. Liu, Z. Lin, and S. Yan, \"Tensor robust principal component analysis with a new tensor nuclear norm,\" IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 42, no. 4, pp. 925-938, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[25]",
+          "surroundingText": "[25] proposed the lenet-5 model structure based on CNN, which pushed the research of convolutional neural networks to a climax.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b24"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b25",
+        "title": "Principal component analysis of avian hind limb and foot morphometrics and the relationship between ecology and phylogeny",
+        "authors": [
+          {
+            "firstName": "A",
+            "middleName": "R",
+            "lastName": "Falk",
+            "rawName": "ARFalk"
+          },
+          {
+            "firstName": "J",
+            "middleName": "C",
+            "lastName": "Lamsdell",
+            "rawName": "JCLamsdell"
+          },
+          {
+            "firstName": "E",
+            "middleName": "",
+            "lastName": "Gong",
+            "rawName": "EGong"
+          }
+        ],
+        "date": "",
+        "journal": "Paleobiology",
+        "volume": "47",
+        "issue": "2",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "A. R. Falk, J. C. Lamsdell, and E. Gong, \"Principal component analysis of avian hind limb and foot morphometrics and the relationship between ecology and phylogeny,\" Paleobiology, vol. 47, no. 2, pp. 314-336, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[26]",
+          "surroundingText": "[26] proposed a new face detection method based on CNN in the literature, which has good robustness to various facial patterns and certain rotation angles and shows that this recognition system does not need expensive preprocessing steps [27].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b25"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b26",
+        "title": "Functional principal component analysis: a robust method for time-series phenotypic data",
+        "authors": [
+          {
+            "firstName": "Y",
+            "middleName": "",
+            "lastName": "Yu",
+            "rawName": "YYu"
+          }
+        ],
+        "date": "",
+        "journal": "Plant Physiology",
+        "volume": "183",
+        "issue": "4",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "Y. Yu, \"Functional principal component analysis: a robust method for time-series phenotypic data,\" Plant Physiology, vol. 183, no. 4, pp. 1422-1423, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[27]",
+          "surroundingText": "[26] proposed a new face detection method based on CNN in the literature, which has good robustness to various facial patterns and certain rotation angles and shows that this recognition system does not need expensive preprocessing steps [27].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b26"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b27",
+        "title": "Online robust principal component analysis with change point detection",
+        "authors": [
+          {
+            "firstName": "W",
+            "middleName": "",
+            "lastName": "Xiao",
+            "rawName": "WXiao"
+          },
+          {
+            "firstName": "X",
+            "middleName": "",
+            "lastName": "Huang",
+            "rawName": "XHuang"
+          },
+          {
+            "firstName": "F",
+            "middleName": "",
+            "lastName": "He",
+            "rawName": "FHe"
+          },
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Silva",
+            "rawName": "JSilva"
+          },
+          {
+            "firstName": "S",
+            "middleName": "",
+            "lastName": "Emrani",
+            "rawName": "SEmrani"
+          },
+          {
+            "firstName": "A",
+            "middleName": "",
+            "lastName": "Chaudhuri",
+            "rawName": "AChaudhuri"
+          }
+        ],
+        "date": "",
+        "journal": "IEEE Transactions on Multimedia",
+        "volume": "22",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "W. Xiao, X. Huang, F. He, J. Silva, S. Emrani, and A. Chaudhuri, \"Online robust principal component analysis with change point detection,\" IEEE Transactions on Multime- dia, vol. 22, no. 1, pp. 59-68, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[28]",
+          "surroundingText": "[28] applied deep learning to the regression task, considered the robustness of the regression algorithm, and analyzed the robustness of the algorithm.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b27"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b28",
+        "title": "Geometrical approximated principal component analysis for hyperspectral image analysis",
+        "authors": [
+          {
+            "firstName": "A",
+            "middleName": "L",
+            "lastName": "Machidon",
+            "rawName": "ALMachidon"
+          },
+          {
+            "firstName": "F",
+            "middleName": "",
+            "lastName": "Del Frate",
+            "rawName": "FDel Frate"
+          },
+          {
+            "firstName": "M",
+            "middleName": "",
+            "lastName": "Picchiani",
+            "rawName": "MPicchiani"
+          },
+          {
+            "firstName": "O",
+            "middleName": "M",
+            "lastName": "Machidon",
+            "rawName": "OMMachidon"
+          },
+          {
+            "firstName": "P",
+            "middleName": "L",
+            "lastName": "Ogrutan",
+            "rawName": "PLOgrutan"
+          }
+        ],
+        "date": "",
+        "journal": "Remote Sensing",
+        "volume": "12",
+        "issue": "11",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "A. L. Machidon, F. del Frate, M. Picchiani, O. M. Machidon, and P. L. Ogrutan, \"Geometrical approximated principal com- ponent analysis for hyperspectral image analysis,\" Remote Sensing, vol. 12, no. 11, p. 1698, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[29]",
+          "surroundingText": "According to the relationship between hidden layer and error, a network depth determination method based on reconstruction error was proposed [29].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b28"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b29",
+        "title": "Background subtraction in dynamic scenes using the dynamic principal component analysis",
+        "authors": [
+          {
+            "firstName": "A",
+            "middleName": "",
+            "lastName": "Djerida",
+            "rawName": "ADjerida"
+          },
+          {
+            "firstName": "Z",
+            "middleName": "",
+            "lastName": "Zhao",
+            "rawName": "ZZhao"
+          },
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Zhao",
+            "rawName": "JZhao"
+          }
+        ],
+        "date": "",
+        "journal": "IET Image Processing",
+        "volume": "14",
+        "issue": "2",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "A. Djerida, Z. Zhao, and J. Zhao, \"Background subtraction in dynamic scenes using the dynamic principal component anal- ysis,\" IET Image Processing, vol. 14, no. 2, pp. 245-255, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[30]",
+          "surroundingText": "Principal component analysis (PCA) is a comprehensive statistical method, which transforms complex highdimensional data into low-dimensional principal components [30].",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b29"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b30",
+        "title": "Wireless Communications and Mobile Computing",
+        "authors": [],
+        "date": "",
+        "journal": "",
+        "volume": "",
+        "issue": "",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "Wireless Communications and Mobile Computing"
+      },
+      "usageContexts": []
+    },
+    {
+      "reference": {
+        "id": "b31",
+        "title": "Assessment of water quality using principal component analysis: a case study of the Marrecas stream basin in Brazil",
+        "authors": [
+          {
+            "firstName": "A",
+            "middleName": "T",
+            "lastName": "De Souza",
+            "rawName": "ATDe Souza"
+          },
+          {
+            "firstName": "L",
+            "middleName": "A T X",
+            "lastName": "Carneiro",
+            "rawName": "LA T XCarneiro"
+          },
+          {
+            "firstName": "O",
+            "middleName": "P",
+            "lastName": "Da Silva Junior",
+            "rawName": "OPDa Silva Junior"
+          },
+          {
+            "firstName": "S",
+            "middleName": "L",
+            "lastName": "De Carvalho",
+            "rawName": "SLDe Carvalho"
+          },
+          {
+            "firstName": "J",
+            "middleName": "H P",
+            "lastName": "Américo-Pinheiro",
+            "rawName": "JH PAmérico-Pinheiro"
+          }
+        ],
+        "date": "",
+        "journal": "Environmental Technology",
+        "volume": "42",
+        "issue": "14",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "A. T. de Souza, L. A. T. X. Carneiro, O. P. da Silva Junior, S. L. de Carvalho, and J. H. P. Américo-Pinheiro, \"Assessment of water quality using principal component analysis: a case study of the Marrecas stream basin in Brazil,\" Environmental Tech- nology, vol. 42, no. 14, pp. 1-21, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[31]",
+          "surroundingText": "In his book, Shang [31] used this method to predict the overall power consumption demand in Australia; Mallord and others [32] used the PCA method to explore the changes of the human force curve and conducted functional principal component analysis on the human force curve to analyze the main factors affecting human fatigue.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b31"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b32",
+        "title": "Grasshopper optimization algorithm with principal component analysis for global optimization",
+        "authors": [
+          {
+            "firstName": "X",
+            "middleName": "",
+            "lastName": "Yue",
+            "rawName": "XYue"
+          },
+          {
+            "firstName": "H",
+            "middleName": "",
+            "lastName": "Zhang",
+            "rawName": "HZhang"
+          }
+        ],
+        "date": "",
+        "journal": "The Journal of Supercomputing",
+        "volume": "76",
+        "issue": "3",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "X. Yue and H. Zhang, \"Grasshopper optimization algorithm with principal component analysis for global optimization,\" The Journal of Supercomputing, vol. 76, no. 3, pp. 1-27, 2020."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[32]",
+          "surroundingText": "In his book, Shang [31] used this method to predict the overall power consumption demand in Australia; Mallord and others [32] used the PCA method to explore the changes of the human force curve and conducted functional principal component analysis on the human force curve to analyze the main factors affecting human fatigue.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b32"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b33",
+        "title": "Polynomial fitting algorithm based on neural network",
+        "authors": [
+          {
+            "firstName": "Y",
+            "middleName": "",
+            "lastName": "Tong",
+            "rawName": "YTong"
+          },
+          {
+            "firstName": "L",
+            "middleName": "",
+            "lastName": "Yu",
+            "rawName": "LYu"
+          },
+          {
+            "firstName": "S",
+            "middleName": "",
+            "lastName": "Li",
+            "rawName": "SLi"
+          },
+          {
+            "firstName": "J",
+            "middleName": "",
+            "lastName": "Liu",
+            "rawName": "JLiu"
+          },
+          {
+            "firstName": "H",
+            "middleName": "",
+            "lastName": "Qin",
+            "rawName": "HQin"
+          },
+          {
+            "firstName": "W",
+            "middleName": "",
+            "lastName": "Li",
+            "rawName": "WLi"
+          }
+        ],
+        "date": "",
+        "journal": "ASP Transactions on Pattern Recognition and Intelligent Systems",
+        "volume": "1",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "Y. Tong, L. Yu, S. Li, J. Liu, H. Qin, and W. Li, \"Polynomial fit- ting algorithm based on neural network,\" ASP Transactions on Pattern Recognition and Intelligent Systems, vol. 1, no. 1, pp. 32-39, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[33]",
+          "surroundingText": "The neural network [33][34][35] uses local connection and weight sharing to reduce the number of parameters and the computational complexity of the network.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b33"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b34",
+        "title": "LGCN: learnable Gabor convolution network for human gender recognition in the wild",
+        "authors": [
+          {
+            "firstName": "P",
+            "middleName": "",
+            "lastName": "Chen",
+            "rawName": "PChen"
+          },
+          {
+            "firstName": "W",
+            "middleName": "",
+            "lastName": "Li",
+            "rawName": "WLi"
+          },
+          {
+            "firstName": "L",
+            "middleName": "",
+            "lastName": "Sun",
+            "rawName": "LSun"
+          },
+          {
+            "firstName": "X",
+            "middleName": "",
+            "lastName": "Ning",
+            "rawName": "XNing"
+          },
+          {
+            "firstName": "L",
+            "middleName": "",
+            "lastName": "Yu",
+            "rawName": "LYu"
+          },
+          {
+            "firstName": "L",
+            "middleName": "",
+            "lastName": "Zhang",
+            "rawName": "LZhang"
+          }
+        ],
+        "date": "",
+        "journal": "IEICE Transactions on Information and Systems",
+        "volume": "102",
+        "issue": "10",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "P. Chen, W. Li, L. Sun, X. Ning, L. Yu, and L. Zhang, \"LGCN: learnable Gabor convolution network for human gender rec- ognition in the wild,\" IEICE Transactions on Information and Systems, vol. 102, no. 10, pp. 2067-2071, 2019."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[34]",
+          "surroundingText": "The neural network [33][34][35] uses local connection and weight sharing to reduce the number of parameters and the computational complexity of the network.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b34"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b35",
+        "title": "Robotic grasp detection using a novel two-stage approach",
+        "authors": [
+          {
+            "firstName": "Z",
+            "middleName": "",
+            "lastName": "Chu",
+            "rawName": "ZChu"
+          },
+          {
+            "firstName": "M",
+            "middleName": "",
+            "lastName": "Hu",
+            "rawName": "MHu"
+          },
+          {
+            "firstName": "X",
+            "middleName": "",
+            "lastName": "Chen",
+            "rawName": "XChen"
+          }
+        ],
+        "date": "",
+        "journal": "ASP Transactions on Internet of Things",
+        "volume": "1",
+        "issue": "1",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "",
+        "rawText": "Z. Chu, M. Hu, and X. Chen, \"Robotic grasp detection using a novel two-stage approach,\" ASP Transactions on Internet of Things, vol. 1, no. 1, pp. 19-29, 2021."
+      },
+      "usageContexts": [
+        {
+          "id": "",
+          "text": "[35]",
+          "surroundingText": "The neural network [33][34][35] uses local connection and weight sharing to reduce the number of parameters and the computational complexity of the network.",
+          "position": {
+            "page": 1
+          },
+          "referenceIds": [
+            "b35"
+          ]
+        }
+      ]
+    },
+    {
+      "reference": {
+        "id": "b36",
+        "title": "Wireless Communications and Mobile Computing 6302",
+        "authors": [],
+        "date": "",
+        "journal": "",
+        "volume": "",
+        "issue": "",
+        "pages": {
+          "start": "",
+          "end": ""
+        },
+        "doi": "10.1155/2021/2438656byTest",
+        "rawText": "Wireless Communications and Mobile Computing 6302, 2021, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1155/2021/2438656 by Test, Wiley Online Library on [21/03/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License"
+      },
+      "usageContexts": []
+    }
+  ]
+}
