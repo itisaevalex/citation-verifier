@@ -169,12 +169,6 @@ Our roadmap includes:
 4. Browser extension for real-time citation verification while reading papers
 5. API access for third-party integration
 
-## 👥 Team
-
-- [Team Member 1] - Machine Learning Engineering
-- [Team Member 2] - Full-Stack Development
-- [Team Member 3] - Natural Language Processing
-- [Team Member 4] - Academic Research
 
 ## 📜 License
 
@@ -182,4 +176,4 @@ This project is proprietary software. See the [LICENSE](LICENSE) file for detail
 
 ---
 
-Built with ❤️ for the integrity of science at [Hackathon Name] 2025
+Built with ❤️ for the integrity of science at GenAI Genesis 2025
