@@ -56,23 +56,50 @@ app.post('/process-document-local', upload.single('file'), (req, res) => {
     
     // Try to find the references JSON file
     const referencesFilePath = `${pdfPath.replace('.pdf', '')}-references.json`;
-    const verificationFilePath = `${pdfPath.replace('.pdf', '')}-verification.json`;
+    const verificationFilePath = `${pdfPath.replace('.pdf', '')}-verification-report.json`;
+    
+    console.log(`Looking for references file at: ${referencesFilePath}`);
+    console.log(`Looking for verification report at: ${verificationFilePath}`);
     
     try {
       // Read the references file
       let references = [];
       if (fs.existsSync(referencesFilePath)) {
+        console.log('Found references file, parsing...');
         references = JSON.parse(fs.readFileSync(referencesFilePath, 'utf8'));
+        console.log(`Parsed ${references.length} references`);
+      } else {
+        console.log('References file not found');
       }
       
       // Read the verification report if it exists
       let verificationReport = null;
       if (fs.existsSync(verificationFilePath)) {
+        console.log('Found verification report file, parsing...');
         verificationReport = JSON.parse(fs.readFileSync(verificationFilePath, 'utf8'));
+        console.log('Verification report summary:');
+        console.log(`- Total citations: ${verificationReport.totalCitationsChecked}`);
+        console.log(`- Verified: ${verificationReport.verifiedCitations}`);
+        console.log(`- Unverified: ${verificationReport.unverifiedCitations}`);
+        console.log(`- Inconclusive: ${verificationReport.inconclusiveCitations}`);
+        console.log(`- Missing refs: ${verificationReport.missingReferences || 0}`);
+        
+        if (verificationReport.citations) {
+          console.log(`- Citations array length: ${verificationReport.citations.length}`);
+          // Log the first few citations as a sample
+          console.log('First 3 citations sample:');
+          for (let i = 0; i < Math.min(3, verificationReport.citations.length); i++) {
+            console.log(`  Citation ${i}: referenceIndex=${verificationReport.citations[i].referenceIndex}, verified=${verificationReport.citations[i].verified}`);
+          }
+        } else {
+          console.log('No citations array found in verification report');
+        }
+      } else {
+        console.log('Verification report file not found');
       }
       
       // Return the results
-      res.json({
+      const responseData = {
         references,
         verificationReport: verificationReport || {
           documentTitle: path.basename(pdfPath, '.pdf'),
@@ -82,7 +109,10 @@ app.post('/process-document-local', upload.single('file'), (req, res) => {
           inconclusiveCitations: references.length,
           missingReferences: 0
         }
-      });
+      };
+      
+      console.log('Sending response to client');
+      res.json(responseData);
       
       // Clean up the temporary files
       // fs.unlinkSync(pdfPath);

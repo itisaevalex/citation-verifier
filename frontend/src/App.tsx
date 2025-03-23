@@ -316,8 +316,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-paper-50">
-      <header className="border-b bg-white/80 backdrop-blur-sm w-full">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <header className="bg-white shadow">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <button
             onClick={resetAnalysis}
             className="flex items-center gap-2"
@@ -325,11 +325,11 @@ function App() {
             <div className="w-8 h-8 bg-gradient-to-r from-ink-light to-ink rounded-lg flex items-center justify-center">
               <FileCheck className="w-5 h-5 text-paper-50" />
             </div>
-            <span className="text-lg font-semibold text-ink">Reference Checker</span>
+            <span className="text-lg font-semibold text-ink">TruthSource</span>
           </button>
           <button 
             onClick={() => setTestingMode(!testingMode)}
-            className={`flex items-center px-3 py-2 rounded-lg ml-3 ${testingMode ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+            className={`flex items-center px-3 py-2 rounded-lg ${testingMode ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-700'}`}
           >
             <Beaker className="mr-1 h-4 w-4" />
             Testing{testingMode ? " Mode" : ""}

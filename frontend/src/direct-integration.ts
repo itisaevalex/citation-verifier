@@ -45,19 +45,67 @@ function convertBackendResultsToFrontend(backendResults: any, filename: string):
   references: Reference[],
   verificationReport: VerificationReport
 } {
+  console.log('Converting backend results to frontend format', backendResults);
+  console.log('Backend verification report:', backendResults.verificationReport);
+  
   // Extract reference data from backend results
-  const references: Reference[] = (backendResults.references || []).map((ref: any, index: number) => ({
-    id: String(index + 1),
-    title: ref.title || 'Unknown Title',
-    authors: Array.isArray(ref.authors) ? ref.authors.join(', ') : (ref.authors || 'Unknown Authors'),
-    year: ref.year || 'Unknown Year',
-    link: ref.doi ? `https://doi.org/${ref.doi}` : (ref.url || '#'),
-    status: ref.verified === true ? 'valid' : (ref.verified === false ? 'invalid' : 'uncertain'),
-    context: Array.isArray(ref.contexts) ? 
-      ref.contexts.map((ctx: any) => ctx.text || ctx).join(' [...] ') : 
-      (ref.context || ''),
-    details: ref.details || []
-  }));
+  const references: Reference[] = (backendResults.references || []).map((ref: any, index: number) => {
+    // If we have a verification report, look up the citation status
+    let status = 'uncertain';
+    
+    // Check if we have a verification report with results array (correct structure)
+    if (backendResults.verificationReport && Array.isArray(backendResults.verificationReport.results)) {
+      console.log(`Looking for verification result for reference ${index} with title "${ref.title}"`);
+      
+      // Match by reference title instead of index
+      const result = backendResults.verificationReport.results.find((r: any) => 
+        r.referenceTitle === ref.title);
+      
+      if (result) {
+        console.log(`Found verification result:`, result);
+        status = result.isVerified === true ? 'valid' : 
+                (result.isVerified === false ? 'invalid' : 'uncertain');
+        console.log(`Mapped status: ${status}`);
+      } else {
+        console.log(`No verification result found for reference "${ref.title}"`);
+      }
+    } 
+    // Legacy format - check if the report has a citations array
+    else if (backendResults.verificationReport && Array.isArray(backendResults.verificationReport.citations)) {
+      console.log(`Checking citation status for reference index ${index}`);
+      const citation = backendResults.verificationReport.citations.find((c: any) => c.referenceIndex === index);
+      if (citation) {
+        console.log(`Found citation for reference ${index}:`, citation);
+        status = citation.verified === true ? 'valid' : 
+                (citation.verified === false ? 'invalid' : 'uncertain');
+        console.log(`Mapped status: ${status}`);
+      } else {
+        console.log(`No citation found for reference ${index}`);
+      }
+    } 
+    // Direct property on the reference object
+    else if (ref.verified !== undefined) {
+      console.log(`Using reference verified property for ${index}: ${ref.verified}`);
+      status = ref.verified === true ? 'valid' : 
+              (ref.verified === false ? 'invalid' : 'uncertain');
+      console.log(`Mapped status: ${status}`);
+    } else {
+      console.log(`No verification info found for reference ${index}, using default status: ${status}`);
+    }
+    
+    return {
+      id: String(index + 1),
+      title: ref.title || 'Unknown Title',
+      authors: Array.isArray(ref.authors) ? ref.authors.join(', ') : (ref.authors || 'Unknown Authors'),
+      year: ref.year || 'Unknown Year',
+      link: ref.doi ? `https://doi.org/${ref.doi}` : (ref.url || '#'),
+      status: status,
+      context: Array.isArray(ref.contexts) ? 
+        ref.contexts.map((ctx: any) => ctx.text || ctx).join(' [...] ') : 
+        (ref.context || ''),
+      details: ref.details || []
+    };
+  });
   
   // Use the verification report from the backend or create a default one
   const verificationReport: VerificationReport = backendResults.verificationReport || {
