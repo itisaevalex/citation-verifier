@@ -1,60 +1,48 @@
 import type { Reference, VerificationReport } from './types';
 
+// For SSE connection in browser
+let sseClients: { [id: string]: any } = {};
+
 /**
  * Process a document directly using the backend citation verification logic
- * This bypasses the API and uses the backend code directly through our local server
+ * @param file The file to process 
+ * @param progressCallback Optional callback to receive progress updates
  */
-export async function processDocumentDirect(file: File): Promise<{
+export async function processDocumentDirect(file: File, progressCallback?: (progress: any) => void): Promise<{
   references: Reference[],
-  verificationReport: VerificationReport
+  verificationReport: VerificationReport,
+  unsubscribe?: () => void
 }> {
+  const formData = new FormData();
+  formData.append('file', file);
+  
   try {
-    console.log('Direct integration: Processing document', file.name);
+    console.log('Processing document directly, file:', file.name);
     
-    // In browser environment, we need to send the document to our local API endpoint
-    // that bridges to the backend verification code
-    console.log('Using local backend server bridge');
-    
-    // Log file information for debugging
-    console.log('File size:', file.size, 'bytes');
-    console.log('File type:', file.type);
-    
-    // Create a FormData object to send the file
-    const formData = new FormData();
-    
-    try {
-      // Read file as ArrayBuffer first to ensure binary data is preserved
-      const arrayBuffer = await file.arrayBuffer();
-      console.log('Read file as ArrayBuffer, size:', arrayBuffer.byteLength);
-      
-      // Force the correct MIME type by creating a new Blob with explicit PDF type
-      const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
-      console.log('Created PDF Blob with forced mime type, size:', blob.size);
-      
-      // Create a new File object with the correct MIME type to be extra safe
-      const pdfFile = new File([blob], file.name, { type: 'application/pdf' });
-      console.log('Created PDF File with forced mime type, type:', pdfFile.type);
-      
-      // Append the reconstructed file to FormData
-      formData.append('document', pdfFile);
-    } catch (error) {
-      console.error('Error preparing file for upload:', error);
-      throw new Error(`Failed to prepare file for upload: ${error instanceof Error ? error.message : String(error)}`);
-    }
-    
-    // Call our local Express.js server endpoint
     const response = await fetch('/api/process-document-local', {
       method: 'POST',
       body: formData
     });
     
+    // Handle non-OK responses
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Local API error: ${response.status} ${response.statusText}. ${errorText}`);
+      throw new Error(`Failed to process document: ${errorText}`);
     }
     
     const results = await response.json();
-    return convertBackendResultsToFrontend(results, file.name);
+    
+    // Subscribe to server-sent events for real-time progress updates if callback provided
+    let unsubscribe: (() => void) | undefined;
+    if (progressCallback && results.sessionId) {
+      unsubscribe = subscribeToProgressUpdates(results.sessionId, progressCallback);
+    }
+    
+    return {
+      references: convertBackendResultsToFrontend(results, file.name).references,
+      verificationReport: convertBackendResultsToFrontend(results, file.name).verificationReport,
+      unsubscribe
+    };
   } catch (error) {
     console.error('Direct integration error:', error);
     throw error;
@@ -142,6 +130,40 @@ function convertBackendResultsToFrontend(backendResults: any, filename: string):
   };
   
   return { references, verificationReport };
+}
+
+/**
+ * Subscribe to server-sent events for real-time progress updates
+ * 
+ * @param sessionId The unique session ID for this verification process
+ * @param callback Function to call with progress updates
+ * @returns A function to unsubscribe from events
+ */
+export function subscribeToProgressUpdates(sessionId: string, callback: (progress: any) => void): () => void {
+  const eventSource = new EventSource(`/api/verification-progress/${sessionId}`);
+  
+  eventSource.onmessage = (event) => {
+    try {
+      const data = JSON.parse(event.data);
+      callback(data);
+    } catch (error) {
+      console.error('Error parsing SSE data:', error);
+    }
+  };
+  
+  eventSource.onerror = (error) => {
+    console.error('SSE connection error:', error);
+    eventSource.close();
+  };
+  
+  // Store the event source for cleanup
+  sseClients[sessionId] = eventSource;
+  
+  // Return unsubscribe function
+  return () => {
+    eventSource.close();
+    delete sseClients[sessionId];
+  };
 }
 
 /**

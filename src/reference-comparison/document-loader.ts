@@ -21,6 +21,8 @@ export interface Document {
  */
 export class DocumentLoader {
   private documentsDir: string;
+  private indexPath: string;
+  private indexCache: any = null;
   
   /**
    * Creates a new DocumentLoader
@@ -28,6 +30,8 @@ export class DocumentLoader {
    */
   constructor(documentsDir: string = path.join(process.cwd(), 'src', 'document-database')) {
     this.documentsDir = documentsDir;
+    this.indexPath = path.join(this.documentsDir, 'index.json');
+    
     // Ensure the documents directory exists
     if (!fs.existsSync(this.documentsDir)) {
       fs.mkdirSync(this.documentsDir, { recursive: true });
@@ -52,11 +56,20 @@ export class DocumentLoader {
         }
       }
       
-      // If no DOI match, try to find by title
+      // If no DOI match, try to find by exact title
       if (reference.title) {
+        // First try exact title match
+        const exactTitleDoc = this.findDocumentByExactTitle(reference.title);
+        if (exactTitleDoc) {
+          results.push(exactTitleDoc);
+          return results; // Exact title match should be sufficient
+        }
+        
+        // Then try title-based fuzzy matching
         const titleBasedDocs = this.findDocumentsByTitle(reference.title);
         if (titleBasedDocs.length > 0) {
           results.push(...titleBasedDocs);
+          return results;
         }
       }
       
@@ -81,6 +94,12 @@ export class DocumentLoader {
    */
   async findMatchingDocuments(title: string): Promise<Document[]> {
     // First try exact title match
+    const exactTitleDoc = this.findDocumentByExactTitle(title);
+    if (exactTitleDoc) {
+      return [exactTitleDoc];
+    }
+    
+    // Then try title-based search
     const exactMatches = this.findDocumentsByTitle(title);
     
     if (exactMatches.length > 0) {
@@ -100,6 +119,55 @@ export class DocumentLoader {
   }
   
   /**
+   * Get index data from cache or load it from disk
+   * @returns The document index or null if not found
+   */
+  private getIndex(): any {
+    // Return cached index if available
+    if (this.indexCache) {
+      return this.indexCache;
+    }
+    
+    try {
+      if (fs.existsSync(this.indexPath)) {
+        const indexData = JSON.parse(fs.readFileSync(this.indexPath, 'utf-8'));
+        this.indexCache = indexData;
+        return indexData;
+      }
+    } catch (error) {
+      console.error('Error reading index file:', error);
+    }
+    
+    return null;
+  }
+  
+  /**
+   * Find a document by its exact title using the byTitle index
+   * @param title The exact title to search for
+   * @returns The document or null if not found
+   */
+  private findDocumentByExactTitle(title: string): Document | null {
+    const index = this.getIndex();
+    
+    if (index && index.byTitle) {
+      // First try exact match
+      if (index.byTitle[title]) {
+        return this.loadDocument(index.byTitle[title]);
+      }
+      
+      // Try case-insensitive match
+      const titleLower = title.trim().toLowerCase();
+      for (const [indexedTitle, docPath] of Object.entries(index.byTitle)) {
+        if (indexedTitle.toLowerCase() === titleLower) {
+          return this.loadDocument(docPath as string);
+        }
+      }
+    }
+    
+    return null;
+  }
+  
+  /**
    * Find a document by its DOI
    * @param doi The DOI to search for
    * @returns The matching document or null if not found
@@ -110,26 +178,26 @@ export class DocumentLoader {
     
     try {
       // Check the document index
-      const indexPath = path.join(this.documentsDir, 'index.json');
-      if (fs.existsSync(indexPath)) {
-        const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-        
-        if (index.byDoi && index.byDoi[normalizedDoi]) {
-          const docPath = index.byDoi[normalizedDoi];
-          return this.loadDocument(docPath);
-        }
+      const index = this.getIndex();
+      
+      if (index && index.byDoi && index.byDoi[normalizedDoi]) {
+        const docPath = index.byDoi[normalizedDoi];
+        return this.loadDocument(docPath);
       }
       
       // If not in index, scan all documents
-      const files = fs.readdirSync(this.documentsDir);
-      
-      for (const file of files) {
-        if (file.endsWith('.json') && file !== 'index.json') {
-          const docPath = path.join(this.documentsDir, file);
-          const doc = this.loadDocument(docPath);
-          
-          if (doc && doc.doi && doc.doi.toLowerCase().trim() === normalizedDoi) {
-            return doc;
+      const documentsDir = path.join(this.documentsDir, 'documents');
+      if (fs.existsSync(documentsDir)) {
+        const files = fs.readdirSync(documentsDir);
+        
+        for (const file of files) {
+          if (file.endsWith('.json')) {
+            const docPath = path.join(documentsDir, file);
+            const doc = this.loadDocument(docPath);
+            
+            if (doc && doc.doi && doc.doi.toLowerCase().trim() === normalizedDoi) {
+              return doc;
+            }
           }
         }
       }
@@ -151,42 +219,42 @@ export class DocumentLoader {
     
     try {
       // Check the document index
-      const indexPath = path.join(this.documentsDir, 'index.json');
-      if (fs.existsSync(indexPath)) {
-        const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
+      const index = this.getIndex();
+      
+      if (index && index.byTitleWords) {
+        // Look for potential matches based on title words
+        const titleWords = normalizedTitle.split(' ').filter(w => w.length > 3);
+        const potentialMatches = new Set<string>();
         
-        if (index.byTitleWords) {
-          // Look for potential matches based on title words
-          const titleWords = normalizedTitle.split(' ').filter(w => w.length > 3);
-          const potentialMatches = new Set<string>();
-          
-          for (const word of titleWords) {
-            if (index.byTitleWords[word]) {
-              index.byTitleWords[word].forEach((docPath: string) => potentialMatches.add(docPath));
-            }
+        for (const word of titleWords) {
+          if (index.byTitleWords[word]) {
+            index.byTitleWords[word].forEach((docPath: string) => potentialMatches.add(docPath));
           }
-          
-          // Check if any potential matches have similar titles
-          for (const docPath of potentialMatches) {
-            const doc = this.loadDocument(docPath);
-            if (doc && this.isTitleSimilar(doc.title, title)) {
-              results.push(doc);
-            }
+        }
+        
+        // Check if any potential matches have similar titles
+        for (const docPath of potentialMatches) {
+          const doc = this.loadDocument(docPath);
+          if (doc && this.isTitleSimilar(doc.title, title)) {
+            results.push(doc);
           }
         }
       }
       
       // If not in index or no matches, scan all documents
       if (results.length === 0) {
-        const files = fs.readdirSync(this.documentsDir);
-        
-        for (const file of files) {
-          if (file.endsWith('.json') && file !== 'index.json') {
-            const docPath = path.join(this.documentsDir, file);
-            const doc = this.loadDocument(docPath);
-            
-            if (doc && this.isTitleSimilar(doc.title, title)) {
-              results.push(doc);
+        const documentsDir = path.join(this.documentsDir, 'documents');
+        if (fs.existsSync(documentsDir)) {
+          const files = fs.readdirSync(documentsDir);
+          
+          for (const file of files) {
+            if (file.endsWith('.json')) {
+              const docPath = path.join(documentsDir, file);
+              const doc = this.loadDocument(docPath);
+              
+              if (doc && this.isTitleSimilar(doc.title, title)) {
+                results.push(doc);
+              }
             }
           }
         }
@@ -209,34 +277,34 @@ export class DocumentLoader {
     
     try {
       // Check the document index
-      const indexPath = path.join(this.documentsDir, 'index.json');
-      if (fs.existsSync(indexPath)) {
-        const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
+      const index = this.getIndex();
+      
+      if (index && index.byYear && index.byYear[year]) {
+        // Get all documents from that year
+        const docsFromYear = index.byYear[year];
         
-        if (index.byYear && index.byYear[year]) {
-          // Get all documents from that year
-          const docsFromYear = index.byYear[year];
-          
-          for (const docPath of docsFromYear) {
-            const doc = this.loadDocument(docPath);
-            if (doc && this.hasCommonAuthors(doc.authors, authors)) {
-              results.push(doc);
-            }
+        for (const docPath of docsFromYear) {
+          const doc = this.loadDocument(docPath);
+          if (doc && this.hasCommonAuthors(doc.authors, authors)) {
+            results.push(doc);
           }
         }
       }
       
       // If not in index or no matches, scan all documents
       if (results.length === 0) {
-        const files = fs.readdirSync(this.documentsDir);
-        
-        for (const file of files) {
-          if (file.endsWith('.json') && file !== 'index.json') {
-            const docPath = path.join(this.documentsDir, file);
-            const doc = this.loadDocument(docPath);
-            
-            if (doc && doc.year === year && this.hasCommonAuthors(doc.authors, authors)) {
-              results.push(doc);
+        const documentsDir = path.join(this.documentsDir, 'documents');
+        if (fs.existsSync(documentsDir)) {
+          const files = fs.readdirSync(documentsDir);
+          
+          for (const file of files) {
+            if (file.endsWith('.json')) {
+              const docPath = path.join(documentsDir, file);
+              const doc = this.loadDocument(docPath);
+              
+              if (doc && doc.year === year && this.hasCommonAuthors(doc.authors, authors)) {
+                results.push(doc);
+              }
             }
           }
         }
@@ -361,7 +429,6 @@ export class DocumentLoader {
     
     // Direct match after aggressive normalization
     if (normalizedTitle1 === normalizedTitle2) {
-      console.log(`Title match found: "${title1}" matches "${title2}"`);
       return true;
     }
     
@@ -374,7 +441,6 @@ export class DocumentLoader {
     
     // Check for substring match
     if (simpleNormalizedTitle1.includes(simpleNormalizedTitle2) || simpleNormalizedTitle2.includes(simpleNormalizedTitle1)) {
-      console.log(`Substring match found: "${title1}" contains or is contained by "${title2}"`);
       return true;
     }
     
@@ -394,7 +460,6 @@ export class DocumentLoader {
     const similarityRatio = minWords > 0 ? commonWords / minWords : 0;
     
     if (similarityRatio >= 0.7) {
-      console.log(`Word overlap match found: "${title1}" and "${title2}" have ${similarityRatio.toFixed(2)} similarity`);
       return true;
     }
     
@@ -442,11 +507,17 @@ export class DocumentLoader {
 
   private getAllDocuments(): Document[] {
     const results: Document[] = [];
-    const files = fs.readdirSync(this.documentsDir);
+    const documentsDir = path.join(this.documentsDir, 'documents');
+    
+    if (!fs.existsSync(documentsDir)) {
+      return results;
+    }
+    
+    const files = fs.readdirSync(documentsDir);
     
     for (const file of files) {
-      if (file.endsWith('.json') && file !== 'index.json') {
-        const docPath = path.join(this.documentsDir, file);
+      if (file.endsWith('.json')) {
+        const docPath = path.join(documentsDir, file);
         const doc = this.loadDocument(docPath);
         
         if (doc) {

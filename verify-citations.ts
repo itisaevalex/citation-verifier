@@ -2,7 +2,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { ReferenceExtractor } from './src/reference-extraction';
-import { CitationVerifier, VerificationOptions } from './src/reference-comparison';
+import { CitationVerifier, VerificationOptions, VerificationProgress, Reference as VerifierReference } from './src/reference-comparison';
 import { DocumentDatabase } from './src/document-database/index';
 import { config, MissingReferenceHandling, validateConfig } from './src/config';
 import { Command } from 'commander';
@@ -19,6 +19,35 @@ const COMMANDS = {
   PROCESS: 'process', 
   HELP: 'help'
 };
+
+/**
+ * Write progress information to a file for real-time tracking
+ * @param sessionId Unique session ID for the verification process
+ * @param progress Progress data to write
+ */
+function writeProgressToFile(sessionId: string, progress: VerificationProgress): void {
+  if (!sessionId) return;
+  
+  const tempDir = path.join(__dirname, 'temp');
+  
+  // Ensure temp directory exists
+  if (!fs.existsSync(tempDir)) {
+    fs.mkdirSync(tempDir, { recursive: true });
+  }
+  
+  const progressFilePath = path.join(tempDir, `progress-${sessionId}.json`);
+  
+  try {
+    fs.writeFileSync(progressFilePath, JSON.stringify(progress, null, 2));
+    if (progress.status === 'processing') {
+      console.log(`Progress updated: Processing reference ${progress.currentIndex + 1}/${progress.totalReferences}`);
+    } else {
+      console.log(`Progress updated: ${progress.status}`);
+    }
+  } catch (error) {
+    console.error('Error writing progress file:', error);
+  }
+}
 
 /**
  * Print usage information
@@ -58,8 +87,8 @@ Examples:
 function setupProgram() {
   program
     .name('verify-citations')
-    .description('Citation Verification Tool')
-    .version('0.1.0');
+    .description('Citation verification tool')
+    .version('1.0.0');
 
   // Process command
   program
@@ -69,6 +98,7 @@ function setupProgram() {
     .option('--missing-ref-handling <mode>', 'How to handle missing references (log, skip, prompt, fetch)', config.missingRefHandling)
     .option('--api-key <key>', 'Google API key for Gemini')
     .option('--verbose', 'Enable verbose output')
+    .option('--session-id <id>', 'Unique session ID for progress tracking')
     .option('--confidence-threshold <number>', 'Confidence threshold (0-1) for verification', '0.7')
     .action(async (pdfPath, options) => {
       try {
@@ -238,97 +268,197 @@ async function main() {
  * @param options Command options
  */
 async function processDocument(args: string[], options: any = {}) {
-  if (args.length === 0) {
-    console.error('Error: Missing PDF path');
-    printUsage();
-    return;
-  }
-  
   const pdfPath = args[0];
+  const verbose = options.verbose || false;
+  const sessionId = options.sessionId || '';
   
-  if (!fs.existsSync(pdfPath)) {
-    console.error(`Error: PDF file not found at ${pdfPath}`);
-    return;
+  if (verbose) {
+    console.log('Processing document with options:', options);
   }
   
-  console.log('=== Citation Verification Workflow ===');
-  console.log(`Processing document: ${pdfPath}`);
-  
-  // Step 1: Check if GROBID service is running
-  const extractor = new ReferenceExtractor(config.grobidUrl);
-  console.log('\n📋 Step 1: Checking GROBID service...');
-  const isGrobidAlive = await extractor.checkService();
-  
-  if (!isGrobidAlive) {
-    console.error('❌ GROBID service is not running. Please start GROBID and try again.');
-    console.error('GROBID can be started with: docker run -t --rm -p 8070:8070 grobid/grobid:0.8.1');
-    return;
+  // Update missing reference handling if specified
+  if (options.missingRefHandling) {
+    config.missingRefHandling = options.missingRefHandling as MissingReferenceHandling;
   }
   
-  console.log('✅ GROBID service is running');
-  
-  // Step 2: Extract references and citation contexts
-  console.log('\n📋 Step 2: Extracting references and citation contexts...');
-  const enhancedReferences = await extractor.extractReferencesWithContext(pdfPath);
-  
-  // Save the references
-  const outputDir = path.dirname(pdfPath);
-  const referencesPath = path.join(outputDir, `${path.basename(pdfPath, '.pdf')}-references.json`);
-  fs.writeFileSync(referencesPath, JSON.stringify(enhancedReferences, null, 2));
-  
-  console.log(`✅ Extracted ${enhancedReferences.length} references`);
-  console.log(`✅ References saved to: ${referencesPath}`);
-  
-  // Step 3: Verify citations against the document database
-  console.log('\n📋 Step 3: Verifying citations against document database...');
-  
-  // Get document title from PDF file name
-  const documentTitle = path.basename(pdfPath, '.pdf');
-  
-  // Parse verification options
-  const verificationOptions: VerificationOptions = {
-    missingRefHandling: (options.missingRefHandling as MissingReferenceHandling) || config.missingRefHandling,
-    confidenceThreshold: parseFloat(options.confidenceThreshold || '0.7'),
-    verbose: options.verbose || false,
-    saveIntermediateResults: true
-  };
-  
-  // Create verifier
-  const documentDatabaseDir = config.documentDbPath;
-  const verifier = new CitationVerifier(documentDatabaseDir, verificationOptions);
-  
-  // Verify all citations
-  const report = await verifier.verifyAllCitations(enhancedReferences, documentTitle);
-  
-  // Save the verification report
-  const reportPath = path.join(outputDir, `${documentTitle}-verification-report.json`);
-  fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
-  
-  // Step 4: Display verification summary
-  console.log('\n📋 Step 4: Citation verification summary');
-  
-  // Calculate verification metrics
-  const verificationRate = Math.round(report.verifiedCitations / report.totalCitationsChecked * 100) || 0;
-  const unverifiedRate = Math.round(report.unverifiedCitations / report.totalCitationsChecked * 100) || 0;
-  const inconclusiveRate = Math.round(report.inconclusiveCitations / report.totalCitationsChecked * 100) || 0;
-  
-  console.log(`Total citations: ${report.totalCitationsChecked}`);
-  console.log(`Verified: ${report.verifiedCitations} (${verificationRate}%)`);
-  console.log(`Unverified: ${report.unverifiedCitations} (${unverifiedRate}%)`);
-  console.log(`Inconclusive: ${report.inconclusiveCitations} (${inconclusiveRate}%)`);
-  console.log(`Missing References: ${report.missingReferences || 0}`);
-  console.log(`\n✅ Full verification report saved to: ${reportPath}`);
-  
-  // Display potential next steps
-  console.log('\nNext Steps:');
-  console.log('- Review the verification report for details on each citation');
-  console.log('- Add missing reference documents to the database to improve verification rate');
-  if (report.missingReferences > 0) {
-    console.log('- Check the fetch list for missing references that need to be added');
+  // Update API key if specified
+  if (options.apiKey) {
+    config.googleApiKey = options.apiKey;
   }
-  console.log('- Run with `--verbose` flag for detailed citation context analysis');
   
-  return report;
+  // Update confidence threshold if specified
+  const confidenceThreshold = options.confidenceThreshold ? 
+    parseFloat(options.confidenceThreshold) : 0.7;
+  
+  if (verbose) {
+    console.log(`Extracting references from: ${pdfPath}`);
+  }
+  
+  // Send initial progress update
+  if (sessionId) {
+    writeProgressToFile(sessionId, {
+      currentReference: 'Starting document processing',
+      currentIndex: 0,
+      totalReferences: 0,
+      processedReferences: [] as VerifierReference[],
+      status: 'processing'
+    });
+  }
+  
+  try {
+    // 1. Extract references and citation contexts from PDF
+    if (verbose) console.log('Step 1: Extracting references and citation contexts...');
+    
+    const extractor = new ReferenceExtractor();
+    
+    // Check the GROBID service first
+    if (verbose) console.log('Checking GROBID service...');
+    const serviceAvailable = await extractor.checkService();
+    if (!serviceAvailable) {
+      console.error('ERROR: GROBID service is not running. Please start it first.');
+      
+      // Send error progress update
+      if (sessionId) {
+        writeProgressToFile(sessionId, {
+          currentReference: 'Error: GROBID service not available',
+          currentIndex: 0,
+          totalReferences: 0,
+          processedReferences: [] as VerifierReference[],
+          status: 'error',
+          error: 'GROBID service is not running'
+        });
+      }
+      
+      return;
+    }
+    
+    // Update progress
+    if (sessionId) {
+      writeProgressToFile(sessionId, {
+        currentReference: 'Extracting references from document',
+        currentIndex: 0,
+        totalReferences: 0,
+        processedReferences: [] as VerifierReference[],
+        status: 'processing'
+      });
+    }
+    
+    const enhancedRefs = await extractor.extractReferencesWithContext(pdfPath);
+    
+    if (verbose) {
+      console.log(`Extracted ${enhancedRefs.length} references with citation contexts`);
+    }
+    
+    // Write extracted references to file
+    const outputDir = options.outputDir || path.dirname(pdfPath);
+    const fileNameWithoutExt = path.basename(pdfPath, '.pdf');
+    const referencesPath = path.join(outputDir, `${fileNameWithoutExt}-references.json`);
+    
+    fs.writeFileSync(referencesPath, JSON.stringify(enhancedRefs, null, 2));
+    
+    if (verbose) {
+      console.log(`Reference data saved to: ${referencesPath}`);
+    }
+    
+    // 2. Verify citations against the document database
+    if (verbose) console.log('\nStep 2: Verifying citations against document database...');
+    
+    // Create verification options from command line options
+    const verificationOptions: VerificationOptions = {
+      missingRefHandling: config.missingRefHandling,
+      confidenceThreshold,
+      verbose,
+      saveIntermediateResults: true
+    };
+    
+    // Create progress callback function if we have a session ID
+    const progressCallback = sessionId ? 
+      (progress: VerificationProgress) => writeProgressToFile(sessionId, progress) : 
+      undefined;
+    
+    // Create verifier with progress callback
+    const verifier = new CitationVerifier(
+      config.documentDbPath, 
+      verificationOptions,
+      progressCallback
+    );
+    
+    // Get document title from file name
+    const documentTitle = path.basename(pdfPath, '.pdf').replace(/-/g, ' ').replace(/_/g, ' ');
+    
+    // Verify all citations
+    const report = await verifier.verifyAllCitations(enhancedRefs, documentTitle);
+    
+    if (verbose) {
+      console.log('\nVerification complete!');
+      console.log(`Verified: ${report.verifiedCitations}, Unverified: ${report.unverifiedCitations}, Inconclusive: ${report.inconclusiveCitations}`);
+      console.log(`Missing references: ${report.missingReferences}`);
+    }
+    
+    // Write verification report to file
+    const reportPath = path.join(outputDir, `${fileNameWithoutExt}-verification-report.json`);
+    fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
+    
+    if (verbose) {
+      console.log(`Verification report saved to: ${reportPath}`);
+    }
+    
+    // 3. Generate reference list with verification status for frontend
+    const references = enhancedRefs.map((ref, index) => {
+      const result = report.results[index];
+      return {
+        id: `ref-${index + 1}`,
+        title: ref.title,
+        authors: ref.authors,
+        year: ref.year || '',
+        status: result.isVerified ? 'valid' as const : 
+                (result.confidenceScore < 0 ? 'uncertain' as const : 'invalid' as const),
+        link: ref.doi ? `https://doi.org/${ref.doi}` : '#'
+      };
+    });
+    
+    // Create a json file for the references with statuses for the frontend
+    const frontendRefsPath = path.join(outputDir, `${fileNameWithoutExt}-frontend-references.json`);
+    fs.writeFileSync(frontendRefsPath, JSON.stringify({ references }, null, 2));
+    
+    if (verbose) {
+      console.log(`Frontend references saved to: ${frontendRefsPath}`);
+    }
+    
+    // Print the output in JSON format for the server to parse (at the end)
+    console.log(JSON.stringify({ references, report }));
+    
+    // Send final progress update
+    if (sessionId) {
+      writeProgressToFile(sessionId, {
+        currentReference: 'Completed',
+        currentIndex: enhancedRefs.length,
+        totalReferences: enhancedRefs.length,
+        processedReferences: references.map(ref => ({
+          id: ref.id,
+          title: ref.title,
+          status: ref.status as 'valid' | 'invalid' | 'uncertain',
+          link: ref.link
+        } as VerifierReference)),
+        status: 'completed'
+      });
+    }
+    
+  } catch (error) {
+    console.error('Error processing document:', error);
+    
+    // Send error progress update
+    if (sessionId) {
+      writeProgressToFile(sessionId, {
+        currentReference: 'Error processing document',
+        currentIndex: 0,
+        totalReferences: 0,
+        processedReferences: [] as VerifierReference[],
+        status: 'error',
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  }
 }
 
 /**
@@ -354,12 +484,11 @@ async function extractReferences(args: string[], options: any = {}) {
   console.log('=== Extracting References with Enhanced Context ===');
   
   // Check GROBID service
-  const extractor = new ReferenceExtractor(config.grobidUrl);
+  const extractor = new ReferenceExtractor();
   console.log('Checking GROBID service...');
-  const isGrobidAlive = await extractor.checkService();
-  
-  if (!isGrobidAlive) {
-    console.error('Error: GROBID service is not running. Please start GROBID and try again.');
+  const serviceAvailable = await extractor.checkService();
+  if (!serviceAvailable) {
+    console.error('Error: GROBID service is not running. Please start it first.');
     console.error('GROBID can be started with: docker run -t --rm -p 8070:8070 grobid/grobid:0.8.1');
     return;
   }

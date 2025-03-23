@@ -335,13 +335,18 @@ app.use((req, res, next) => {
 });
 
 // Enable Server-Sent Events for progress updates
-const clients = [];
+const clients = {};
+const sessionsProgress = {};
 
-// Function to send SSE updates to all connected clients
-function sendProgressUpdate(data) {
-  clients.forEach(client => {
-    client.res.write(`data: ${JSON.stringify(data)}\n\n`);
-  });
+// Function to send SSE updates to clients for a specific session
+function sendProgressUpdate(sessionId, data) {
+  if (clients[sessionId]) {
+    clients[sessionId].forEach(client => {
+      client.write(`data: ${JSON.stringify(data)}\n\n`);
+    });
+  }
+  // Store the latest progress data for this session
+  sessionsProgress[sessionId] = data;
 }
 
 // API prefix middleware
@@ -454,7 +459,7 @@ app.use('/api', express.Router()
     const missingReferences = verifiedReferences.filter(ref => ref.status === 'missing').length;
     
     // Send SSE update for completion
-    sendProgressUpdate({
+    sendProgressUpdate('verification', {
       event: 'verification_completed',
       data: {
         stats: {
@@ -520,11 +525,12 @@ app.use('/api', express.Router()
       res
     };
     
-    clients.push(newClient);
+    clients['verification'] = clients['verification'] || [];
+    clients['verification'].push(newClient);
     
     req.on('close', () => {
       console.log(`Client ${clientId} disconnected`);
-      clients.splice(clients.findIndex(client => client.id === clientId), 1);
+      clients['verification'] = clients['verification'].filter(client => client.id !== clientId);
     });
   })
   // API endpoint to process a document
@@ -534,124 +540,143 @@ app.use('/api', express.Router()
         return res.status(400).json({ error: 'No document uploaded' });
       }
       
-      console.log(`Processing document: ${req.file.path}`);
-      console.log(`File details: size=${req.file.size} bytes, mimetype=${req.file.mimetype}, originalname=${req.file.originalname}`);
+      console.log('Document uploaded successfully');
+      console.log('File:', req.file);
       
-      // Check file size - warn if suspiciously small
-      if (req.file.size < 10000) { // 10KB is very small for a real PDF
-        console.log(`Warning: File size (${req.file.size} bytes) seems too small for a PDF document`);
-      }
+      // Create a unique session ID for this verification process
+      const sessionId = Date.now().toString();
       
-      // Log detailed file stats
-      const stats = fs.statSync(req.file.path);
-      console.log(`File stats: size=${stats.size} bytes, created=${stats.birthtime}, modified=${stats.mtime}`);
+      // We will return this ID to the client for SSE connection
+      const responseData = {
+        success: true,
+        message: 'Document received for processing',
+        sessionId: sessionId
+      };
       
-      // Check if file is actually a PDF by examining the header
-      const fileHandle = await fs.promises.open(req.file.path, 'r');
-      const buffer = Buffer.alloc(8); // Read first 8 bytes
-      await fileHandle.read(buffer, 0, 8, 0);
-      await fileHandle.close();
+      // Send the initial response right away
+      res.status(200).json(responseData);
       
-      const isPDF = buffer.toString().startsWith('%PDF-');
-      console.log(`File header check: isPDF=${isPDF}, header=${buffer.toString('hex')}`);
+      // Then execute the verification process asynchronously
+      const documentPath = req.file.path;
+      console.log(`Processing document at path: ${documentPath}`);
       
-      if (!isPDF) {
-        // Attempt to recover the file if it's not a valid PDF
-        console.log('File does not appear to be a valid PDF. Attempting to repair...');
-        
-        // If the file starts with '<!DOC', it's likely an HTML file incorrectly labeled as PDF
-        if (buffer.toString().startsWith('<!DOC')) {
-          console.log('Detected HTML content instead of PDF. This is likely a browser upload issue.');
-          return res.status(400).json({ 
-            error: 'The uploaded file contains HTML instead of PDF data. This is likely a browser compatibility issue.',
-            suggestion: 'Please try using a different browser or our test-upload.html page at /test-upload'
-          });
+      // Modified command to include the session ID for tracking
+      const command = `npx ts-node verify-citations.ts process "${documentPath}" --session-id=${sessionId} --verbose`;
+      console.log(`Executing command: ${command}`);
+      
+      // Set up progress reporting
+      const fs = require('fs');
+      const path = require('path');
+      const progressFilePath = path.join(__dirname, 'temp', `progress-${sessionId}.json`);
+      
+      // Create a watcher for the progress file
+      const progressWatcher = setInterval(() => {
+        if (fs.existsSync(progressFilePath)) {
+          try {
+            const progressData = JSON.parse(fs.readFileSync(progressFilePath, 'utf8'));
+            sendProgressUpdate(sessionId, progressData);
+            
+            // If process is complete, clean up
+            if (progressData.status === 'completed' || progressData.status === 'error') {
+              clearInterval(progressWatcher);
+              // Keep the file for a bit then delete it
+              setTimeout(() => {
+                try {
+                  if (fs.existsSync(progressFilePath)) {
+                    fs.unlinkSync(progressFilePath);
+                  }
+                } catch (e) {
+                  console.error(`Error deleting progress file: ${e.message}`);
+                }
+              }, 60000);
+            }
+          } catch (error) {
+            console.error(`Error reading progress file: ${error.message}`);
+          }
         }
+      }, 500); // Check every 500ms
+      
+      // Execute the verify-citations command
+      exec(command, { maxBuffer: 1024 * 1024 * 10 }, (error, stdout, stderr) => {
+        // Command has completed (this is after all processing)
+        console.log('Command execution complete');
         
-        return res.status(400).json({ error: 'The uploaded file is not a valid PDF' });
-      }
-      
-      // Extract references and citation contexts from the PDF    
-      // Use the command-line approach for processing the document
-      console.log(`Executing command: npx ts-node verify-citations.ts process "${req.file.path}" --verbose`);
-      
-      // Check the file size and validity
-      console.log(`File size: ${stats.size} bytes`);
-      
-      if (stats.size === 0) {
-        return res.status(400).json({
-          error: 'Empty file uploaded',
-          details: 'The uploaded file has 0 bytes. Please check that you selected a valid PDF.'
-        });
-      }
-      
-      const { exec } = require('child_process');
-      exec(`npx ts-node verify-citations.ts process "${req.file.path}" --verbose`, (error, stdout, stderr) => {
+        // Clear the progress watcher if still running
+        clearInterval(progressWatcher);
+        
         if (error) {
           console.error('Error executing command:', error);
           console.error('Command output:', stdout);
           console.error('Command errors:', stderr);
           
-          // Try to determine the source of the error
-          if (stdout.includes('GROBID service is not running') || stderr.includes('GROBID service is not running')) {
-            return res.status(500).json({
-              error: 'GROBID service is not running',
-              details: 'Please start GROBID with: docker run -t --rm -p 8070:8070 grobid/grobid:0.8.1'
-            });
-          } else if (stdout.includes('Error: Request failed with status code 500') || stderr.includes('Error: Request failed with status code 500')) {
-            return res.status(500).json({
-              error: 'GROBID processing failed',
-              details: 'There was an error processing the document with GROBID. Check if the PDF is valid and if GROBID is running correctly.'
-            });
-          } else {
-            return res.status(500).json({
-              error: 'Failed to process document',
-              details: error.message
-            });
-          }
+          // Send final error update
+          sendProgressUpdate(sessionId, {
+            status: 'error',
+            error: error.message,
+            currentIndex: 0,
+            totalReferences: 0,
+            processedReferences: []
+          });
+          
+          return;
         }
         
+        console.log('Command executed successfully');
+        
+        // Parse the output to extract the references and verification results
         try {
-          // Get the output file paths
-          const fileNameWithoutExt = path.basename(req.file.path, '.pdf');
-          const outputPath = path.dirname(req.file.path);
-          const referencesPath = path.join(outputPath, `${fileNameWithoutExt}-references.json`);
-          const reportPath = path.join(outputPath, `${fileNameWithoutExt}-verification-report.json`);
+          const outputLines = stdout.split('\n');
+          let jsonStart = -1;
           
-          // Check if the output files exist
-          if (!fs.existsSync(referencesPath)) {
-            return res.status(500).json({
-              error: 'References file not generated',
-              details: 'The processing completed but the references file was not found.'
-            });
+          // Find where the JSON output starts
+          for (let i = 0; i < outputLines.length; i++) {
+            if (outputLines[i].trim().startsWith('{')) {
+              jsonStart = i;
+              break;
+            }
           }
           
-          if (!fs.existsSync(reportPath)) {
-            return res.status(500).json({
-              error: 'Verification report not generated',
-              details: 'The processing completed but the verification report file was not found.'
+          if (jsonStart >= 0) {
+            const jsonOutput = outputLines.slice(jsonStart).join('\n');
+            const result = JSON.parse(jsonOutput);
+            
+            // Send final progress update
+            sendProgressUpdate(sessionId, {
+              status: 'completed',
+              currentIndex: result.references.length,
+              totalReferences: result.references.length,
+              processedReferences: result.references.map((ref, idx) => ({
+                id: ref.id || String(idx),
+                title: ref.title,
+                status: ref.status,
+                link: ref.link || '#'
+              }))
+            });
+          } else {
+            console.error('Could not find JSON output in command result');
+            
+            // Send generic completion update
+            sendProgressUpdate(sessionId, {
+              status: 'completed',
+              currentIndex: 0,
+              totalReferences: 0,
+              processedReferences: []
             });
           }
+        } catch (error) {
+          console.error('Error parsing command output:', error);
           
-          // Read the output files
-          const references = JSON.parse(fs.readFileSync(referencesPath, 'utf8'));
-          const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
-          
-          // Return the results
-          res.json({
-            success: true,
-            references,
-            report,
-            output: stdout
-          });
-        } catch (parseError) {
-          console.error('Error parsing output files:', parseError);
-          return res.status(500).json({
-            error: 'Error processing results',
-            details: parseError.message
+          // Send error update
+          sendProgressUpdate(sessionId, {
+            status: 'error',
+            error: 'Failed to parse command output',
+            currentIndex: 0,
+            totalReferences: 0,
+            processedReferences: []
           });
         }
       });
+      
     } catch (error) {
       console.error('Error executing command:', error);
       return res.status(500).json({
@@ -659,6 +684,48 @@ app.use('/api', express.Router()
         details: error.message
       });
     }
+  })
+  // SSE endpoint for verification progress updates
+  .get('/verification-progress/:sessionId', (req, res) => {
+    const sessionId = req.params.sessionId;
+    
+    console.log(`Client connected to SSE for session: ${sessionId}`);
+    
+    // Set headers for SSE
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'X-Accel-Buffering': 'no' // Disable Nginx buffering
+    });
+    
+    // Send initial data if available
+    if (sessionsProgress[sessionId]) {
+      res.write(`data: ${JSON.stringify(sessionsProgress[sessionId])}\n\n`);
+    }
+    
+    // Create client entry for this session
+    if (!clients[sessionId]) {
+      clients[sessionId] = [];
+    }
+    clients[sessionId].push(res);
+    
+    // When client disconnects, remove from clients list
+    req.on('close', () => {
+      console.log(`Client disconnected from SSE for session: ${sessionId}`);
+      clients[sessionId] = clients[sessionId].filter(client => client !== res);
+      
+      // Clean up if no clients left for this session
+      if (clients[sessionId].length === 0) {
+        delete clients[sessionId];
+        // Keep progress data for a while in case client reconnects
+        setTimeout(() => {
+          if (!clients[sessionId]) {
+            delete sessionsProgress[sessionId];
+          }
+        }, 60000); // Keep for 1 minute
+      }
+    });
   })
   // API endpoint to check GROBID service status
   .get('/check-grobid', async (req, res) => {

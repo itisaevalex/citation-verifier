@@ -43,24 +43,50 @@ export interface VerificationOptions {
 }
 
 /**
+ * Interface for tracking verification progress
+ */
+export interface VerificationProgress {
+  currentReference: string;
+  currentIndex: number;
+  totalReferences: number;
+  processedReferences: Reference[];
+  status: 'processing' | 'completed' | 'error';
+  error?: string;
+}
+
+/**
+ * Interface for a processed reference with verification status
+ */
+export interface Reference {
+  id: string;
+  title: string;
+  status: 'valid' | 'invalid' | 'uncertain';
+  link: string;
+}
+
+/**
  * Class for verifying citation accuracy using Google's Generative AI
  */
 export class CitationVerifier {
   private documentLoader: DocumentLoader;
   private genAI: GoogleGenerativeAI;
   private options: VerificationOptions;
+  private progressCallback?: (progress: VerificationProgress) => void;
   
   /**
    * Creates a new CitationVerifier
    * @param documentDatabaseDir Directory where the documents are stored
    * @param options Verification options
+   * @param progressCallback Optional callback for reporting progress
    */
   constructor(
     documentDatabaseDir: string = config.documentDbPath,
-    options: VerificationOptions = {}
+    options: VerificationOptions = {},
+    progressCallback?: (progress: VerificationProgress) => void
   ) {
     this.documentLoader = new DocumentLoader(documentDatabaseDir);
     this.genAI = new GoogleGenerativeAI(config.googleApiKey);
+    this.progressCallback = progressCallback;
     
     // Set default options
     this.options = {
@@ -75,6 +101,14 @@ export class CitationVerifier {
       console.warn('WARNING: No Google/Gemini API key found. Citation verification will be limited.');
       console.warn('Please set GOOGLE_API_KEY or GEMINI_API_KEY in your .env file.');
     }
+  }
+
+  /**
+   * Set a progress callback after initialization
+   * @param callback The progress callback function
+   */
+  setProgressCallback(callback: (progress: VerificationProgress) => void) {
+    this.progressCallback = callback;
   }
   
   /**
@@ -96,8 +130,23 @@ export class CitationVerifier {
     let inconclusiveCount = 0;
     let missingRefCount = 0;
     
-    for (const reference of references) {
+    // Create array to track processed references for progress updates
+    const processedRefs: Reference[] = [];
+    
+    for (let i = 0; i < references.length; i++) {
+      const reference = references[i];
       console.log(`Processing reference: ${reference.title}`);
+      
+      // Report progress before processing this reference
+      if (this.progressCallback) {
+        this.progressCallback({
+          currentReference: reference.title,
+          currentIndex: i,
+          totalReferences: references.length,
+          processedReferences: processedRefs,
+          status: 'processing'
+        });
+      }
       
       // Find matching documents for this reference
       const matchingDocs = await this.documentLoader.findMatchingDocuments(reference.title);
@@ -134,6 +183,26 @@ export class CitationVerifier {
           unverifiedCount++;
         }
       }
+      
+      // Add the processed reference with its verification status
+      processedRefs.push({
+        id: reference.reference?.id || String(i),
+        title: reference.title,
+        status: results[results.length - 1].isVerified ? 'valid' : 
+               (results[results.length - 1].confidenceScore < 0 ? 'uncertain' : 'invalid'),
+        link: reference.doi ? `https://doi.org/${reference.doi}` : '#'
+      });
+      
+      // Report progress after processing this reference
+      if (this.progressCallback) {
+        this.progressCallback({
+          currentReference: reference.title,
+          currentIndex: i + 1,
+          totalReferences: references.length,
+          processedReferences: [...processedRefs],
+          status: 'processing'
+        });
+      }
     }
     
     // Create and return the verification report
@@ -146,6 +215,17 @@ export class CitationVerifier {
       missingReferences: missingRefCount,
       results
     };
+    
+    // Report final progress
+    if (this.progressCallback) {
+      this.progressCallback({
+        currentReference: 'Completed',
+        currentIndex: references.length,
+        totalReferences: references.length,
+        processedReferences: processedRefs,
+        status: 'completed'
+      });
+    }
     
     // Print summary
     console.log(`\nCitation verification complete`);

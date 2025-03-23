@@ -1,0 +1,117 @@
+/* Fade-in animations for analysis components */
+
+/* Main analysis container fade-in */
+.fade-in-analysis {
+  opacity: 0;
+  animation: fadeInAnimation 1s ease-in-out forwards;
+}
+
+/* Animation for the Analysis Assistant section */
+.animate-fade-in {
+  animation: fadeInAnimation 0.8s ease-in-out forwards;
+}
+
+/* Step name text fade-in */
+.fade-in-text {
+  opacity: 0;
+  animation: fadeInAnimation 0.8s ease-in-out forwards;
+  animation-delay: 0.3s;
+}
+
+/* Individual detail points fade-in with staggered delays */
+.fade-in-detail {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in-detail.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Base animation */
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ensure each analysis step has its own delay */
+.chat-message:nth-child(1) .fade-in-text {
+  animation-delay: 0.3s;
+}
+.chat-message:nth-child(2) .fade-in-text {
+  animation-delay: 0.5s;
+}
+.chat-message:nth-child(3) .fade-in-text {
+  animation-delay: 0.7s;
+}
+.chat-message:nth-child(4) .fade-in-text {
+  animation-delay: 0.9s;
+}
+
+/* Existing animation classes - preserved for compatibility */
+.chat-message {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.chat-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Results appearing animation */
+.results-grid-item {
+  opacity: 0;
+  animation: fadeInStaggered 0.8s ease forwards;
+}
+
+.results-grid-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.results-grid-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.results-grid-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.results-grid-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.results-grid-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.issues-list-item {
+  opacity: 0;
+  animation: fadeInStaggered 0.8s ease forwards;
+}
+
+.issues-list-item:nth-child(1) {
+  animation-delay: 0.3s;
+}
+.issues-list-item:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.issues-list-item:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInStaggered {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

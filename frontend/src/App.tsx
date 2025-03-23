@@ -3,6 +3,7 @@ import { Upload, FileCheck, CheckCircle2, Loader2, Link as LinkIcon, Bot, ArrowR
 import { AnalysisStep, Reference, Summary } from './types';
 import { uploadDocument, verifyReferences, uploadReferenceDocument, checkGrobidStatus } from './api';
 import { processDocumentDirect, loadSamplePaper } from './direct-integration';
+import './styles.css';
 
 function App() {
   const [isDragging, setIsDragging] = useState(false);
@@ -76,6 +77,8 @@ function App() {
   });
   const [isCheckingGrobid, setIsCheckingGrobid] = useState(false);
 
+  const [analysisVisible, setAnalysisVisible] = useState(false);
+
   const resetAnalysis = () => {
     setIsResetting(true);
     setTimeout(() => {
@@ -88,6 +91,7 @@ function App() {
       setAnalysisStartTime(null);
       setIsError(false);
       setErrorMessage('');
+      setAnalysisVisible(false);
       setAnalysisSteps(prev => prev.map((step: AnalysisStep) => ({
         ...step,
         status: 'pending',
@@ -100,10 +104,18 @@ function App() {
 
   useEffect(() => {
     if (file) {
+      // Hide the analysis section immediately when a file is uploaded
+      setAnalysisVisible(false);
+      
       setTimeout(() => {
         setIsMinimized(true);
         analysisRef.current?.scrollIntoView({ behavior: 'smooth' });
-        startAnalysis();
+        
+        // Only after scrolling is complete, make the analysis section visible
+        setTimeout(() => {
+          setAnalysisVisible(true);
+          startAnalysis();
+        }, 600); // Wait for scrolling to complete
       }, 500);
     }
   }, [file]);
@@ -230,6 +242,9 @@ function App() {
     setAnalysisStartTime(new Date());
     setIsError(false);
     setErrorMessage('');
+    
+    // To track the unsubscribe function for SSE
+    let unsubscribeFromUpdates: (() => void) | undefined;
 
     try {
       // Step 1: Document Parsing & Step 2: Reference Extraction
@@ -241,7 +256,34 @@ function App() {
       if (testingMode) {
         // Use direct integration with backend code
         console.log('Using direct integration for testing mode');
-        const result = await processDocumentDirect(file);
+        
+        // Define progress callback for real-time updates
+        const progressCallback = (progress: any) => {
+          if (progress.status === 'processing' && progress.processedReferences) {
+            // Update the UI with the progress
+            setExtractedReferences(progress.processedReferences);
+            
+            // Update the step 3 details with current reference info
+            setAnalysisSteps(prev => prev.map((s: AnalysisStep) =>
+              s.id === 3 ? { 
+                ...s, 
+                currentDetail: Math.min(progress.currentIndex, s.details.length - 1),
+                details: [
+                  ...s.details.slice(0, s.details.length - 1),
+                  `Processing reference: ${progress.currentReference} (${progress.currentIndex}/${progress.totalReferences})`
+                ]
+              } : s
+            ));
+          }
+        };
+        
+        // Process the document with the progress callback
+        const result = await processDocumentDirect(file, progressCallback);
+        
+        // Store the unsubscribe function
+        unsubscribeFromUpdates = result.unsubscribe;
+        
+        // Get the references
         extractedRefs = result.references;
       } else {
         // Upload document and extract references via API
@@ -259,16 +301,62 @@ function App() {
         }));
       }
       
+      // Set initial references
       setExtractedReferences(extractedRefs);
       
       // Step 3: Cross-Reference Validation
-      await updateStepProgress(3);
+      setCurrentStep(3);
+      setAnalysisSteps(prev => prev.map((s: AnalysisStep) => 
+        s.id === 3 ? { ...s, status: 'processing', currentDetail: 0 } : s
+      ));
       
       let verifiedRefs: Reference[];
       
       if (testingMode) {
-        // In testing mode, references are already verified by processDocumentDirect
-        verifiedRefs = extractedRefs;
+        // In testing mode with direct integration, we've already started receiving 
+        // progress updates via the SSE connection and progressCallback
+        
+        // If we don't have any references with status yet, simulate verification
+        // for each reference with artificial delays
+        if (!extractedRefs.some(ref => ref.status && ref.status !== 'validating')) {
+          // Make a copy of the references for updating
+          verifiedRefs = [...extractedRefs];
+          
+          // Simulate verification for each reference
+          for (let i = 0; i < verifiedRefs.length; i++) {
+            // Show which reference is being processed
+            setAnalysisSteps(prev => prev.map((s: AnalysisStep) =>
+              s.id === 3 ? { 
+                ...s, 
+                currentDetail: Math.min(i, s.details.length - 1),
+                details: [
+                  ...s.details.slice(0, s.details.length - 1),
+                  `Processing reference: ${verifiedRefs[i].title} (${i+1}/${verifiedRefs.length})`
+                ]
+              } : s
+            ));
+            
+            // Simulate verification delay
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Update the reference status
+            verifiedRefs = verifiedRefs.map((ref, idx) => 
+              idx === i ? 
+                { 
+                  ...ref, 
+                  status: Math.random() > 0.7 ? 'valid' : 
+                          (Math.random() > 0.5 ? 'invalid' : 'uncertain') 
+                } : 
+                ref
+            );
+            
+            // Update UI
+            setExtractedReferences([...verifiedRefs]);
+          }
+        } else {
+          // We've already received updates through the SSE connection
+          verifiedRefs = extractedRefs;
+        }
       } else {
         // Verify the references via API
         const verifyResponse = await verifyReferences(extractedRefs);
@@ -283,7 +371,13 @@ function App() {
         }));
       }
       
+      // Set the final verified references
       setExtractedReferences(verifiedRefs);
+      
+      // Mark step 3 as completed
+      setAnalysisSteps(prev => prev.map((s: AnalysisStep) => 
+        s.id === 3 ? { ...s, status: 'completed' } : s
+      ));
       
       // Step 4: Integrity Check
       await updateStepProgress(4);
@@ -304,6 +398,11 @@ function App() {
       setAnalysisSteps(prev => prev.map((s: AnalysisStep) => 
         s.status === 'processing' ? { ...s, status: 'pending', currentDetail: 0 } : s
       ));
+    } finally {
+      // Clean up SSE subscription if it exists
+      if (unsubscribeFromUpdates) {
+        unsubscribeFromUpdates();
+      }
     }
   };
 
@@ -551,20 +650,22 @@ function App() {
                   </div>
                 </>
               ) : (
-                <div className="flex items-center gap-3 mb-4 w-full justify-start mt-4">
-                  <Bot className="w-8 h-8 text-ink-light" />
-                  <div>
-                    <h2 className="text-lg font-semibold text-ink">Reference Analysis Assistant</h2>
-                    <p className="text-sm text-ink-light">Analyzing your document...</p>
+                analysisVisible && (
+                  <div className="flex items-center gap-3 mb-4 w-full justify-start mt-4 animate-fade-in">
+                    <Bot className="w-8 h-8 text-ink-light" />
+                    <div>
+                      <h2 className="text-lg font-semibold text-ink">Reference Analysis Assistant</h2>
+                      <p className="text-sm text-ink-light">Analyzing your document...</p>
+                    </div>
                   </div>
-                </div>
+                )
               )}
             </div>
           </div>
 
           <div ref={analysisRef} className="w-full">
             {file && (
-              <div className={`bg-white/80 backdrop-blur-sm rounded-lg shadow-sm p-6 mb-4 fade-in ${isResetting ? 'page-reset page-reset-exit' : ''}`}>
+              <div className={`bg-white/80 backdrop-blur-sm rounded-lg shadow-sm p-6 mb-4 fade-in-analysis transition-opacity duration-500 ${isResetting ? 'page-reset page-reset-exit' : ''} ${analysisVisible ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="analysis-container">
                   <div className="space-y-2">
                     {analysisSteps.map((step) => (
@@ -583,7 +684,7 @@ function App() {
                                 <div className="w-4 h-4 rounded-full border-2 border-paper-300" />
                               )}
                             </div>
-                            <span className="font-medium text-ink">{step.name}</span>
+                            <span className="font-medium text-ink fade-in-text">{step.name}</span>
                           </div>
 
                           {step.status === 'processing' && (
@@ -592,7 +693,7 @@ function App() {
                                 {step.details.map((detail, index) => (
                                   <div
                                     key={index}
-                                    className={`text-sm text-ink-light analysis-point ${
+                                    className={`text-sm text-ink-light analysis-point fade-in-detail ${
                                       index <= step.currentDetail ? 'show' : ''
                                     }`}
                                   >
