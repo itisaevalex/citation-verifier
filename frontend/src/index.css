@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-paper: #f8f6f1;
+  --color-ink: #2c353d;
+  --color-accent: #435165;
+}
+
+body {
+  font-family: 'Crimson Pro', serif;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.reference-item {
+  background-color: #fff;
+  border: 1px solid #e5e1d8;
+}
+
+.status-uncertain {
+  @apply text-yellow-600;
+}
+
+/* Analysis animations */
+.chat-message {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.5s ease-out;
+}
+
+.chat-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.analysis-point {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease-out;
+}
+
+.analysis-point.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.completed-point {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Upload section transitions */
+.upload-section {
+  transition: all 0.5s ease-in-out;
+}
+
+.upload-section.minimized {
+  min-height: auto;
+  transform: scale(0.98);
+}
+
+/* Reset animations */
+.page-reset {
+  animation: resetPage 0.3s ease-in-out;
+}
+
+.page-reset-exit {
+  animation: resetPageExit 0.3s ease-in-out;
+}
+
+@keyframes resetPage {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+@keyframes resetPageExit {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in animation */
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Results grid styling */
+.results-grid-item {
+  @apply bg-white/50 backdrop-blur-sm rounded-lg p-4 border border-paper-100;
+}
