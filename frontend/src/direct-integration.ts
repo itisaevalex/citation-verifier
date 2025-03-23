@@ -20,7 +20,7 @@ export async function processDocumentDirect(file: File): Promise<{
     formData.append('file', file);
     
     // Call our local Express.js server endpoint
-    const response = await fetch('/process-document-local', {
+    const response = await fetch('/api/process-document-local', {
       method: 'POST',
       body: formData
     });

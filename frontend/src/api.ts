@@ -154,3 +154,127 @@ export async function getVerificationReport(documentId: string): Promise<ApiResp
     };
   }
 }
+
+/**
+ * Upload a reference document to the database
+ */
+export async function uploadReferenceDocument(file: File, referenceId: string): Promise<ApiResponse> {
+  const formData = new FormData();
+  formData.append('pdf', file);
+  formData.append('referenceId', referenceId);
+  
+  try {
+    const response = await fetch(`${API_BASE_URL}/upload-reference-document`, {
+      method: 'POST',
+      body: formData,
+    });
+    
+    if (!response.ok) {
+      return { 
+        success: false, 
+        message: `Server error: ${response.status} ${response.statusText}` 
+      };
+    }
+    
+    const text = await response.text();
+    if (!text) {
+      return {
+        success: false,
+        message: 'Server returned an empty response'
+      };
+    }
+    
+    try {
+      const data = JSON.parse(text);
+      return { success: true, data };
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError, 'Response text:', text);
+      return {
+        success: false,
+        message: 'Failed to parse server response'
+      };
+    }
+  } catch (error) {
+    console.error('API error:', error);
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : 'An unknown error occurred'
+    };
+  }
+}
+
+/**
+ * Check if the GROBID service is running
+ */
+export async function checkGrobidStatus(): Promise<ApiResponse> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/check-grobid`, {
+      method: 'GET',
+    });
+    
+    // Check if response is valid before parsing JSON
+    if (!response.ok) {
+      return { 
+        success: false, 
+        message: `Server error: ${response.status} ${response.statusText}` 
+      };
+    }
+    
+    // Parse JSON safely
+    const text = await response.text();
+    try {
+      const data = JSON.parse(text);
+      return { success: true, data };
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError, 'Response text:', text);
+      return {
+        success: false,
+        message: 'Failed to parse server response'
+      };
+    }
+  } catch (error) {
+    console.error('Error checking GROBID status:', error);
+    return { 
+      success: false, 
+      message: error instanceof Error ? error.message : 'Unknown error occurred' 
+    };
+  }
+}
+
+/**
+ * Update the reference database
+ */
+export async function updateReferenceDatabase(): Promise<ApiResponse> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/update-database`, {
+      method: 'POST',
+    });
+    
+    // Check if response is valid before parsing JSON
+    if (!response.ok) {
+      return { 
+        success: false, 
+        message: `Server error: ${response.status} ${response.statusText}` 
+      };
+    }
+    
+    // Parse JSON safely
+    const text = await response.text();
+    try {
+      const data = JSON.parse(text);
+      return { success: true, data };
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError, 'Response text:', text);
+      return {
+        success: false,
+        message: 'Failed to parse server response'
+      };
+    }
+  } catch (error) {
+    console.error('Error updating database:', error);
+    return { 
+      success: false, 
+      message: error instanceof Error ? error.message : 'Unknown error occurred' 
+    };
+  }
+}

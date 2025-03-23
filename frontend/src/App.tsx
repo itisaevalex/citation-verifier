@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Upload, FileCheck, CheckCircle2, Loader2, Link as LinkIcon, Bot, ArrowRight, AlertTriangle, Beaker } from 'lucide-react';
+import { Upload, FileCheck, CheckCircle2, Loader2, Link as LinkIcon, Bot, ArrowRight, AlertTriangle, Beaker, Database, Activity } from 'lucide-react';
 import { AnalysisStep, Reference, Summary } from './types';
-import { uploadDocument, verifyReferences } from './api';
+import { uploadDocument, verifyReferences, uploadReferenceDocument, checkGrobidStatus } from './api';
 import { processDocumentDirect, loadSamplePaper } from './direct-integration';
 
 function App() {
@@ -68,6 +68,13 @@ function App() {
   const analysisRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
+
+  const [grobidStatus, setGrobidStatus] = useState<{ checked: boolean, running: boolean, message: string }>({
+    checked: false,
+    running: false,
+    message: ''
+  });
+  const [isCheckingGrobid, setIsCheckingGrobid] = useState(false);
 
   const resetAnalysis = () => {
     setIsResetting(true);
@@ -158,24 +165,24 @@ function App() {
     }
   };
 
-  const generateSummary = (references: Reference[]): Summary => {
+  const generateSummary = (references: Reference[]) => {
     const validRefs = references.filter(ref => ref.status === 'valid').length;
     const invalidRefs = references.filter(ref => ref.status === 'invalid').length;
     const uncertainRefs = references.filter(ref => ref.status === 'uncertain').length;
-    const endTime = new Date();
-    const duration = analysisStartTime ?
-      Math.round((endTime.getTime() - analysisStartTime.getTime()) / 1000) :
+    const missingRefs = references.filter(ref => ref.status === 'missing').length;
+    const completionTime = analysisStartTime ? 
+      Math.round((new Date().getTime() - analysisStartTime.getTime()) / 1000) :
       0;
 
-    const issues: string[] = [];
+    const issues = [];
     if (invalidRefs > 0) {
       issues.push(`${invalidRefs} references failed validation`);
     }
-    if (references.length < 5) {
-      issues.push('Unusually low number of references detected');
-    }
     if (uncertainRefs > 0) {
-      issues.push(`${uncertainRefs} references require manual verification`);
+      issues.push(`${uncertainRefs} references couldn't be conclusively validated`);
+    }
+    if (missingRefs > 0) {
+      issues.push(`${missingRefs} references are missing from the database`);
     }
 
     return {
@@ -183,8 +190,9 @@ function App() {
       validReferences: validRefs,
       invalidReferences: invalidRefs,
       uncertainReferences: uncertainRefs,
-      completionTime: `${duration} seconds`,
-      issues: issues
+      missingReferences: missingRefs,
+      completionTime: `${completionTime} seconds`,
+      issues
     };
   };
 
@@ -309,8 +317,116 @@ function App() {
         return 'text-red-500';
       case 'uncertain':
         return 'text-yellow-500';
+      case 'missing':
+        return 'text-gray-500';
       default:
         return 'text-gray-500';
+    }
+  };
+
+  const handleReferenceUpload = async (referenceId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    const file = e.target.files[0];
+    
+    // Update reference state to show uploading
+    setExtractedReferences(refs => 
+      refs.map(ref => 
+        ref.id === referenceId 
+          ? { ...ref, uploading: true, uploadSuccess: false, uploadError: undefined } 
+          : ref
+      )
+    );
+    
+    try {
+      const result = await uploadReferenceDocument(file, referenceId);
+      
+      if (result.success) {
+        // Update reference state to show success
+        setExtractedReferences(refs => 
+          refs.map(ref => 
+            ref.id === referenceId 
+              ? { 
+                  ...ref, 
+                  uploading: false, 
+                  uploadSuccess: true, 
+                  inDatabase: true,
+                  status: ref.status === 'missing' ? 'valid' : ref.status // Update status if it was missing
+                } 
+              : ref
+          )
+        );
+        
+        // Update summary if a reference was previously missing
+        if (summary && extractedReferences.find(ref => ref.id === referenceId)?.status === 'missing') {
+          setSummary(prevSummary => {
+            if (!prevSummary) return null;
+            
+            return {
+              ...prevSummary,
+              missingReferences: prevSummary.missingReferences - 1,
+              validReferences: prevSummary.validReferences + 1,
+              issues: prevSummary.issues.filter(issue => !issue.includes(`${prevSummary.missingReferences} references are missing`))
+                .concat(prevSummary.missingReferences - 1 > 0 ? [`${prevSummary.missingReferences - 1} references are missing from the database`] : [])
+            };
+          });
+        }
+      } else {
+        // Update reference state to show error
+        setExtractedReferences(refs => 
+          refs.map(ref => 
+            ref.id === referenceId 
+              ? { ...ref, uploading: false, uploadSuccess: false, uploadError: result.message } 
+              : ref
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error uploading reference document:', error);
+      
+      // Update reference state to show error
+      setExtractedReferences(refs => 
+        refs.map(ref => 
+          ref.id === referenceId 
+            ? { 
+                ...ref, 
+                uploading: false, 
+                uploadSuccess: false, 
+                uploadError: error instanceof Error ? error.message : 'Unknown error' 
+              } 
+            : ref
+        )
+      );
+    }
+  };
+
+  // Function to check GROBID status
+  const handleCheckGrobidStatus = async () => {
+    setIsCheckingGrobid(true);
+    try {
+      const response = await checkGrobidStatus();
+      if (response.success && response.data) {
+        setGrobidStatus({
+          checked: true,
+          running: response.data.status === 'connected',
+          message: response.data.message
+        });
+      } else {
+        setGrobidStatus({
+          checked: true,
+          running: false,
+          message: response.message || 'Failed to check GROBID status'
+        });
+      }
+    } catch (error) {
+      console.error('Error checking GROBID status:', error);
+      setGrobidStatus({
+        checked: true,
+        running: false,
+        message: error instanceof Error ? error.message : 'Unknown error checking GROBID status'
+      });
+    } finally {
+      setIsCheckingGrobid(false);
     }
   };
 
@@ -327,13 +443,55 @@ function App() {
             </div>
             <span className="text-lg font-semibold text-ink">TruthSource</span>
           </button>
-          <button 
-            onClick={() => setTestingMode(!testingMode)}
-            className={`flex items-center px-3 py-2 rounded-lg ${testingMode ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-          >
-            <Beaker className="mr-1 h-4 w-4" />
-            Testing{testingMode ? " Mode" : ""}
-          </button>
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <button
+                onClick={handleCheckGrobidStatus}
+                className={`
+                  flex items-center text-sm px-3 py-2 rounded-lg 
+                  ${isCheckingGrobid ? 'bg-gray-100 text-gray-500' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}
+                  ${grobidStatus.checked && grobidStatus.running ? 'bg-green-50 text-green-700' : ''}
+                  ${grobidStatus.checked && !grobidStatus.running ? 'bg-red-50 text-red-700' : ''}
+                  transition-colors
+                `}
+                disabled={isCheckingGrobid}
+              >
+                {isCheckingGrobid ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
+                    Checking...
+                  </>
+                ) : (
+                  <>
+                    <Activity className="h-4 w-4 mr-1.5" />
+                    {grobidStatus.checked 
+                      ? (grobidStatus.running ? 'GROBID Connected' : 'GROBID Disconnected') 
+                      : 'Check GROBID Status'}
+                  </>
+                )}
+              </button>
+              {grobidStatus.checked && (
+                <div className={`
+                  absolute right-0 mt-2 w-72 p-3 rounded-md shadow-lg z-10
+                  ${grobidStatus.running ? 'bg-green-50 border border-green-100' : 'bg-red-50 border border-red-100'}
+                `}>
+                  <p className={`text-sm ${grobidStatus.running ? 'text-green-700' : 'text-red-700'}`}>
+                    {grobidStatus.message}
+                  </p>
+                </div>
+              )}
+            </div>
+            <button 
+              className={`
+                flex items-center text-sm px-3 py-2 rounded-lg 
+                ${testingMode ? 'bg-purple-500 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}
+              `}
+              onClick={() => setTestingMode(!testingMode)}
+            >
+              <Beaker className="h-4 w-4 mr-1.5" />
+              {testingMode ? 'Testing: On' : 'Testing: Off'}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -353,7 +511,7 @@ function App() {
                 <>
                   <div className="text-center mb-8">
                     <h1 className="text-4xl font-semibold text-ink mb-3">
-                      Where knowledge begins
+                    Don't trust, verify
                     </h1>
                     <p className="text-lg text-ink-light">
                       Upload your document to verify citations and references
@@ -526,6 +684,10 @@ function App() {
                         <div className="text-2xl font-bold text-red-500">{summary.invalidReferences}</div>
                         <div className="text-sm text-ink-light">Invalid Citations</div>
                       </div>
+                      <div className="results-grid-item text-center">
+                        <div className="text-2xl font-bold text-gray-500">{summary.missingReferences}</div>
+                        <div className="text-sm text-ink-light">Missing Citations</div>
+                      </div>
                     </div>
                     <div className="text-sm text-ink-light">
                       Analysis completed in <span className="font-medium">{summary.completionTime}</span>
@@ -571,12 +733,48 @@ function App() {
                                   {reference.link}
                                 </a>
                               </div>
+                              {reference.status === 'missing' && (
+                                <div className="mt-3 flex items-center">
+                                  <div className="text-sm text-gray-700 italic">
+                                    This paper is missing from the database
+                                  </div>
+                                  <label className="ml-3 cursor-pointer inline-flex items-center justify-center px-3 py-1 text-xs font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-md transition-colors">
+                                    <Database className="mr-1 w-3 h-3" />
+                                    Upload Paper
+                                    <input
+                                      type="file"
+                                      accept="application/pdf"
+                                      onChange={(e) => handleReferenceUpload(reference.id, e)}
+                                      className="hidden"
+                                    />
+                                  </label>
+                                </div>
+                              )}
+                              {reference.uploading && (
+                                <div className="mt-2 text-sm text-blue-500 flex items-center">
+                                  <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                                  Uploading paper to database...
+                                </div>
+                              )}
+                              {reference.uploadSuccess && (
+                                <div className="mt-2 text-sm text-green-600 flex items-center">
+                                  <CheckCircle2 className="w-3 h-3 mr-1" />
+                                  Successfully added to database
+                                </div>
+                              )}
+                              {reference.uploadError && (
+                                <div className="mt-2 text-sm text-red-600 flex items-center">
+                                  <AlertTriangle className="w-3 h-3 mr-1" />
+                                  Error: {reference.uploadError}
+                                </div>
+                              )}
                             </div>
                             <div className={`ml-4 ${getReferenceStatusColor(reference.status)}`}>
                               {reference.status === 'validating' && <Loader2 className="w-5 h-5 animate-spin" />}
                               {reference.status === 'valid' && <CheckCircle2 className="w-5 h-5" />}
                               {reference.status === 'invalid' && <div className="w-5 h-5 rounded-full border-2 border-red-500 flex items-center justify-center">!</div>}
                               {reference.status === 'uncertain' && <AlertTriangle className="w-5 h-5" />}
+                              {reference.status === 'missing' && <div className="w-5 h-5 rounded-full border-2 border-gray-500 flex items-center justify-center">?</div>}
                             </div>
                           </div>
                         </div>

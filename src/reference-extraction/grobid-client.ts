@@ -45,6 +45,12 @@ export class GrobidClient {
       teiCoordinates?: string[]
     } = {}
   ): Promise<string> {
+    if (!fs.existsSync(pdfPath)) {
+      throw new Error(`PDF file not found at path: ${pdfPath}`);
+    }
+
+    console.log(`[GrobidClient] Processing PDF: ${pdfPath}`);
+    
     const formData = new FormData();
     formData.append('input', fs.createReadStream(pdfPath));
     
@@ -68,6 +74,8 @@ export class GrobidClient {
     }
 
     try {
+      console.log(`[GrobidClient] Sending request to ${this.baseUrl}/api/processFulltextDocument`);
+      
       const response = await axios.post(
         `${this.baseUrl}/api/processFulltextDocument`,
         formData,
@@ -76,14 +84,51 @@ export class GrobidClient {
             ...formData.getHeaders(),
             'Accept': 'application/xml'
           },
-          timeout: 120000 // 2 minutes timeout
+          timeout: 120000, // 2 minutes timeout
+          maxContentLength: 50 * 1024 * 1024 // 50MB max response size
         }
       );
       
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 503) {
-        throw new Error('GROBID service is currently busy. Try again later.');
+      console.log(`[GrobidClient] Request successful, status: ${response.status}, response length: ${response.data.length} characters`);
+      
+      // Basic validation to ensure we got a TEI XML response
+      if (typeof response.data === 'string' && 
+          (response.data.includes('<TEI') && response.data.includes('xmlns="http://www.tei-c.org/ns/1.0"'))) {
+        return response.data;
+      } else {
+        console.error('[GrobidClient] Response does not appear to be valid TEI XML');
+        throw new Error('GROBID response is not valid TEI XML');
+      }
+    } catch (error: any) {
+      console.error('[GrobidClient] Error in processFullText:', error.message);
+      
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.error(`[GrobidClient] Response status: ${error.response.status}`);
+          console.error(`[GrobidClient] Response headers: ${JSON.stringify(error.response.headers)}`);
+          if (error.response.data) {
+            console.error(`[GrobidClient] Response data: ${JSON.stringify(error.response.data).substring(0, 200)}...`);
+          }
+          
+          if (error.response.status === 503) {
+            throw new Error('GROBID service is currently busy. Try again later.');
+          } else if (error.response.status === 500) {
+            throw new Error('GROBID processing failed. The PDF may be invalid or corrupted.');
+          } else if (error.response.status === 413) {
+            throw new Error('The PDF file is too large for GROBID to process.');
+          } else {
+            throw new Error(`GROBID returned error status ${error.response.status}: ${error.response.statusText}`);
+          }
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error('[GrobidClient] No response received from GROBID');
+          throw new Error('No response received from GROBID. The service may be down or unreachable.');
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          throw new Error(`Error with GROBID request: ${error.message}`);
+        }
       }
       throw error;
     }
@@ -102,6 +147,12 @@ export class GrobidClient {
       includeRawCitations?: '0' | '1'
     } = {}
   ): Promise<string> {
+    if (!fs.existsSync(pdfPath)) {
+      throw new Error(`PDF file not found at path: ${pdfPath}`);
+    }
+
+    console.log(`[GrobidClient] Processing references from PDF: ${pdfPath}`);
+    
     const formData = new FormData();
     formData.append('input', fs.createReadStream(pdfPath));
     
@@ -115,6 +166,8 @@ export class GrobidClient {
     }
 
     try {
+      console.log(`[GrobidClient] Sending request to ${this.baseUrl}/api/processReferences`);
+      
       const response = await axios.post(
         `${this.baseUrl}/api/processReferences`,
         formData,
@@ -123,12 +176,52 @@ export class GrobidClient {
             ...formData.getHeaders(),
             'Accept': 'application/xml'
           },
-          timeout: 60000 // 1 minute timeout
+          timeout: 60000, // 1 minute timeout
+          maxContentLength: 50 * 1024 * 1024 // 50MB max response size
         }
       );
       
-      return response.data;
-    } catch (error) {
+      console.log(`[GrobidClient] Request successful, status: ${response.status}, response length: ${response.data.length} characters`);
+      
+      // Basic validation to ensure we got a TEI XML response
+      if (typeof response.data === 'string' && 
+          (response.data.includes('<TEI') || response.data.includes('<tei'))) {
+        return response.data;
+      } else {
+        console.error('[GrobidClient] Response does not appear to be valid TEI XML');
+        throw new Error('GROBID response is not valid TEI XML');
+      }
+    } catch (error: any) {
+      console.error('[GrobidClient] Error in processReferences:', error.message);
+      
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.error(`[GrobidClient] Response status: ${error.response.status}`);
+          console.error(`[GrobidClient] Response headers: ${JSON.stringify(error.response.headers)}`);
+          if (error.response.data) {
+            console.error(`[GrobidClient] Response data: ${JSON.stringify(error.response.data).substring(0, 200)}...`);
+          }
+          
+          if (error.response.status === 503) {
+            throw new Error('GROBID service is currently busy. Try again later.');
+          } else if (error.response.status === 500) {
+            throw new Error('GROBID processing failed. The PDF may be invalid or corrupted.');
+          } else if (error.response.status === 413) {
+            throw new Error('The PDF file is too large for GROBID to process.');
+          } else {
+            throw new Error(`GROBID returned error status ${error.response.status}: ${error.response.statusText}`);
+          }
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error('[GrobidClient] No response received from GROBID');
+          throw new Error('No response received from GROBID. The service may be down or unreachable.');
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          throw new Error(`Error with GROBID request: ${error.message}`);
+        }
+      }
       throw error;
     }
   }
@@ -139,10 +232,18 @@ export class GrobidClient {
    * @returns The TEI XML response as a string
    */
   async processCitations(pdfPath: string): Promise<string> {
+    if (!fs.existsSync(pdfPath)) {
+      throw new Error(`PDF file not found at path: ${pdfPath}`);
+    }
+
+    console.log(`[GrobidClient] Processing citations from PDF: ${pdfPath}`);
+    
     const formData = new FormData();
     formData.append('input', fs.createReadStream(pdfPath));
 
     try {
+      console.log(`[GrobidClient] Sending request to ${this.baseUrl}/api/processCitation`);
+      
       const response = await axios.post(
         `${this.baseUrl}/api/processCitation`,
         formData,
@@ -151,12 +252,52 @@ export class GrobidClient {
             ...formData.getHeaders(),
             'Accept': 'application/xml'
           },
-          timeout: 30000 // 30 seconds timeout
+          timeout: 60000, // 1 minute timeout
+          maxContentLength: 50 * 1024 * 1024 // 50MB max response size
         }
       );
       
-      return response.data;
-    } catch (error) {
+      console.log(`[GrobidClient] Request successful, status: ${response.status}, response length: ${response.data.length} characters`);
+      
+      // Basic validation to ensure we got a TEI XML response
+      if (typeof response.data === 'string' && 
+          (response.data.includes('<TEI') || response.data.includes('<tei'))) {
+        return response.data;
+      } else {
+        console.error('[GrobidClient] Response does not appear to be valid TEI XML');
+        throw new Error('GROBID response is not valid TEI XML');
+      }
+    } catch (error: any) {
+      console.error('[GrobidClient] Error in processCitations:', error.message);
+      
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.error(`[GrobidClient] Response status: ${error.response.status}`);
+          console.error(`[GrobidClient] Response headers: ${JSON.stringify(error.response.headers)}`);
+          if (error.response.data) {
+            console.error(`[GrobidClient] Response data: ${JSON.stringify(error.response.data).substring(0, 200)}...`);
+          }
+          
+          if (error.response.status === 503) {
+            throw new Error('GROBID service is currently busy. Try again later.');
+          } else if (error.response.status === 500) {
+            throw new Error('GROBID processing failed. The PDF may be invalid or corrupted.');
+          } else if (error.response.status === 413) {
+            throw new Error('The PDF file is too large for GROBID to process.');
+          } else {
+            throw new Error(`GROBID returned error status ${error.response.status}: ${error.response.statusText}`);
+          }
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error('[GrobidClient] No response received from GROBID');
+          throw new Error('No response received from GROBID. The service may be down or unreachable.');
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          throw new Error(`Error with GROBID request: ${error.message}`);
+        }
+      }
       throw error;
     }
   }

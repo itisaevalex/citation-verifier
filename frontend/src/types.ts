@@ -1,4 +1,4 @@
-export type AnalysisStep = {
+export interface AnalysisStep {
   id: number;
   name: string;
   status: 'pending' | 'processing' | 'completed';
@@ -6,22 +6,27 @@ export type AnalysisStep = {
   currentDetail: number;
 };
 
-export type Reference = {
+export interface Reference {
   id: string;
   title: string;
   link: string;
-  status: 'validating' | 'valid' | 'invalid' | 'uncertain';
+  status: 'validating' | 'valid' | 'invalid' | 'uncertain' | 'missing';
   authors?: string;
   year?: string;
   context?: string;
   details?: string[];
+  inDatabase?: boolean;
+  uploading?: boolean;
+  uploadSuccess?: boolean;
+  uploadError?: string;
 };
 
-export type Summary = {
+export interface Summary {
   totalReferences: number;
   validReferences: number;
   invalidReferences: number;
   uncertainReferences: number;
+  missingReferences: number;
   completionTime: string;
   issues: string[];
 };
