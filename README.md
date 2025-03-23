@@ -1,7 +1,5 @@
 # TruthSource: AI-Powered Citation Verifier
 
-![TruthSource](https://example.com/truthsource-logo.png)
-
 > Tackling Research Fraud: How AI can help align with progress and fight dogma
 
 ## 🚀 Project Inspiration
