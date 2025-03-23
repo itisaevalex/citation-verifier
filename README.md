@@ -106,7 +106,7 @@ TruthSource leverages AI in multiple innovative ways:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/username/citation-verifier.git
+   git clone https://github.com/itisaevalex/citation-verifier
    cd citation-verifier
    ```
 
