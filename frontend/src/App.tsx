@@ -466,20 +466,10 @@ function App() {
                     <Activity className="h-4 w-4 mr-1.5" />
                     {grobidStatus.checked 
                       ? (grobidStatus.running ? 'GROBID Connected' : 'GROBID Disconnected') 
-                      : 'Check GROBID Status'}
+                      : 'GROBID Status'}
                   </>
                 )}
               </button>
-              {grobidStatus.checked && (
-                <div className={`
-                  absolute right-0 mt-2 w-72 p-3 rounded-md shadow-lg z-10
-                  ${grobidStatus.running ? 'bg-green-50 border border-green-100' : 'bg-red-50 border border-red-100'}
-                `}>
-                  <p className={`text-sm ${grobidStatus.running ? 'text-green-700' : 'text-red-700'}`}>
-                    {grobidStatus.message}
-                  </p>
-                </div>
-              )}
             </div>
             <button 
               className={`
@@ -499,12 +489,13 @@ function App() {
         <div className="max-w-3xl mx-auto">
           <div 
             ref={uploadRef}
-            className={`
-              upload-section transition-all duration-500 w-full
-              ${isMinimized ? 'minimized' : 'min-h-[80vh]'}
-              flex items-center justify-center
-              ${isResetting ? 'page-reset page-reset-exit' : ''}
-            `}
+            className={
+              `upload-section transition-all duration-500 w-full
+                ${isMinimized ? 'minimized' : 'min-h-[80vh]'}
+                flex items-center justify-center
+                ${isResetting ? 'page-reset page-reset-exit' : ''}
+              `
+            }
           >
             <div className="w-full">
               {!file ? (

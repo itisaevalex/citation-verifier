@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct PDF Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .upload-container {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        #result {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow: auto;
+        }
+        .buttons {
+            margin: 15px 0;
+        }
+        button {
+            padding: 8px 16px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        progress {
+            width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Direct PDF Upload Tool</h1>
+    <p>This page provides a direct upload method that preserves binary PDF data integrity.</p>
+    
+    <div class="upload-container">
+        <h2>Upload PDF File</h2>
+        <input type="file" id="pdfFile" accept="application/pdf" />
+        <div class="buttons">
+            <button id="uploadButton">Upload File</button>
+            <button id="useSampleButton">Use Sample PDF</button>
+        </div>
+        <progress id="uploadProgress" max="100" value="0"></progress>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        const resultElement = document.getElementById('result');
+        const uploadButton = document.getElementById('uploadButton');
+        const useSampleButton = document.getElementById('useSampleButton');
+        const fileInput = document.getElementById('pdfFile');
+        const uploadProgress = document.getElementById('uploadProgress');
+        
+        // Function to display results or errors
+        function showResult(text, isError = false) {
+            resultElement.style.display = 'block';
+            resultElement.textContent = text;
+            
+            if (isError) {
+                resultElement.className = 'error';
+            } else {
+                resultElement.className = 'success';
+            }
+        }
+        
+        // Function to upload PDF file using Fetch API with ArrayBuffer and Blob
+        async function uploadPDF(file) {
+            try {
+                resultElement.style.display = 'block';
+                resultElement.className = '';
+                resultElement.textContent = `Reading file "${file.name}" (${file.size} bytes)...`;
+                uploadProgress.style.display = 'block';
+                uploadProgress.value = 10;
+                
+                // Read the file as ArrayBuffer to preserve binary data
+                const arrayBuffer = await file.arrayBuffer();
+                resultElement.textContent += `\nRead file as ArrayBuffer (${arrayBuffer.byteLength} bytes)`;
+                uploadProgress.value = 30;
+                
+                // Convert to Blob with explicit PDF MIME type
+                const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+                resultElement.textContent += `\nCreated Blob with type: ${blob.type}, size: ${blob.size} bytes`;
+                uploadProgress.value = 50;
+                
+                // Create FormData with the blob
+                const formData = new FormData();
+                formData.append('document', blob, file.name);
+                resultElement.textContent += `\nCreating FormData with file name: ${file.name}`;
+                uploadProgress.value = 70;
+                
+                // Send to server
+                resultElement.textContent += `\nUploading to server...`;
+                const response = await fetch('/api/process-document-local', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                uploadProgress.value = 90;
+                
+                // Handle the response
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Server error: ${response.status} ${response.statusText}. ${errorText}`);
+                }
+                
+                // Display the result
+                const resultData = await response.json();
+                uploadProgress.value = 100;
+                
+                showResult(JSON.stringify(resultData, null, 2));
+                setTimeout(() => {
+                    uploadProgress.style.display = 'none';
+                }, 1000);
+                
+            } catch (error) {
+                uploadProgress.style.display = 'none';
+                showResult(`Upload Error: ${error.message}`, true);
+            }
+        }
+        
+        // Event listener for the upload button
+        uploadButton.addEventListener('click', () => {
+            if (!fileInput.files || fileInput.files.length === 0) {
+                showResult('Please select a file first', true);
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            uploadPDF(file);
+        });
+        
+        // Event listener for using sample PDF
+        useSampleButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch('/sample-paper.pdf');
+                if (!response.ok) {
+                    throw new Error(`Failed to load sample PDF: ${response.status} ${response.statusText}`);
+                }
+                
+                const blob = await response.blob();
+                const file = new File([blob], 'sample-paper.pdf', { type: 'application/pdf' });
+                
+                // Create a message showing we loaded the sample
+                showResult(`Loaded sample PDF (${file.size} bytes). Ready to upload.`);
+                
+                // Upload the sample PDF
+                uploadPDF(file);
+                
+            } catch (error) {
+                showResult(`Error loading sample: ${error.message}`, true);
+            }
+        });
+    </script>
+</body>
+</html>

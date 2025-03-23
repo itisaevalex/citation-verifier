@@ -86,6 +86,118 @@ app.get('/debug-grobid-extraction', async (req, res) => {
   }
 });
 
+// Debug route to process a sample PDF directly
+app.get('/debug-process-sample', async (req, res) => {
+  try {
+    console.log('Debug: Processing sample PDF directly');
+    const samplePath = path.join(__dirname, 'samples', 'sample-paper.pdf');
+    
+    // Check if the sample file exists
+    if (!fs.existsSync(samplePath)) {
+      return res.status(404).json({
+        success: false,
+        error: 'Sample PDF file not found'
+      });
+    }
+    
+    // Log file stats
+    const stats = fs.statSync(samplePath);
+    console.log(`Sample file stats: size=${stats.size} bytes`);
+    
+    // Read first bytes to verify it's a PDF
+    const buffer = Buffer.alloc(5);
+    const fd = fs.openSync(samplePath, 'r');
+    fs.readSync(fd, buffer, 0, 5, 0);
+    fs.closeSync(fd);
+    
+    const isPDF = buffer.toString('ascii').startsWith('%PDF');
+    console.log(`Sample PDF header check: isPDF=${isPDF}, header=${buffer.toString('hex')}`);
+    
+    // Try to copy the file to uploads directory
+    const uploadDir = path.join(__dirname, 'uploads');
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir);
+    }
+    
+    const destPath = path.join(uploadDir, `debug-${Date.now()}-sample-paper.pdf`);
+    fs.copyFileSync(samplePath, destPath);
+    console.log(`Copied sample file to: ${destPath}`);
+    
+    // Execute verification process
+    const { exec } = require('child_process');
+    exec(`npx ts-node verify-citations.ts process "${destPath}" --verbose`, (error, stdout, stderr) => {
+      if (error) {
+        console.error('Error executing command:', error);
+        console.error('Command output:', stdout);
+        console.error('Command errors:', stderr);
+        
+        return res.status(500).json({
+          success: false,
+          error: 'Failed to process sample document',
+          details: error.message,
+          output: stdout,
+          stderr: stderr
+        });
+      }
+      
+      return res.status(200).json({
+        success: true,
+        message: 'Sample document processed successfully',
+        output: stdout
+      });
+    });
+  } catch (error) {
+    console.error('Error in debug-process-sample route:', error);
+    return res.status(500).json({
+      success: false,
+      error: `Error: ${error.message}`
+    });
+  }
+});
+
+// Direct sample file processing route (skips file upload)
+app.get('/direct-sample-process', async (req, res) => {
+  try {
+    const samplePdfPath = path.join(__dirname, 'samples', 'sample-paper.pdf');
+    console.log(`Processing direct sample PDF: ${samplePdfPath}`);
+    
+    // Check if file exists
+    if (!fs.existsSync(samplePdfPath)) {
+      return res.status(404).json({ error: 'Sample PDF not found' });
+    }
+    
+    // Log file size
+    const stats = fs.statSync(samplePdfPath);
+    console.log(`Sample PDF size: ${stats.size} bytes`);
+    
+    // Execute the verify-citations command directly
+    const { exec } = require('child_process');
+    exec(`npx ts-node verify-citations.ts process "${samplePdfPath}" --verbose`, (error, stdout, stderr) => {
+      if (error) {
+        console.error('Error processing direct sample:', error);
+        console.error('Command output:', stdout);
+        console.error('Command errors:', stderr);
+        
+        return res.status(500).json({
+          error: 'Failed to process direct sample',
+          details: error.message,
+          stdout,
+          stderr
+        });
+      }
+      
+      return res.status(200).json({
+        success: true,
+        message: 'Direct sample processed successfully',
+        output: stdout
+      });
+    });
+  } catch (error) {
+    console.error('Error in direct-sample-process:', error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -100,13 +212,121 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  limits: {
+    fileSize: 50 * 1024 * 1024 // 50MB limit
+  }
+});
+
+// Serve test-upload.html for debugging
+app.get('/test-upload', (req, res) => {
+  res.sendFile(path.join(__dirname, 'test-upload.html'));
+});
+
+// Serve direct-upload.html for more robust PDF uploads
+app.get('/direct-upload', (req, res) => {
+  res.sendFile(path.join(__dirname, 'direct-upload.html'));
+});
+
+// Serve server-upload.html for processing server-side files
+app.get('/server-upload', (req, res) => {
+  res.sendFile(path.join(__dirname, 'server-upload.html'));
+});
+
+// API endpoint to list PDF files in the samples directory
+app.get('/api/list-samples', (req, res) => {
+  try {
+    const samplesDir = path.join(__dirname, 'samples');
+    
+    // Create samples directory if it doesn't exist
+    if (!fs.existsSync(samplesDir)) {
+      fs.mkdirSync(samplesDir);
+      return res.json({ files: [] });
+    }
+    
+    // Read directory and filter for PDF files
+    const files = fs.readdirSync(samplesDir)
+      .filter(file => file.toLowerCase().endsWith('.pdf'));
+    
+    res.json({ files });
+  } catch (error) {
+    console.error('Error listing sample files:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API endpoint to process a sample file
+app.get('/api/process-sample', (req, res) => {
+  try {
+    const fileName = req.query.file;
+    
+    if (!fileName) {
+      return res.status(400).json({ error: 'No file specified' });
+    }
+    
+    // Ensure the file is from the samples directory (security measure)
+    const filePath = path.join(__dirname, 'samples', fileName);
+    
+    // Basic security check to prevent directory traversal
+    if (!filePath.startsWith(path.join(__dirname, 'samples'))) {
+      return res.status(403).json({ error: 'Invalid file path' });
+    }
+    
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+    
+    // Log file information
+    const stats = fs.statSync(filePath);
+    console.log(`Processing sample file: ${filePath}`);
+    console.log(`File size: ${stats.size} bytes`);
+    
+    // Check if file is a PDF
+    const buffer = Buffer.alloc(8);
+    const fd = fs.openSync(filePath, 'r');
+    fs.readSync(fd, buffer, 0, 8, 0);
+    fs.closeSync(fd);
+    
+    const isPDF = buffer.toString().startsWith('%PDF-');
+    console.log(`File header check: isPDF=${isPDF}, header=${buffer.toString('hex')}`);
+    
+    if (!isPDF) {
+      return res.status(400).json({ error: 'The selected file is not a valid PDF' });
+    }
+    
+    // Execute the verify-citations command
+    const { exec } = require('child_process');
+    exec(`npx ts-node verify-citations.ts process "${filePath}" --verbose`, (error, stdout, stderr) => {
+      if (error) {
+        console.error('Error processing sample file:', error);
+        console.error('Command output:', stdout);
+        console.error('Command errors:', stderr);
+        
+        return res.status(500).json({
+          error: 'Failed to process file',
+          details: error.message,
+          stdout,
+          stderr
+        });
+      }
+      
+      // Return the command output
+      res.setHeader('Content-Type', 'text/plain');
+      res.send(stdout);
+    });
+  } catch (error) {
+    console.error('Error in process-sample:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Serve the frontend static files
 app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
 // Parse JSON requests
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Debug middleware to log all requests
 app.use((req, res, next) => {
@@ -308,48 +528,65 @@ app.use('/api', express.Router()
     });
   })
   // API endpoint to process a document
-  .post('/api/process-document-local', upload.single('document'), async (req, res) => {
-    // Check if a file was uploaded
-    if (!req.file) {
-      return res.status(400).json({
-        error: 'No document uploaded'
-      });
-    }
-    
-    const documentPath = path.resolve(req.file.path);
-    console.log(`Processing document: ${documentPath}`);
-
+  .post('/process-document-local', upload.single('document'), async (req, res) => {
     try {
-      // First validate that GROBID is running
-      try {
-        console.log('Checking GROBID status before processing document...');
-        const axios = require('axios');
-        const grobidUrl = 'http://localhost:8070';
+      if (!req.file) {
+        return res.status(400).json({ error: 'No document uploaded' });
+      }
+      
+      console.log(`Processing document: ${req.file.path}`);
+      console.log(`File details: size=${req.file.size} bytes, mimetype=${req.file.mimetype}, originalname=${req.file.originalname}`);
+      
+      // Check file size - warn if suspiciously small
+      if (req.file.size < 10000) { // 10KB is very small for a real PDF
+        console.log(`Warning: File size (${req.file.size} bytes) seems too small for a PDF document`);
+      }
+      
+      // Log detailed file stats
+      const stats = fs.statSync(req.file.path);
+      console.log(`File stats: size=${stats.size} bytes, created=${stats.birthtime}, modified=${stats.mtime}`);
+      
+      // Check if file is actually a PDF by examining the header
+      const fileHandle = await fs.promises.open(req.file.path, 'r');
+      const buffer = Buffer.alloc(8); // Read first 8 bytes
+      await fileHandle.read(buffer, 0, 8, 0);
+      await fileHandle.close();
+      
+      const isPDF = buffer.toString().startsWith('%PDF-');
+      console.log(`File header check: isPDF=${isPDF}, header=${buffer.toString('hex')}`);
+      
+      if (!isPDF) {
+        // Attempt to recover the file if it's not a valid PDF
+        console.log('File does not appear to be a valid PDF. Attempting to repair...');
         
-        const aliveCheck = await axios.get(`${grobidUrl}/api/isalive`, { timeout: 5000 });
-        const isGrobidAlive = aliveCheck.status === 200;
-        
-        if (!isGrobidAlive) {
-          console.error('GROBID service is not running.');
-          return res.status(500).json({
-            error: 'GROBID service is not running',
-            details: 'Please start GROBID with: docker run -t --rm -p 8070:8070 grobid/grobid:0.8.1'
+        // If the file starts with '<!DOC', it's likely an HTML file incorrectly labeled as PDF
+        if (buffer.toString().startsWith('<!DOC')) {
+          console.log('Detected HTML content instead of PDF. This is likely a browser upload issue.');
+          return res.status(400).json({ 
+            error: 'The uploaded file contains HTML instead of PDF data. This is likely a browser compatibility issue.',
+            suggestion: 'Please try using a different browser or our test-upload.html page at /test-upload'
           });
         }
-        console.log('GROBID service is running, proceeding with document processing...');
-      } catch (grobidCheckError) {
-        console.error('Error checking GROBID status:', grobidCheckError.message);
-        return res.status(500).json({
-          error: 'Failed to connect to GROBID service',
-          details: grobidCheckError.message
+        
+        return res.status(400).json({ error: 'The uploaded file is not a valid PDF' });
+      }
+      
+      // Extract references and citation contexts from the PDF    
+      // Use the command-line approach for processing the document
+      console.log(`Executing command: npx ts-node verify-citations.ts process "${req.file.path}" --verbose`);
+      
+      // Check the file size and validity
+      console.log(`File size: ${stats.size} bytes`);
+      
+      if (stats.size === 0) {
+        return res.status(400).json({
+          error: 'Empty file uploaded',
+          details: 'The uploaded file has 0 bytes. Please check that you selected a valid PDF.'
         });
       }
-
-      // Use the command-line approach for processing the document
-      console.log(`Executing command: npx ts-node verify-citations.ts process "${documentPath}" --verbose`);
       
       const { exec } = require('child_process');
-      exec(`npx ts-node verify-citations.ts process "${documentPath}" --verbose`, (error, stdout, stderr) => {
+      exec(`npx ts-node verify-citations.ts process "${req.file.path}" --verbose`, (error, stdout, stderr) => {
         if (error) {
           console.error('Error executing command:', error);
           console.error('Command output:', stdout);
@@ -376,8 +613,8 @@ app.use('/api', express.Router()
         
         try {
           // Get the output file paths
-          const fileNameWithoutExt = path.basename(documentPath, '.pdf');
-          const outputPath = path.dirname(documentPath);
+          const fileNameWithoutExt = path.basename(req.file.path, '.pdf');
+          const outputPath = path.dirname(req.file.path);
           const referencesPath = path.join(outputPath, `${fileNameWithoutExt}-references.json`);
           const reportPath = path.join(outputPath, `${fileNameWithoutExt}-verification-report.json`);
           

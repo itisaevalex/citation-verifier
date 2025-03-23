@@ -15,9 +15,32 @@ export async function processDocumentDirect(file: File): Promise<{
     // that bridges to the backend verification code
     console.log('Using local backend server bridge');
     
+    // Log file information for debugging
+    console.log('File size:', file.size, 'bytes');
+    console.log('File type:', file.type);
+    
     // Create a FormData object to send the file
     const formData = new FormData();
-    formData.append('file', file);
+    
+    try {
+      // Read file as ArrayBuffer first to ensure binary data is preserved
+      const arrayBuffer = await file.arrayBuffer();
+      console.log('Read file as ArrayBuffer, size:', arrayBuffer.byteLength);
+      
+      // Force the correct MIME type by creating a new Blob with explicit PDF type
+      const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+      console.log('Created PDF Blob with forced mime type, size:', blob.size);
+      
+      // Create a new File object with the correct MIME type to be extra safe
+      const pdfFile = new File([blob], file.name, { type: 'application/pdf' });
+      console.log('Created PDF File with forced mime type, type:', pdfFile.type);
+      
+      // Append the reconstructed file to FormData
+      formData.append('document', pdfFile);
+    } catch (error) {
+      console.error('Error preparing file for upload:', error);
+      throw new Error(`Failed to prepare file for upload: ${error instanceof Error ? error.message : String(error)}`);
+    }
     
     // Call our local Express.js server endpoint
     const response = await fetch('/api/process-document-local', {

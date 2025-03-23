@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test File Upload</title>
+</head>
+<body>
+    <h1>PDF Upload Test</h1>
+    <p>This is a simple test to verify that PDF files can be properly uploaded to the server.</p>
+    
+    <form id="uploadForm" enctype="multipart/form-data">
+        <div>
+            <label for="pdfFile">Select PDF File:</label>
+            <input type="file" id="pdfFile" name="document" accept="application/pdf">
+        </div>
+        <div style="margin-top: 20px;">
+            <button type="button" id="uploadButton">Upload File</button>
+        </div>
+    </form>
+    
+    <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; display: none;">
+        <h3>Result:</h3>
+        <pre id="resultData"></pre>
+    </div>
+    
+    <script>
+        document.getElementById('uploadButton').addEventListener('click', async function() {
+            const fileInput = document.getElementById('pdfFile');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert('Please select a file first');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            console.log('Selected file:', file.name);
+            console.log('File size:', file.size, 'bytes');
+            console.log('File type:', file.type);
+            
+            try {
+                // Show loading state
+                document.getElementById('resultData').textContent = 'Uploading...';
+                document.getElementById('result').style.display = 'block';
+                
+                // Read the file as ArrayBuffer first to preserve binary data
+                const arrayBuffer = await file.arrayBuffer();
+                console.log('Read file as ArrayBuffer, size:', arrayBuffer.byteLength);
+                
+                // Convert to Blob with correct mime type
+                const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+                console.log('Created Blob, size:', blob.size);
+                
+                // Create FormData with the blob
+                const formData = new FormData();
+                formData.append('document', blob, file.name);
+                
+                // Send to server
+                const response = await fetch('/api/process-document-local', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const responseData = await response.text();
+                console.log('Server response:', responseData);
+                
+                // Display result
+                document.getElementById('resultData').textContent = responseData;
+            } catch (error) {
+                console.error('Upload error:', error);
+                document.getElementById('resultData').textContent = 'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>

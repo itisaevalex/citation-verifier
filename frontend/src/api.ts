@@ -12,11 +12,19 @@ export interface ApiResponse {
  * Upload a document for citation verification
  */
 export async function uploadDocument(file: File): Promise<ApiResponse> {
-  // Use real API
-  const formData = new FormData();
-  formData.append('pdf', file);
-  
   try {
+    // First read the file as ArrayBuffer to preserve binary data
+    const arrayBuffer = await file.arrayBuffer();
+    console.log('Read file as ArrayBuffer, size:', arrayBuffer.byteLength);
+    
+    // Convert to Blob with correct mime type
+    const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+    console.log('Created Blob, size:', blob.size);
+    
+    // Create FormData with the blob
+    const formData = new FormData();
+    formData.append('pdf', blob, file.name);
+    
     const response = await fetch(`${API_BASE_URL}/extract-references`, {
       method: 'POST',
       body: formData,
@@ -159,11 +167,20 @@ export async function getVerificationReport(documentId: string): Promise<ApiResp
  * Upload a reference document to the database
  */
 export async function uploadReferenceDocument(file: File, referenceId: string): Promise<ApiResponse> {
-  const formData = new FormData();
-  formData.append('pdf', file);
-  formData.append('referenceId', referenceId);
-  
   try {
+    // First read the file as ArrayBuffer to preserve binary data
+    const arrayBuffer = await file.arrayBuffer();
+    console.log('Read file as ArrayBuffer, size:', arrayBuffer.byteLength);
+    
+    // Convert to Blob with correct mime type
+    const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+    console.log('Created Blob, size:', blob.size);
+    
+    // Create FormData with the blob
+    const formData = new FormData();
+    formData.append('pdf', blob, file.name);
+    formData.append('referenceId', referenceId);
+    
     const response = await fetch(`${API_BASE_URL}/upload-reference-document`, {
       method: 'POST',
       body: formData,

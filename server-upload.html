@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server-Side PDF Processing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        .file-item {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+        }
+        .file-item:hover {
+            background-color: #f0f0f0;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            white-space: pre-wrap;
+            display: none;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Server-Side PDF Processing</h1>
+    
+    <div class="card">
+        <h2>Browser Upload Issue Workaround</h2>
+        <p>This page allows you to process PDF files that are already on the server, bypassing browser upload issues.</p>
+        <p>Since we're having issues with Firefox corrupting PDF files during upload, this approach uses files that are already present in the <code>samples</code> directory.</p>
+    </div>
+
+    <div class="card">
+        <h2>Select a PDF from Samples Directory</h2>
+        <div id="fileList">
+            <p>Loading available PDF files...</p>
+        </div>
+    </div>
+
+    <div id="result" class="result">
+        <h3>Processing Result:</h3>
+        <div id="resultContent"></div>
+    </div>
+
+    <script>
+        // Fetch the list of available PDF files
+        async function loadSampleFiles() {
+            try {
+                const response = await fetch('/api/list-samples');
+                const data = await response.json();
+                
+                const fileListElement = document.getElementById('fileList');
+                
+                if (data.files && data.files.length > 0) {
+                    fileListElement.innerHTML = '';
+                    
+                    data.files.forEach(file => {
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+                        fileItem.textContent = file;
+                        fileItem.onclick = () => processFile(file);
+                        fileListElement.appendChild(fileItem);
+                    });
+                } else {
+                    fileListElement.innerHTML = '<p>No PDF files found in samples directory.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading sample files:', error);
+                document.getElementById('fileList').innerHTML = 
+                    `<p>Error loading files: ${error.message}</p>`;
+            }
+        }
+
+        // Process the selected file
+        async function processFile(fileName) {
+            try {
+                document.getElementById('resultContent').textContent = 'Processing...';
+                document.getElementById('result').style.display = 'block';
+                
+                const response = await fetch(`/api/process-sample?file=${encodeURIComponent(fileName)}`);
+                const data = await response.text();
+                
+                document.getElementById('resultContent').textContent = data;
+            } catch (error) {
+                console.error('Error processing file:', error);
+                document.getElementById('resultContent').textContent = 
+                    `Error processing file: ${error.message}`;
+            }
+        }
+
+        // Load sample files when the page loads
+        window.onload = loadSampleFiles;
+    </script>
+</body>
+</html>

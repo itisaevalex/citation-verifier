@@ -100,7 +100,7 @@ GEMINI_API_KEY=
 
 # Start the backend in a new PowerShell window
 Write-Host "  Starting backend server..." -ForegroundColor Yellow
-Start-Process PowerShell -ArgumentList "-NoExit", "-Command", "cd '$PWD'; npm run dev"
+Start-Process PowerShell -ArgumentList "-NoExit", "-Command", "cd '$PWD'; node server.js"
 
 # Step 3: Start the frontend development server
 Write-Host "`nStep 3: Starting the frontend development server..." -ForegroundColor Yellow

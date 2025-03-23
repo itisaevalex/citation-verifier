@@ -164,7 +164,17 @@ This will:
 2. Upload a PDF document
 3. View the extraction and verification results
 
+> **IMPORTANT NOTE:** When uploading PDF files, always use the direct IP address (127.0.0.1) instead of localhost. For example, use http://127.0.0.1:3000 or http://127.0.0.1:5173 instead of localhost equivalents. Using `localhost` can cause browser compatibility issues with binary file uploads, resulting in HTML being sent instead of the PDF data.
+
 ## Troubleshooting
+
+### PDF Upload Issues
+
+If you encounter errors like "The uploaded file contains HTML instead of PDF data":
+
+1. **Use direct IP address**: Always use http://127.0.0.1:port instead of http://localhost:port for file uploads
+2. Try the alternative upload page at `/direct-upload` or `/test-upload` which has more robust file handling
+3. Ensure your browser is up-to-date, as older browsers may have issues with the File API
 
 ### GROBID Connection Issues
 
