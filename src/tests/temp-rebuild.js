@@ -5,7 +5,7 @@ require('ts-node/register');
 const path = require('path');
 
 // Import the DocumentDatabase from the TypeScript module
-const { DocumentDatabase } = require('./src/document-database');
+const { DocumentDatabase } = require('../document-database');
 
 async function rebuildDocumentIndex() {
   console.log('Rebuilding document index...');

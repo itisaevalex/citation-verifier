@@ -1,4 +1,4 @@
-import { DocumentLoader } from './src/reference-comparison/document-loader';
+import { DocumentLoader } from '../reference-comparison/document-loader';
 
 const runTest = async () => {
   console.log('=== Testing Document Loader ===');

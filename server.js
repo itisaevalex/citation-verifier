@@ -7,6 +7,8 @@ const FormData = require('form-data');
 const axios = require('axios');
 const app = express();
 const port = 3000;
+const os = require('os');
+const uuidv4 = require('uuid').v4;
 
 // Debug route for GROBID extraction
 app.get('/debug-grobid-extraction', async (req, res) => {
@@ -351,6 +353,27 @@ function sendProgressUpdate(sessionId, data) {
 
 // API prefix middleware
 app.use('/api', express.Router()
+  // Simple test endpoint to verify file uploads
+  .post('/test-upload', upload.single('file'), (req, res) => {
+    console.log('TEST UPLOAD ENDPOINT HIT');
+    if (!req.file) {
+      console.log('No file in request');
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    
+    console.log('File information:', req.file);
+    
+    return res.json({
+      success: true,
+      message: 'File uploaded successfully',
+      file: {
+        filename: req.file.filename,
+        path: req.file.path,
+        size: req.file.size
+      }
+    });
+  })
+
   .post('/extract-references', upload.single('pdf'), (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
@@ -534,197 +557,433 @@ app.use('/api', express.Router()
     });
   })
   // API endpoint to process a document
-  .post('/process-document-local', upload.single('document'), async (req, res) => {
+  .post('/process-document-local', upload.single('file'), async (req, res) => {
     try {
+      console.log('Received request to process document locally');
+      
       if (!req.file) {
-        return res.status(400).json({ error: 'No document uploaded' });
+        console.log('No file in request');
+        return res.status(400).json({ error: 'No file uploaded' });
       }
       
-      console.log('Document uploaded successfully');
-      console.log('File:', req.file);
+      console.log('File information:', req.file);
       
-      // Create a unique session ID for this verification process
-      const sessionId = Date.now().toString();
+      // Generate a unique session ID for this processing request
+      const sessionId = uuidv4();
+      console.log(`Generated session ID: ${sessionId}`);
       
-      // We will return this ID to the client for SSE connection
-      const responseData = {
-        success: true,
-        message: 'Document received for processing',
-        sessionId: sessionId
-      };
-      
-      // Send the initial response right away
-      res.status(200).json(responseData);
-      
-      // Then execute the verification process asynchronously
-      const documentPath = req.file.path;
-      console.log(`Processing document at path: ${documentPath}`);
-      
-      // Modified command to include the session ID for tracking
-      const command = `npx ts-node verify-citations.ts process "${documentPath}" --session-id=${sessionId} --verbose`;
-      console.log(`Executing command: ${command}`);
-      
-      // Set up progress reporting
-      const fs = require('fs');
-      const path = require('path');
+      // Create the progress file for this session
       const progressFilePath = path.join(__dirname, 'temp', `progress-${sessionId}.json`);
       
-      // Create a watcher for the progress file
-      const progressWatcher = setInterval(() => {
-        if (fs.existsSync(progressFilePath)) {
-          try {
-            const progressData = JSON.parse(fs.readFileSync(progressFilePath, 'utf8'));
-            sendProgressUpdate(sessionId, progressData);
-            
-            // If process is complete, clean up
-            if (progressData.status === 'completed' || progressData.status === 'error') {
-              clearInterval(progressWatcher);
-              // Keep the file for a bit then delete it
-              setTimeout(() => {
-                try {
-                  if (fs.existsSync(progressFilePath)) {
-                    fs.unlinkSync(progressFilePath);
-                  }
-                } catch (e) {
-                  console.error(`Error deleting progress file: ${e.message}`);
-                }
-              }, 60000);
-            }
-          } catch (error) {
-            console.error(`Error reading progress file: ${error.message}`);
-          }
+      try {
+        // Ensure the temp directory exists
+        if (!fs.existsSync(path.join(__dirname, 'temp'))) {
+          fs.mkdirSync(path.join(__dirname, 'temp'), { recursive: true });
         }
-      }, 500); // Check every 500ms
+        
+        // Write initial progress data
+        fs.writeFileSync(progressFilePath, JSON.stringify({
+          status: 'processing',
+          currentReference: 'Preparing document...',
+          currentIndex: 0,
+          totalReferences: 0,
+          processedReferences: []
+        }));
+        
+        console.log(`Created progress file at: ${progressFilePath}`);
+      } catch (fsError) {
+        console.error('Error creating progress file:', fsError);
+        return res.status(500).json({ 
+          error: 'Error creating progress file', 
+          details: fsError.message 
+        });
+      }
       
-      // Execute the verify-citations command
-      exec(command, { maxBuffer: 1024 * 1024 * 10 }, (error, stdout, stderr) => {
-        // Command has completed (this is after all processing)
-        console.log('Command execution complete');
+      // For debugging only - simplified response to test basic connectivity
+      res.json({
+        sessionId,
+        status: 'starting',
+        message: 'Document received, processing starting',
+        references: [],
+        progress: `/api/verification-progress/${sessionId}`
+      });
+      
+      // Check if Gemini verification is requested
+      const options = req.body.options ? JSON.parse(req.body.options) : {};
+      const useGemini = options.useGemini === true;
+      console.log(`Gemini verification requested: ${useGemini}`);
+      
+      // Start two-phase processing: extract first, then verify
+      // Phase 1: Extract references quickly and return them to the client
+      console.log('Starting Phase 1: Extracting references...');
+      
+      // Run the extract phase as an async process
+      const extractProcess = exec(
+        `node --no-warnings -r ts-node/register verify-citations.ts extract "${req.file.path}" -s ${sessionId} -v`,
+        { maxBuffer: 1024 * 1024 * 10 } // 10MB buffer for large documents
+      );
+      
+      let extractionData = '';
+      extractProcess.stdout.on('data', (data) => {
+        extractionData += data;
+        console.log('Extraction output:', data.toString());
+      });
+      
+      extractProcess.stderr.on('data', (data) => {
+        console.error('Extraction error:', data.toString());
+      });
+      
+      // Wait for extraction to complete before starting verification
+      extractProcess.on('close', (code) => {
+        console.log(`Extraction process exited with code ${code}`);
         
-        // Clear the progress watcher if still running
-        clearInterval(progressWatcher);
-        
-        if (error) {
-          console.error('Error executing command:', error);
-          console.error('Command output:', stdout);
-          console.error('Command errors:', stderr);
-          
-          // Send final error update
-          sendProgressUpdate(sessionId, {
-            status: 'error',
-            error: error.message,
-            currentIndex: 0,
-            totalReferences: 0,
-            processedReferences: []
-          });
-          
+        if (code !== 0) {
+          console.error('Extraction failed, not starting verification');
           return;
         }
         
-        console.log('Command executed successfully');
+        // Phase 2: Verify each reference one by one (only start after extraction is complete)
+        console.log('Starting Phase 2: Verifying references...');
         
-        // Parse the output to extract the references and verification results
-        try {
-          const outputLines = stdout.split('\n');
-          let jsonStart = -1;
+        // Add Gemini flag if requested
+        const geminiFlag = useGemini ? ' --gemini=true' : '';
+        
+        // Run the verify phase as an async process
+        const verifyProcess = exec(
+          `node --no-warnings -r ts-node/register verify-citations.ts verify "${req.file.path}" -s ${sessionId} -v${geminiFlag}`,
+          { maxBuffer: 1024 * 1024 * 10 } // 10MB buffer for large documents
+        );
+      
+        let verificationData = '';
+        verifyProcess.stdout.on('data', (data) => {
+          verificationData += data;
+          const logLine = data.toString().trim();
           
-          // Find where the JSON output starts
-          for (let i = 0; i < outputLines.length; i++) {
-            if (outputLines[i].trim().startsWith('{')) {
-              jsonStart = i;
-              break;
+          // Log the original output
+          console.log('Verification output:', logLine);
+          
+          // Parse special log markers for Gemini verification
+          if (logLine.includes('[GEMINI:')) {
+            try {
+              // Extract the Gemini step
+              const stepMatch = logLine.match(/\[GEMINI:(PREPARING|CALLING|PROCESSING|COMPLETED)\]/i);
+              if (stepMatch) {
+                const step = stepMatch[1].toLowerCase();
+                
+                // Extract the reference and details
+                const parts = logLine.split(' - ');
+                const reference = parts[0].split('] ')[1];
+                const details = parts[1];
+                
+                // Extract result information if available
+                let result = null;
+                if (step === 'completed' && parts.length > 2 && parts[2].startsWith('Result:')) {
+                  const resultPart = parts[2];
+                  const isVerified = resultPart.includes('VERIFIED') && !resultPart.includes('NOT_VERIFIED');
+                  
+                  // Extract confidence score if available
+                  const confidenceMatch = resultPart.match(/\((\d+)%\)/);
+                  const confidenceScore = confidenceMatch ? parseInt(confidenceMatch[1]) / 100 : 0.5;
+                  
+                  result = {
+                    isVerified,
+                    confidenceScore,
+                    explanation: 'Extracted from verification log'
+                  };
+                }
+                
+                // Read the current progress
+                let progress = {};
+                if (fs.existsSync(progressFilePath)) {
+                  progress = JSON.parse(fs.readFileSync(progressFilePath, 'utf8'));
+                }
+                
+                // Update the progress with Gemini information
+                const updatedProgress = {
+                  ...progress,
+                  geminiStatus: step,
+                  currentStep: details,
+                  stepProgress: step === 'preparing' ? 0 : 
+                                step === 'calling' ? 1 : 
+                                step === 'processing' ? 2 : 3,
+                  totalSteps: 3
+                };
+                
+                // Add the result if available
+                if (result) {
+                  updatedProgress.geminiResult = result;
+                }
+                
+                // Write the updated progress back to the file
+                fs.writeFileSync(progressFilePath, JSON.stringify(updatedProgress, null, 2));
+              }
+            } catch (error) {
+              console.error('Error parsing Gemini log:', error);
             }
           }
-          
-          if (jsonStart >= 0) {
-            const jsonOutput = outputLines.slice(jsonStart).join('\n');
-            const result = JSON.parse(jsonOutput);
+        });
+        
+        verifyProcess.stderr.on('data', (data) => {
+          console.error('Verification error:', data.toString());
+        });
+        
+        // Log the completion of verification (async, after response is sent)
+        verifyProcess.on('close', (code) => {
+          if (code === 0) {
+            console.log('Verification process completed successfully');
             
-            // Send final progress update
-            sendProgressUpdate(sessionId, {
-              status: 'completed',
-              currentIndex: result.references.length,
-              totalReferences: result.references.length,
-              processedReferences: result.references.map((ref, idx) => ({
-                id: ref.id || String(idx),
-                title: ref.title,
-                status: ref.status,
-                link: ref.link || '#'
-              }))
+            // Clean up the progress file after verification is complete
+            fs.unlink(progressFilePath, (err) => {
+              if (err) {
+                console.error(`Error removing progress file: ${err}`);
+              } else {
+                console.log(`Removed progress file: ${progressFilePath}`);
+              }
             });
           } else {
-            console.error('Could not find JSON output in command result');
-            
-            // Send generic completion update
-            sendProgressUpdate(sessionId, {
-              status: 'completed',
-              currentIndex: 0,
-              totalReferences: 0,
-              processedReferences: []
-            });
+            console.error(`Verification process exited with code ${code}`);
           }
-        } catch (error) {
-          console.error('Error parsing command output:', error);
-          
-          // Send error update
-          sendProgressUpdate(sessionId, {
-            status: 'error',
-            error: 'Failed to parse command output',
-            currentIndex: 0,
-            totalReferences: 0,
-            processedReferences: []
-          });
+        });
+        
+        verifyProcess.on('error', (error) => {
+          console.error('Error in verification process:', error);
+        });
+      });
+    } catch (error) {
+      console.error('Error processing document locally:', error);
+      res.status(500).json({ error: 'Error processing document', details: error.message });
+    }
+  })
+
+  // API endpoint to verify a document with Gemini support
+  .post('/verify', upload.single('file'), async (req, res) => {
+    try {
+      console.log('Received request to verify document with Gemini');
+      
+      if (!req.file) {
+        console.log('No file in request');
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+      
+      console.log('File information:', req.file);
+      
+      // Check if Gemini verification is requested
+      const verifyWithGemini = req.body.verifyWithGemini === 'true';
+      console.log(`Gemini verification requested: ${verifyWithGemini}`);
+      
+      // Generate a unique session ID for this processing request
+      const sessionId = uuidv4();
+      console.log(`Generated session ID: ${sessionId}`);
+      
+      // Create the progress file for this session
+      const progressFilePath = path.join(__dirname, 'temp', `progress-${sessionId}.json`);
+      
+      try {
+        // Ensure the temp directory exists
+        if (!fs.existsSync(path.join(__dirname, 'temp'))) {
+          fs.mkdirSync(path.join(__dirname, 'temp'), { recursive: true });
+        }
+        
+        // Write initial progress data
+        fs.writeFileSync(progressFilePath, JSON.stringify({
+          status: 'processing',
+          currentReference: 'Preparing document...',
+          currentIndex: 0,
+          totalReferences: 0,
+          processedReferences: []
+        }));
+        
+        console.log(`Created progress file at: ${progressFilePath}`);
+      } catch (fsError) {
+        console.error('Error creating progress file:', fsError);
+        return res.status(500).json({ 
+          error: 'Error creating progress file', 
+          details: fsError.message 
+        });
+      }
+      
+      // Send initial response to client
+      res.json({
+        sessionId,
+        status: 'starting',
+        message: 'Document received, processing starting',
+        references: [],
+        progress: `/api/verification-progress/${sessionId}`
+      });
+      
+      // Start two-phase processing: extract first, then verify
+      console.log('Starting document processing with Gemini verification if requested...');
+      
+      // Build command with Gemini flag if requested
+      const geminiFlag = verifyWithGemini ? ' --gemini=true' : '';
+      
+      // Run the verify-citations.ts process command
+      const verifyProcess = exec(
+        `node --no-warnings -r ts-node/register verify-citations.ts process "${req.file.path}" -s ${sessionId} -v${geminiFlag}`,
+        { maxBuffer: 1024 * 1024 * 10 } // 10MB buffer for large documents
+      );
+      
+      // Handle output and error streams
+      verifyProcess.stdout.on('data', (data) => {
+        const logLine = data.toString().trim();
+        console.log('Verification output:', logLine);
+        
+        // Parse special log markers for Gemini verification
+        if (logLine.includes('[GEMINI:')) {
+          try {
+            // Extract the Gemini step
+            const stepMatch = logLine.match(/\[GEMINI:(PREPARING|CALLING|PROCESSING|COMPLETED)\]/i);
+            if (stepMatch) {
+              const step = stepMatch[1].toLowerCase();
+              
+              // Extract the reference and details
+              const parts = logLine.split(' - ');
+              const reference = parts[0].split('] ')[1];
+              const details = parts[1];
+              
+              // Extract result information if available
+              let result = null;
+              if (step === 'completed' && parts.length > 2 && parts[2].startsWith('Result:')) {
+                const resultPart = parts[2];
+                const isVerified = resultPart.includes('VERIFIED') && !resultPart.includes('NOT_VERIFIED');
+                
+                // Extract confidence score if available
+                const confidenceMatch = resultPart.match(/\((\d+)%\)/);
+                const confidenceScore = confidenceMatch ? parseInt(confidenceMatch[1]) / 100 : 0.5;
+                
+                result = {
+                  isVerified,
+                  confidenceScore,
+                  explanation: 'Extracted from verification log'
+                };
+              }
+              
+              // Read the current progress
+              let progress = {};
+              if (fs.existsSync(progressFilePath)) {
+                progress = JSON.parse(fs.readFileSync(progressFilePath, 'utf8'));
+              }
+              
+              // Update the progress with Gemini information
+              const updatedProgress = {
+                ...progress,
+                geminiStatus: step,
+                currentStep: details,
+                stepProgress: step === 'preparing' ? 0 : 
+                              step === 'calling' ? 1 : 
+                              step === 'processing' ? 2 : 3,
+                totalSteps: 3
+              };
+              
+              // Add the result if available
+              if (result) {
+                updatedProgress.geminiResult = result;
+              }
+              
+              // Write the updated progress back to the file
+              fs.writeFileSync(progressFilePath, JSON.stringify(updatedProgress, null, 2));
+            }
+          } catch (error) {
+            console.error('Error parsing Gemini log:', error);
+          }
         }
       });
       
-    } catch (error) {
-      console.error('Error executing command:', error);
-      return res.status(500).json({
-        error: 'Failed to process document',
-        details: error.message
+      verifyProcess.stderr.on('data', (data) => {
+        console.error('Verification error:', data.toString());
       });
+      
+      // Log the completion of verification (async, after response is sent)
+      verifyProcess.on('close', (code) => {
+        console.log(`Verification process exited with code ${code}`);
+        
+        // Update progress to completed
+        try {
+          if (fs.existsSync(progressFilePath)) {
+            const progress = JSON.parse(fs.readFileSync(progressFilePath, 'utf8'));
+            progress.status = code === 0 ? 'completed' : 'error';
+            fs.writeFileSync(progressFilePath, JSON.stringify(progress, null, 2));
+          }
+        } catch (error) {
+          console.error('Error updating progress file on completion:', error);
+        }
+      });
+    } catch (error) {
+      console.error('Error processing document:', error);
+      res.status(500).json({ error: 'Error processing document', details: error.message });
     }
   })
-  // SSE endpoint for verification progress updates
+  // API endpoint to get verification progress updates via Server-Sent Events (SSE)
   .get('/verification-progress/:sessionId', (req, res) => {
     const sessionId = req.params.sessionId;
+    const progressFilePath = path.join(__dirname, 'temp', `progress-${sessionId}.json`);
     
-    console.log(`Client connected to SSE for session: ${sessionId}`);
+    console.log(`Client connected to SSE endpoint for session: ${sessionId}`);
+    console.log(`Looking for progress updates at: ${progressFilePath}`);
     
     // Set headers for SSE
-    res.writeHead(200, {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
-      'X-Accel-Buffering': 'no' // Disable Nginx buffering
-    });
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
     
-    // Send initial data if available
-    if (sessionsProgress[sessionId]) {
-      res.write(`data: ${JSON.stringify(sessionsProgress[sessionId])}\n\n`);
-    }
+    // Send initial connection message
+    res.write(`data: ${JSON.stringify({ connected: true, sessionId })}\n\n`);
     
-    // Create client entry for this session
-    if (!clients[sessionId]) {
-      clients[sessionId] = [];
-    }
-    clients[sessionId].push(res);
-    
-    // When client disconnects, remove from clients list
-    req.on('close', () => {
-      console.log(`Client disconnected from SSE for session: ${sessionId}`);
-      clients[sessionId] = clients[sessionId].filter(client => client !== res);
-      
-      // Clean up if no clients left for this session
-      if (clients[sessionId].length === 0) {
-        delete clients[sessionId];
-        // Keep progress data for a while in case client reconnects
-        setTimeout(() => {
-          if (!clients[sessionId]) {
-            delete sessionsProgress[sessionId];
+    // Function to read and send progress updates
+    const sendUpdate = () => {
+      try {
+        console.log(`Checking for updates in: ${progressFilePath}`);
+        if (fs.existsSync(progressFilePath)) {
+          console.log(`Progress file exists`);
+          const progressData = JSON.parse(fs.readFileSync(progressFilePath, 'utf8'));
+          console.log(`Read progress data: ${JSON.stringify(progressData).substring(0, 100)}...`);
+          
+          // If there's geminiStatus in the progress data, add some human-readable information
+          if (progressData.geminiStatus) {
+            let geminiStatusMessage = '';
+            switch (progressData.geminiStatus) {
+              case 'preparing':
+                geminiStatusMessage = 'Preparing to verify with AI';
+                break;
+              case 'calling':
+                geminiStatusMessage = 'Calling AI to verify citation';
+                break;
+              case 'processing':
+                geminiStatusMessage = 'Processing AI response';
+                break;
+              case 'completed':
+                const result = progressData.geminiResult;
+                geminiStatusMessage = result ? 
+                  `AI verification ${result.isVerified ? 'succeeded' : 'failed'} (confidence: ${Math.round(result.confidenceScore * 100)}%)` :
+                  'AI verification completed';
+                break;
+            }
+            progressData.geminiStatusMessage = geminiStatusMessage;
           }
-        }, 60000); // Keep for 1 minute
+          
+          res.write(`data: ${JSON.stringify(progressData)}\n\n`);
+          
+          // If verification is completed or errored, we can stop the interval
+          if (progressData.status === 'completed' || progressData.status === 'error') {
+            console.log(`Verification completed or errored, closing SSE connection`);
+            clearInterval(intervalId);
+            res.end();
+          }
+        } else {
+          console.log(`Progress file does not exist: ${progressFilePath}`);
+        }
+      } catch (error) {
+        console.error(`Error reading progress file for session ${sessionId}:`, error);
       }
+    };
+    
+    // Send updates every 500ms
+    const intervalId = setInterval(sendUpdate, 500);
+    
+    // Handle client disconnect
+    req.on('close', () => {
+      console.log(`Client disconnected from SSE endpoint for session: ${sessionId}`);
+      clearInterval(intervalId);
     });
   })
   // API endpoint to check GROBID service status

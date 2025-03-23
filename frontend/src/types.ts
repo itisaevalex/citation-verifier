@@ -6,6 +6,20 @@ export interface AnalysisStep {
   currentDetail: number;
 };
 
+// Interface for Gemini verification progress information
+export interface GeminiVerificationInfo {
+  status: 'preparing' | 'calling' | 'processing' | 'completed';
+  currentStep?: string;
+  stepProgress?: number;
+  totalSteps?: number;
+  result?: {
+    isVerified: boolean;
+    confidenceScore: number;
+    explanation: string;
+  };
+  statusMessage?: string;
+}
+
 export interface Reference {
   id: string;
   title: string;
@@ -19,6 +33,7 @@ export interface Reference {
   uploading?: boolean;
   uploadSuccess?: boolean;
   uploadError?: string;
+  geminiVerification?: GeminiVerificationInfo;
 };
 
 export interface Summary {

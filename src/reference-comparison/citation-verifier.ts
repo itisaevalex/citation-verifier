@@ -5,6 +5,7 @@ import { config, MissingReferenceHandling } from '../config';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as readline from 'readline';
+import { ProgressLogger } from '../utils/progress-logger';
 
 /**
  * Interface for verification result
@@ -40,6 +41,7 @@ export interface VerificationOptions {
   confidenceThreshold?: number;
   saveIntermediateResults?: boolean;
   verbose?: boolean;
+  useGemini?: boolean; // Added support for Gemini AI verification
 }
 
 /**
@@ -52,6 +54,15 @@ export interface VerificationProgress {
   processedReferences: Reference[];
   status: 'processing' | 'completed' | 'error';
   error?: string;
+  geminiStatus?: 'preparing' | 'calling' | 'processing' | 'completed';
+  currentStep?: string;
+  stepProgress?: number;
+  totalSteps?: number;
+  geminiResult?: {
+    isVerified: boolean;
+    confidenceScore: number;
+    explanation: string;
+  };
 }
 
 /**
@@ -72,17 +83,20 @@ export class CitationVerifier {
   private genAI: GoogleGenerativeAI;
   private options: VerificationOptions;
   private progressCallback?: (progress: VerificationProgress) => void;
+  private logger?: ProgressLogger;
   
   /**
    * Creates a new CitationVerifier
    * @param documentDatabaseDir Directory where the documents are stored
    * @param options Verification options
    * @param progressCallback Optional callback for reporting progress
+   * @param sessionId Optional session ID for logging progress
    */
   constructor(
     documentDatabaseDir: string = config.documentDbPath,
     options: VerificationOptions = {},
-    progressCallback?: (progress: VerificationProgress) => void
+    progressCallback?: (progress: VerificationProgress) => void,
+    sessionId?: string
   ) {
     this.documentLoader = new DocumentLoader(documentDatabaseDir);
     this.genAI = new GoogleGenerativeAI(config.googleApiKey);
@@ -93,8 +107,14 @@ export class CitationVerifier {
       missingRefHandling: options.missingRefHandling || config.missingRefHandling,
       confidenceThreshold: options.confidenceThreshold || 0.7,
       saveIntermediateResults: options.saveIntermediateResults || false,
-      verbose: options.verbose || false
+      verbose: options.verbose || false,
+      useGemini: options.useGemini || false
     };
+    
+    // Initialize the progress logger if a session ID is provided
+    if (sessionId) {
+      this.logger = new ProgressLogger(sessionId);
+    }
     
     // Validate API key
     if (!config.googleApiKey) {
@@ -371,6 +391,15 @@ export class CitationVerifier {
     };
     
     try {
+      // Log that we're preparing for Gemini verification
+      if (this.logger) {
+        this.logger.logGeminiStep(
+          reference.title,
+          'preparing',
+          'Preparing Gemini prompt'
+        );
+      }
+
       // Prepare the prompt for Gemini
       const prompt = this.buildGeminiPrompt(reference.citationContext || '', document);
       
@@ -379,9 +408,27 @@ export class CitationVerifier {
       
       console.log('Calling Gemini API to verify citation...');
       
+      // Log that we're calling the Gemini API
+      if (this.logger) {
+        this.logger.logGeminiStep(
+          reference.title,
+          'calling',
+          'Calling Gemini API'
+        );
+      }
+      
       // Generate content with the prompt
       const response = await model.generateContent(prompt);
       const text = response.response.text();
+      
+      // Log that we're processing the Gemini response
+      if (this.logger) {
+        this.logger.logGeminiStep(
+          reference.title,
+          'processing',
+          'Processing Gemini response'
+        );
+      }
       
       // Try to parse the response as JSON
       try {
@@ -409,7 +456,21 @@ export class CitationVerifier {
         
         result.isVerified = isVerified;
         result.confidenceScore = isVerified ? 0.7 : 0.3;
-        result.explanation = `Could not parse structured response. Raw model output: ${text.substring(0, 200)}...`;
+        result.explanation = "Response could not be parsed as JSON. Applied heuristic verification.";
+      }
+      
+      // Log the completed verification with results
+      if (this.logger) {
+        this.logger.logGeminiStep(
+          reference.title,
+          'completed',
+          'Gemini verification completed',
+          {
+            isVerified: result.isVerified,
+            confidenceScore: result.confidenceScore,
+            explanation: result.explanation
+          }
+        );
       }
     } catch (error) {
       console.error('Error verifying citation:', error);

@@ -4,7 +4,7 @@
 require('ts-node/register');
 
 // Import the document database directly from the TypeScript file
-const { DocumentDatabase } = require('./src/document-database');
+const { DocumentDatabase } = require('../document-database');
 
 // Function to rebuild the database index
 async function rebuildDocumentIndex() {

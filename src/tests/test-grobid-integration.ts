@@ -6,8 +6,8 @@
  */
 import * as path from 'path';
 import * as fs from 'fs';
-import { GrobidClient } from './src/reference-extraction/grobid-client';
-import { config } from './src/config';
+import { GrobidClient } from '../reference-extraction/grobid-client';
+import { config } from '../config';
 
 async function testGrobidIntegration() {
   console.log('=== GROBID Integration Test ===');

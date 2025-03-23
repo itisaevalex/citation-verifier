@@ -1,0 +1,239 @@
+{
+  "currentReference": "Completed",
+  "currentIndex": 37,
+  "totalReferences": 37,
+  "processedReferences": [
+    {
+      "id": "ref-1",
+      "title": "Convolutional neural network models of V1 responses to complex patterns",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-2",
+      "title": "Review of multi-view 3D object recognition methods based on deep learning",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-3",
+      "title": "Deep learning using convolutional LSTM estimates biological age from physical activity",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-4",
+      "title": "Wearable IoT smart-log patch: an edge computing-based Bayesian deep learning network system for multi access physical monitoring system",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-5",
+      "title": "A novel negative-transfer-resistant fuzzy clustering model with a shared cross-domain transfer latent space and its application to brain CT image segmentation",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-6",
+      "title": "Learning local-global multiple correlation filters for robust visual tracking with Kalman filter redetection",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-7",
+      "title": "Finger vein image enhancement based on guided tri-Gaussian filters",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-8",
+      "title": "Finger vein identification using convolutional neural network and supervised discrete hashing",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-9",
+      "title": "Errors of machine translation of terminology in the patent text from English into Chinese",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-10",
+      "title": "Physical health indicators improve prediction of cardiovascular and all-cause mortality among middle-aged and older people: a national population-based study",
+      "status": "valid",
+      "link": "#"
+    },
+    {
+      "id": "ref-11",
+      "title": "Correlator convolutional neural networks as an interpretable architecture for imagelike quantum matter data",
+      "status": "valid",
+      "link": "#"
+    },
+    {
+      "id": "ref-12",
+      "title": "Reliability and validity of comprehensive health status measures in children: the Child Health Questionnaire in relation to the Health Utilities Index",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-13",
+      "title": "A study on the comprehensive indicator of indoor environment assessment for occupants' health in Taiwan",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-14",
+      "title": "A graph-convolutional neural network model for the prediction of chemical reactivity",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-15",
+      "title": "Smart connected electronic gastroscope system for gastric cancer screening using multi-column convolutional neural networks",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-16",
+      "title": "How deep should be the depth of convolutional neural networks: a backyard dog case study",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-17",
+      "title": "Iterative PET image reconstruction using convolutional neural network representation",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-18",
+      "title": "Lake level prediction using feed forward and recurrent neural networks",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-19",
+      "title": "694: continuous risk of infection prediction using recurrent neural networks in a pediatric ICU",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-20",
+      "title": "Disambiguating Arabic words according to their historical appearance in the document based on recurrent neural networks",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-21",
+      "title": "Prediction of creaky speech by recurrent neural networks using psychoacoustic roughness",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-22",
+      "title": "Cost sensitive active learning using bidirectional gated recurrent neural networks for imbalanced fault diagnosis",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-23",
+      "title": "Low-dimensional manifolds support multiplexed integrations in recurrent neural networks",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-24",
+      "title": "Exploration of the principal component analysis (PCA) approach in synthesizing the diet quality of the Malaysian population",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-25",
+      "title": "Tensor robust principal component analysis with a new tensor nuclear norm",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-26",
+      "title": "Principal component analysis of avian hind limb and foot morphometrics and the relationship between ecology and phylogeny",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-27",
+      "title": "Functional principal component analysis: a robust method for time-series phenotypic data",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-28",
+      "title": "Online robust principal component analysis with change point detection",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-29",
+      "title": "Geometrical approximated principal component analysis for hyperspectral image analysis",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-30",
+      "title": "Background subtraction in dynamic scenes using the dynamic principal component analysis",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-31",
+      "title": "Wireless Communications and Mobile Computing",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-32",
+      "title": "Assessment of water quality using principal component analysis: a case study of the Marrecas stream basin in Brazil",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-33",
+      "title": "Grasshopper optimization algorithm with principal component analysis for global optimization",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-34",
+      "title": "Polynomial fitting algorithm based on neural network",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-35",
+      "title": "LGCN: learnable Gabor convolution network for human gender recognition in the wild",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-36",
+      "title": "Robotic grasp detection using a novel two-stage approach",
+      "status": "invalid",
+      "link": "#"
+    },
+    {
+      "id": "ref-37",
+      "title": "Wireless Communications and Mobile Computing 6302",
+      "status": "invalid",
+      "link": "https://doi.org/10.1155/2021/2438656byTest"
+    }
+  ],
+  "status": "completed",
+  "geminiStatus": "completed",
+  "currentStep": "Gemini verification completed",
+  "stepProgress": 3,
+  "totalSteps": 3,
+  "geminiResult": {
+    "isVerified": false,
+    "confidenceScore": 0,
+    "explanation": "Extracted from verification log"
+  }
+}

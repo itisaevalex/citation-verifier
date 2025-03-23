@@ -16,6 +16,13 @@ export async function processDocumentDirect(file: File, progressCallback?: (prog
   const formData = new FormData();
   formData.append('file', file);
   
+  // Add verification options, including useGemini set to true
+  const verificationOptions = JSON.stringify({
+    useGemini: true,
+    confidenceThreshold: 0.7
+  });
+  formData.append('options', verificationOptions);
+  
   try {
     console.log('Processing document directly, file:', file.name);
     
@@ -145,6 +152,30 @@ export function subscribeToProgressUpdates(sessionId: string, callback: (progres
   eventSource.onmessage = (event) => {
     try {
       const data = JSON.parse(event.data);
+      
+      // Process Gemini verification information if available
+      if (data.geminiStatus) {
+        console.log('Received Gemini verification update:', data);
+        
+        // Process and format Gemini verification information
+        const geminiInfo = {
+          status: data.geminiStatus,
+          currentStep: data.currentStep,
+          stepProgress: data.stepProgress,
+          totalSteps: data.totalSteps,
+          result: data.geminiResult,
+          statusMessage: data.geminiStatusMessage
+        };
+        
+        // Add formatted Gemini information to the progress update
+        data.geminiVerificationInfo = geminiInfo;
+        
+        // Log specific Gemini verification details
+        if (data.geminiStatus === 'completed' && data.geminiResult) {
+          console.log(`Gemini verification completed: ${data.geminiResult.isVerified ? 'VERIFIED' : 'NOT VERIFIED'} (confidence: ${(data.geminiResult.confidenceScore * 100).toFixed(0)}%)`);
+        }
+      }
+      
       callback(data);
     } catch (error) {
       console.error('Error parsing SSE data:', error);

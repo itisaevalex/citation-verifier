@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Upload, FileCheck, CheckCircle2, Loader2, Link as LinkIcon, Bot, ArrowRight, AlertTriangle, Beaker, Database, Activity } from 'lucide-react';
+import { Upload, FileCheck, CheckCircle2, Loader2, Link as LinkIcon, Bot, ArrowRight, AlertTriangle, Beaker, Database, Activity, BrainCircuit, Sparkles } from 'lucide-react';
 import { AnalysisStep, Reference, Summary } from './types';
 import { uploadDocument, verifyReferences, uploadReferenceDocument, checkGrobidStatus } from './api';
 import { processDocumentDirect, loadSamplePaper } from './direct-integration';
@@ -160,20 +160,20 @@ function App() {
     setIsDragging(false);
   };
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
-
-    const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile && (droppedFile.type === 'application/pdf' || droppedFile.type === 'application/msword')) {
-      setFile(droppedFile);
+    
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const droppedFile = e.dataTransfer.files[0];
+      await processDocument(droppedFile);
     }
   };
 
-  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      setFile(selectedFile);
+  const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
+      await processDocument(selectedFile);
     }
   };
 
@@ -259,6 +259,56 @@ function App() {
         
         // Define progress callback for real-time updates
         const progressCallback = (progress: any) => {
+          console.log('Progress update:', progress);
+          
+          // Handle Gemini verification updates
+          if (progress.geminiStatus && progress.referenceId) {
+            console.log('Received Gemini verification update:', progress);
+            
+            // Process and format Gemini verification information
+            const geminiInfo = {
+              status: progress.geminiStatus,
+              currentStep: progress.currentStep,
+              stepProgress: progress.stepProgress,
+              totalSteps: progress.totalSteps,
+              result: progress.geminiResult,
+              statusMessage: progress.geminiStatusMessage
+            };
+            
+            // Update the reference with Gemini verification info
+            setExtractedReferences(refs => 
+              refs.map(ref => 
+                ref.id === progress.referenceId 
+                  ? { 
+                      ...ref, 
+                      geminiVerification: geminiInfo,
+                      // Update reference status based on Gemini verification result if completed
+                      status: geminiInfo.status === 'completed' && 
+                              geminiInfo.result ? 
+                                (geminiInfo.result.isVerified ? 'valid' : 'invalid') : 
+                                ref.status
+                    } 
+                  : ref
+              )
+            );
+            
+            // Update the analysis step details to show current Gemini verification status
+            if (geminiInfo.statusMessage) {
+              setAnalysisSteps(steps => 
+                steps.map(step => 
+                  step.id === 3 ? 
+                    { 
+                      ...step, 
+                      details: [...step.details.filter(d => !d.includes('Gemini AI')), `Gemini AI: ${geminiInfo.statusMessage}`],
+                      currentDetail: step.details.length
+                    } : 
+                    step
+                )
+              );
+            }
+          }
+          
+          // Handle standard progress updates
           if (progress.status === 'processing' && progress.processedReferences) {
             // Update the UI with the progress
             setExtractedReferences(progress.processedReferences);
@@ -280,7 +330,7 @@ function App() {
         // Process the document with the progress callback
         const result = await processDocumentDirect(file, progressCallback);
         
-        // Store the unsubscribe function
+        // Save unsubscribe function
         unsubscribeFromUpdates = result.unsubscribe;
         
         // Get the references
@@ -406,23 +456,6 @@ function App() {
     }
   };
 
-  const getReferenceStatusColor = (status: string) => {
-    switch (status) {
-      case 'validating':
-        return 'text-blue-500';
-      case 'valid':
-        return 'text-green-500';
-      case 'invalid':
-        return 'text-red-500';
-      case 'uncertain':
-        return 'text-yellow-500';
-      case 'missing':
-        return 'text-gray-500';
-      default:
-        return 'text-gray-500';
-    }
-  };
-
   const handleReferenceUpload = async (referenceId: string, e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
     
@@ -526,6 +559,168 @@ function App() {
       });
     } finally {
       setIsCheckingGrobid(false);
+    }
+  };
+
+  const getReferenceStatusColor = (status: string) => {
+    switch (status) {
+      case 'validating':
+        return 'text-blue-500';
+      case 'valid':
+        return 'text-green-500';
+      case 'invalid':
+        return 'text-red-500';
+      case 'uncertain':
+        return 'text-yellow-500';
+      case 'missing':
+        return 'text-gray-500';
+      default:
+        return 'text-gray-500';
+    }
+  };
+
+  const processDocument = async (file: File) => {
+    setIsResetting(false);
+    setFile(file);
+    setIsError(false);
+    setErrorMessage('');
+    setAnalysisVisible(true);
+    
+    // Clear previous state
+    setExtractedReferences([]);
+    setSummary(null);
+    setShowResults(false);
+    
+    // Initialize analysis steps
+    setAnalysisSteps([
+      {
+        id: 1,
+        name: 'Extracting References',
+        status: 'processing',
+        details: ['Parsing document structure...'],
+        currentDetail: 0,
+      },
+      {
+        id: 2,
+        name: 'Verifying Citations',
+        status: 'pending',
+        details: [],
+        currentDetail: 0,
+      },
+      {
+        id: 3,
+        name: 'Generating Report',
+        status: 'pending',
+        details: [],
+        currentDetail: 0,
+      },
+    ]);
+    
+    setCurrentStep(1);
+    
+    if (analysisRef.current) {
+      analysisRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Create a variable to hold unsubscribe function
+    let unsubscribeFromUpdates: (() => void) | undefined;
+    
+    // Define the progress callback for real-time updates, including Gemini verification
+    const documentProgressCallback = (progress: any) => {
+      console.log('Progress update in processDocument:', progress);
+      
+      // Handle Gemini verification updates
+      if (progress.geminiStatus && progress.referenceId) {
+        console.log('Received Gemini verification update:', progress);
+        
+        // Process and format Gemini verification information
+        const geminiInfo = {
+          status: progress.geminiStatus,
+          currentStep: progress.currentStep,
+          stepProgress: progress.stepProgress,
+          totalSteps: progress.totalSteps,
+          result: progress.geminiResult,
+          statusMessage: progress.geminiStatusMessage
+        };
+        
+        // Update the reference with Gemini verification info
+        setExtractedReferences(refs => 
+          refs.map(ref => 
+            ref.id === progress.referenceId 
+              ? { 
+                  ...ref, 
+                  geminiVerification: geminiInfo,
+                  // Update reference status based on Gemini verification result if completed
+                  status: geminiInfo.status === 'completed' && 
+                          geminiInfo.result ? 
+                            (geminiInfo.result.isVerified ? 'valid' : 'invalid') : 
+                            ref.status
+                } 
+              : ref
+          )
+        );
+        
+        // Update the analysis step details to show current Gemini verification status
+        if (geminiInfo.statusMessage) {
+          setAnalysisSteps(steps => 
+            steps.map(step => 
+              step.id === 3 ? 
+                { 
+                  ...step, 
+                  details: [...step.details.filter(d => !d.includes('Gemini AI')), `Gemini AI: ${geminiInfo.statusMessage}`],
+                  currentDetail: step.details.length
+                } : 
+                step
+            )
+          );
+        }
+      }
+      
+      // Handle standard progress updates
+      if (progress.status === 'processing' && progress.processedReferences) {
+        // Update the UI with the progress
+        setExtractedReferences(progress.processedReferences);
+        
+        // Update the step 3 details with current reference info
+        setAnalysisSteps(prev => prev.map((s: AnalysisStep) =>
+          s.id === 3 ? { 
+            ...s, 
+            currentDetail: Math.min(progress.currentIndex, s.details.length - 1),
+            details: [
+              ...s.details.slice(0, s.details.length - 1),
+              `Processing reference: ${progress.currentReference || 'Unknown'} (${progress.currentIndex || 0}/${progress.totalReferences || 0})`
+            ]
+          } : s
+        ));
+      }
+    };
+    
+    try {
+      // Use direct integration with progress callback
+      const { references: extractedRefs, unsubscribe } = await processDocumentDirect(file, documentProgressCallback);
+      
+      // Save unsubscribe function
+      unsubscribeFromUpdates = unsubscribe;
+      
+      // Update UI with references and summary
+      setExtractedReferences(extractedRefs);
+      
+      // Generate and set summary
+      setSummary(generateSummary(extractedRefs));
+      
+      // Show results
+      setShowResults(true);
+      if (resultsRef.current) {
+        resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    } catch (error: any) {
+      console.error('Error processing document:', error);
+      setIsError(true);
+      setErrorMessage(error.message || "An unknown error occurred");
+    } finally {
+      if (unsubscribeFromUpdates) {
+        unsubscribeFromUpdates();
+      }
     }
   };
 
@@ -825,6 +1020,74 @@ function App() {
                                   {reference.link}
                                 </a>
                               </div>
+
+                              {/* Gemini Verification Progress Display */}
+                              {reference.geminiVerification && (
+                                <div className="mt-2 border-t border-paper-100 pt-2">
+                                  <div className="flex items-center gap-1.5 mb-1">
+                                    <BrainCircuit className="w-4 h-4 text-purple-500" />
+                                    <span className="text-sm font-medium text-purple-700">Gemini Verification</span>
+                                  </div>
+                                  
+                                  {reference.geminiVerification.status === 'preparing' && (
+                                    <div className="text-xs text-ink-light flex items-center ml-1 mt-1">
+                                      <Loader2 className="w-3 h-3 mr-1 animate-spin text-purple-500" />
+                                      Preparing verification request...
+                                    </div>
+                                  )}
+                                  
+                                  {reference.geminiVerification.status === 'calling' && (
+                                    <div className="text-xs text-ink-light flex items-center ml-1 mt-1">
+                                      <Loader2 className="w-3 h-3 mr-1 animate-spin text-purple-500" />
+                                      Calling Gemini API...
+                                    </div>
+                                  )}
+                                  
+                                  {reference.geminiVerification.status === 'processing' && (
+                                    <div className="text-xs text-ink-light flex flex-col ml-1 mt-1">
+                                      <div className="flex items-center">
+                                        <Sparkles className="w-3 h-3 mr-1 text-purple-500" />
+                                        {reference.geminiVerification.currentStep || 'Processing verification'}
+                                      </div>
+                                      {reference.geminiVerification.stepProgress !== undefined && reference.geminiVerification.totalSteps && (
+                                        <div className="w-full bg-paper-200 rounded-full h-1.5 mt-1.5 overflow-hidden">
+                                          <div 
+                                            className="bg-purple-500 h-1.5 rounded-full transition-all duration-300" 
+                                            style={{ width: `${(reference.geminiVerification.stepProgress / reference.geminiVerification.totalSteps) * 100}%` }}
+                                          />
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                  
+                                  {reference.geminiVerification.status === 'completed' && reference.geminiVerification.result && (
+                                    <div className="text-xs ml-1 mt-1">
+                                      <div className={`flex items-center font-medium ${reference.geminiVerification.result.isVerified ? 'text-green-600' : 'text-red-600'}`}>
+                                        {reference.geminiVerification.result.isVerified ? (
+                                          <>
+                                            <CheckCircle2 className="w-3 h-3 mr-1" />
+                                            Verified
+                                          </>
+                                        ) : (
+                                          <>
+                                            <AlertTriangle className="w-3 h-3 mr-1" />
+                                            Not Verified
+                                          </>
+                                        )}
+                                        <span className="ml-1 text-ink-light font-normal">
+                                          (Confidence: {(reference.geminiVerification.result.confidenceScore * 100).toFixed(0)}%)
+                                        </span>
+                                      </div>
+                                      {reference.geminiVerification.result.explanation && (
+                                        <div className="mt-1 text-ink-light bg-paper-100 p-1.5 rounded text-xs">
+                                          {reference.geminiVerification.result.explanation}
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                              
                               {reference.status === 'missing' && (
                                 <div className="mt-3 flex items-center">
                                   <div className="text-sm text-gray-700 italic">
